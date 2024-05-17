@@ -75,6 +75,5 @@ const userSchema = new mongoose.Schema({
 },{
     timestamps:true
 })
-
 const employeeModel = mongoose?.models?.employee || mongoose.model("employee", userSchema);
 export default employeeModel;
