@@ -1,11 +1,11 @@
 import dbConnection from "@/backend/db/dbconnection";
-import companyModel from "@/backend/models/companies/company";
+import companyModel from "@/backend/models/company/company";
 import { NextResponse } from "next/server";
 
+ dbConnection();
 // Get single company
 const GET = async (req, { params }) => {
   try {
-    await dbConnection();
     const { id } = params;
     console.log(id);
     const company = await companyModel.findById(id);
@@ -29,7 +29,6 @@ const GET = async (req, { params }) => {
 };
 // Delete The Company
 const DELETE = async (req, { params }) => {
-  await dbConnection();
   try {
     const { id } = params;
     console.log(id);
@@ -54,11 +53,8 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-
-
 // Update The Company
 const PUT = async (req, { params }) => {
-  await dbConnection();
   try {
     const { id } = params;
     const body = await req.json();

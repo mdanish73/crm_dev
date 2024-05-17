@@ -1,10 +1,10 @@
 import dbConnection from "@/backend/db/dbconnection";
-import companyModel from "@/backend/models/companies/company";
+import companyModel from "@/backend/models/company/company";
 import { NextResponse } from "next/server";
 
+dbConnection();
 // Create The Company
 const POST = async (req) => {
-  await dbConnection();
   try {
     const body = await req.json();
     const data = await companyModel.create(body);
