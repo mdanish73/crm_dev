@@ -2,8 +2,8 @@ import dbConnection from "@/backend/db/dbconnection";
 import superAdmin from "@/backend/models/admins/superadmin";
 import bcryptjs from "bcryptjs";
 import { NextResponse } from "next/server";
+dbConnection();
 const POST = async (req) => {
-  await dbConnection();
   try {
     const modelCount = await superAdmin.countDocuments();
     if (modelCount < 2) {
@@ -74,8 +74,6 @@ const POST = async (req) => {
 };
 
 const GET = async () => {
-  dbConnection();
-
   try {
     const allUsers = await superAdmin.find();
     const singleUser = await superAdmin.findOne();
