@@ -1,5 +1,5 @@
 import dbConnection from "@/backend/db/dbconnection";
-import employeeModel from "@/backend/models/employee";
+import employeeModel from "@/backend/models/employees/employee";
 import { NextResponse } from "next/server";
 
 dbConnection();
@@ -42,7 +42,8 @@ export async function PUT(req, { params }) {
     const request = await req.json();
     const { id } = params;
     const updatedEmp = await employeeModel.findByIdAndUpdate(id, request, {
-      new: true,
+      new: true ,
+      runValidators: true
     });
     return NextResponse.json(
       {
