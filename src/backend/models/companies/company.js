@@ -3,9 +3,11 @@ const companySchema = new mongoose.Schema({
   companyname: {
     type: String,
     trim: true,
+    unique: true,
   },
   industry: {
     type: String,
+    unique: true,
   },
 });
 const companyModel =

@@ -1,19 +1,68 @@
 import dbConnection from "@/backend/db/dbconnection";
-import companyModel from "@/backend/models/company";
+import companyModel from "@/backend/models/companies/company";
 import { NextResponse } from "next/server";
 
-const GET = async ({ params }) => {
-  await dbConnection();
+// Get single company
+const GET = async (req, { params }) => {
   try {
-    console.log(params);
-    // const company = await companyModel.findById(id);
+    await dbConnection();
+    const { id } = params;
+    console.log(id);
+    const company = await companyModel.findById(id);
     return NextResponse.json({
-      messaage: "Hello",
+      message: "Company Found",
+      success: true,
+      data: company,
     });
   } catch (error) {
     return NextResponse.json({
-      messaage: "Error",
+      message: "Internal Server Error",
+      success: false,
     });
   }
 };
-export { GET };
+// Delete The Company
+const DELETE = async (req, { params }) => {
+  await dbConnection();
+  try {
+    const { id } = params;
+    console.log(id);
+    const updateDate = await companyModel.findByIdAndDelete(id);
+    return NextResponse.json({
+      message: "Company Deleted",
+      success: true,
+      data: updateDate,
+    });
+  } catch (error) {
+    console.log(error, "From DELETE API");
+    return NextResponse.json({
+      message: "Internal Server Error",
+      success: false,
+    });
+  }
+};
+
+// Update The Company
+const PUT = async (req, { params }) => {
+  await dbConnection();
+  try {
+    const { id } = params;
+    const body = await req.json();
+    const updateDate = await companyModel.findByIdAndUpdate(id, body, {
+      new: true,
+    });
+    return NextResponse.json({
+      message: "User Updated",
+      success: true,
+      data: updateDate,
+    });
+  } catch (error) {
+    console.log(error, "From PUT API");
+    return NextResponse.json({
+      message: "Internal Server Error",
+      success: false,
+    });
+  }
+};
+
+export { GET, PUT, DELETE };

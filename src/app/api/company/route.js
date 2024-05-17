@@ -1,13 +1,13 @@
 import dbConnection from "@/backend/db/dbconnection";
-import compnayModel from "@/backend/models/company";
+import companyModel from "@/backend/models/companies/company";
 import { NextResponse } from "next/server";
 
-async function POST(req) {
+// Create The Company
+const POST = async (req) => {
   await dbConnection();
   try {
     const body = await req.json();
-    console.log(body,"from 9 line");
-    const data = await compnayModel.create(body);
+    const data = await companyModel.create(body);
     return NextResponse.json({
       message: "Company Created!",
       success: true,
@@ -15,11 +15,33 @@ async function POST(req) {
     });
   } catch (error) {
     console.log(error, "Error From POST API");
-    return NextResponse.json({
-      message: "Internal Server Error",
-      success: false,
-    });
+    return NextResponse.json(
+      {
+        message: "Internal Server Error",
+        success: false,
+      },
+      { status: 201 }
+    );
   }
-}
+};
 
-export { POST };
+// Get all Companies
+const GET = async () => {
+  try {
+    const getAllcompanies = await companyModel.find();
+    return NextResponse.json({
+      message: "All Companies Found",
+      success: true,
+      data: getAllcompanies,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Internal Server Error",
+        success: false,
+      },
+      { status: 500 }
+    );
+  }
+};
+export { POST, GET };

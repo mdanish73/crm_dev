@@ -30,6 +30,10 @@ const superAdminSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    AdminType:{
+      type:String,
+      default:"SuperAdmin"
+    },
     otp: {
       type: String,
       // required: true,
