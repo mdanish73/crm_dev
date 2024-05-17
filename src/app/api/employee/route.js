@@ -1,37 +1,19 @@
 import dbConnection from "@/backend/db/dbconnection";
 import { NextResponse } from "next/server";
-import employeeModel from "@/backend/models/employee";
+import employeeModel from "@/backend/models/employees/employee";
 
-
-
-// export async function GET(req){
-//   await dbConnection();
-//   try {
-//     // const Alluser = await reportModel.find();
-//     return NextResponse.json({
-//       message: "User Found",
-//       success: true,
-//       // data: Alluser,
-//     });
-//   } catch (error) {
-//     // console.log("Error From GET Api", error);
-//     return NextResponse.json({
-//       message: "user not created",
-//       success: false,
-//     });
-//   }
-
-// }
 export async function POST(req){
-    dbConnection();
+    await dbConnection();
     try {
         const data = await req.json();
-        const createdUser = await employeeModel.create(data);
+        const createdUser = await employeeModel.create(data)
         
        return NextResponse.json({
         message: "User Created ",
         success: true,
         data: createdUser,
+       },{
+        status: 201
        })
     } catch (error) {
         if (error.code === 11000) {
@@ -41,11 +23,16 @@ export async function POST(req){
             return NextResponse.json({
                 message: `${JSON.stringify(keyValue)} already exists`,
                 success: false,
+            },{
+                status: 403
             }) 
         } 
         return NextResponse.json({
                 message: "Error in POST API",
+                data: error.message,
                 success: false,
+            }, {
+                status: 500
             })
         }
         
@@ -60,10 +47,11 @@ export async function GET(req){
             data : alluser,
         })
     } catch (error) {
-        console.log("Error in finding user",error)
         return NextResponse.json({
             message: "Error From GET Api",
             success: false,
+        },{
+            status : 500
         })
     }
 }
