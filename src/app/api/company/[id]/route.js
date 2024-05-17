@@ -2,7 +2,7 @@ import dbConnection from "@/backend/db/dbconnection";
 import companyModel from "@/backend/models/company/company";
 import { NextResponse } from "next/server";
 
-dbConnection();
+ dbConnection();
 // Get single company
 const GET = async (req, { params }) => {
   try {
