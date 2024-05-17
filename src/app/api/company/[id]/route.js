@@ -54,6 +54,8 @@ const DELETE = async (req, { params }) => {
   }
 };
 
+
+
 // Update The Company
 const PUT = async (req, { params }) => {
   await dbConnection();
