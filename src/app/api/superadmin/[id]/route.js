@@ -2,7 +2,7 @@ import dbConnection from "@/backend/db/dbconnection";
 import superAdmin from "@/backend/models/admins/superadmin";
 import { NextResponse } from "next/server";
 const GET = async (req, { params }) => {
-  await dbConnection();
+   dbConnection();
   try {
     const { id } = params;
     const admin = await superAdmin.findById(id);
@@ -25,7 +25,6 @@ const GET = async (req, { params }) => {
   }
 };
 const PUT = async (req, { params }) => {
-  await dbConnection();
   try {
     const { id } = params;
     const body = await req.json();
