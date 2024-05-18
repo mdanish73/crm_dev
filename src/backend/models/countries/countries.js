@@ -14,13 +14,13 @@ const country = new mongoose.Schema({
   },
   cities: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.SchemaTypes.ObjectId,
       ref: 'Cities'
     }
   ],
   countryNames: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'CountryNames'
     }
   ]

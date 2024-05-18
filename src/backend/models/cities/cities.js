@@ -13,13 +13,13 @@ const city = new mongoose.Schema({
   },
   branches: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Branches',
     }
   ],
   cityNames: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'CityNames'
     }
   ]
