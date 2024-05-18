@@ -1,11 +1,6 @@
 import mongoose from 'mongoose';
 
 const city = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true
-  },
   hasHeadQuarters: {
     type: Boolean,
     default: false,
