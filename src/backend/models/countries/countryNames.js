@@ -18,5 +18,5 @@ const country_names = new mongoose.Schema({
   ]
 });
 
-const countryNames = mongoose.models?.CountryNames || mongoose.models('CountryNames', country_names);
+const countryNames = mongoose.models?.CountryNames || mongoose.model('CountryNames', country_names);
 export default countryNames;
