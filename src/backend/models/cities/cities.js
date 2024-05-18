@@ -13,17 +13,17 @@ const city = new mongoose.Schema({
   },
   branches: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Branches',
     }
   ],
   cityNames: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'CityNames'
     }
   ]
 });
 
-const cities = mongoose.models?.Cities || mongoose.models('Cities', city);
+const cities = mongoose.models?.Cities || mongoose.model('Cities', city);
 export default cities;

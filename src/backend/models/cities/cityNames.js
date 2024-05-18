@@ -18,5 +18,5 @@ const city_names = new mongoose.Schema({
   ]
 });
 
-const cityNames = mongoose.models?.CityNames || mongoose.models('CityNames', city_names);
+const cityNames = mongoose.models?.CityNames || mongoose.model('CityNames', city_names);
 export default cityNames;

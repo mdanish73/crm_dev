@@ -14,17 +14,17 @@ const country = new mongoose.Schema({
   },
   cities: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.SchemaTypes.ObjectId,
       ref: 'Cities'
     }
   ],
   countryNames: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'CountryNames'
     }
   ]
 });
 
-const countries = mongoose.models?.Countries || mongoose.models('Countries', country);
+const countries = mongoose.models?.Countries || mongoose.model('Countries', country);
 export default countries;
