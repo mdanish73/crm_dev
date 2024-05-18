@@ -6,7 +6,7 @@ dbConnection();
 
 export async function GET (req) {
   try {
-    const country = await countries.get();
+    const country = await countries.find();
     return NextResponse.json({
       success: true,
       message: country
@@ -34,6 +34,19 @@ export async function POST (req) {
       status: 201
     });
   } catch (error) {
+    if (error.code === 11000) {
+      const keyValue = error.keyValue ? error.keyValue : 'Unknown Key';
+      const key = JSON.stringify(keyValue);
+      console.log(`Duplicate key error: ${key}`);
+      
+      return NextResponse.json({
+        success: false,
+        message: `${key} already exists...`
+      }, {
+        status: 403
+      });
+    }
+    
     return NextResponse.json({
       success: false,
       message: error.message
