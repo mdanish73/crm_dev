@@ -1,17 +1,16 @@
 import dbConnection from "@/backend/db/dbconnection";
-import cities from "@/backend/models/cities/cities";
 import cityNames from "@/backend/models/cities/cityNames";
 import { NextResponse } from "next/server";
-
 dbConnection();
+
 const POST = async (req) => {
   try {
     const body = await req.json();
-    const createdCity = await cities.create(body);
+    const createdCityname = await cityNames.create(body);
     return NextResponse.json({
-      message: "City Created",
+      message: "cityName Created",
       success: true,
-      data: createdCity,
+      data: createdCityname,
     });
   } catch (error) {
     console.log(error.message);
@@ -21,4 +20,5 @@ const POST = async (req) => {
     });
   }
 };
+
 export { POST };
