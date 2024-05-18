@@ -25,5 +25,5 @@ const city = new mongoose.Schema({
   ]
 });
 
-const cities = mongoose.models?.Cities || mongoose.models('Cities', city);
+const cities = mongoose.models?.Cities || mongoose.model('Cities', city);
 export default cities;
