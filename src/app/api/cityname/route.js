@@ -21,4 +21,21 @@ const POST = async (req) => {
   }
 };
 
-export { POST };
+const GET = async () => {
+  try {
+    const allcitynames = await cityNames.find();
+    return NextResponse.json({
+      message: "Citynames Found ",
+      success: true,
+      data: allcitynames,
+    });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({
+      message: "Internal Server Error",
+      success: false,
+    });
+  }
+};
+
+export { POST, GET };
