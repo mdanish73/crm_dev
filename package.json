@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "joi": "^17.13.1",
     "mongoose": "^8.3.4",
     "next": "14.2.3",
     "react": "^18",
