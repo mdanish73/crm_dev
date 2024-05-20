@@ -1,19 +1,19 @@
 import dbConnection from "@/backend/db/dbconnection";
-import cities from "@/backend/models/cities/cities";
+import cityNames from "@/backend/models/cities/cityNames";
 import { NextResponse } from "next/server";
 
 dbConnection();
 const GET = async (req, { params }) => {
   try {
     const { id } = params;
-    const city = await cities.findById(id);
+    const findedName = await cityNames.findById(id);
     return NextResponse.json({
-      message: "City Found",
+      message: "Citynames ",
       success: true,
-      data: city,
+      data: findedName,
     });
   } catch (error) {
-    console.log(typeof error);
+    console.log(error);
     return NextResponse.json({
       message: "Internal Server Error",
       success: false,
@@ -24,13 +24,14 @@ const GET = async (req, { params }) => {
 const DELETE = async (req, { params }) => {
   try {
     const { id } = params;
-    const city = await cities.findById(id);
+    const deletedName = await cityNames.findByIdAndDelete(id);
     return NextResponse.json({
-      message: "City Deleted",
+      message: "Name Deleted",
       success: true,
-      data: city,
+      data: deletedName,
     });
   } catch (error) {
+    console.log(error);
     return NextResponse.json({
       message: "Internal Server Error",
       success: false,
@@ -38,24 +39,26 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-const PUT = async (req, { params }) => {
+const PUT = async (req,{params}) => {
   try {
     const { id } = params;
     const data = await req.json();
-    const city = await cities.findById(id, data, {
+    const updatedName = await cityNames.findByIdAndUpdate(id, data, {
       new: true,
       runValidators: true,
     });
     return NextResponse.json({
-      message: "City Updated",
+      message: "Name Updated",
       success: true,
-      data: city,
+      data: updatedName,
     });
   } catch (error) {
+    console.log(error);
     return NextResponse.json({
       message: "Internal Server Error",
       success: false,
     });
   }
 };
-export { GET, DELETE };
+
+export { GET, DELETE, PUT };
