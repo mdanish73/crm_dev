@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-
+import mongoose from "mongoose";
 const city_names = new mongoose.Schema({
   city: [
     {
@@ -7,16 +6,17 @@ const city_names = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true
+        unique: true,
       },
       cityCode: {
         type: String,
         required: true,
-        unique: true
-      }
-    }
-  ]
+        unique: true,
+      },
+    },
+  ],
 });
 
-const cityNames = mongoose.models?.CityNames || mongoose.model('CityNames', city_names);
+const cityNames =
+  mongoose.models?.CityNames || mongoose.model("CityNames", city_names);
 export default cityNames;
