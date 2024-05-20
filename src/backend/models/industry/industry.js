@@ -11,7 +11,8 @@ const industry = new mongoose.Schema({
       },
       options: [
         {
-          type: mongoose.Schema.Types.ObjectId
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Sub_Industries'
         }
       ]
     } 
