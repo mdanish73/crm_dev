@@ -9,11 +9,11 @@ const subIndustry = new mongoose.Schema({
         trim: true,
         unique: true
       },
-      options: [
-        {
-          type: mongoose.Schema.Types.ObjectId
-        }
-      ]
+      code: {
+        type: String,
+        required: true,
+        unique: true
+      }
     } 
   ]
 });

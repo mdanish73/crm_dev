@@ -13,7 +13,13 @@ const country_names = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
-      }
+      },
+      cities: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'CityNames'
+        }
+      ]
     }
   ]
 });
