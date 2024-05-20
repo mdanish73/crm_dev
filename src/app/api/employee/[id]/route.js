@@ -34,7 +34,7 @@ export async function DELETE(req, { params }) {
 }
 
 
-//  Api of the PUT function
+//  Api of the PUT Function
 
 
 export async function PUT(req, { params }) {
