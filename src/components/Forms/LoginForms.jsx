@@ -40,7 +40,7 @@ const loginform = () => {
   ];
 
   return (
-    <div className=" ">
+    <>
       <Form {...form}>
         <form
           onSubmit={handleSubmit(formSubmit)}
@@ -55,7 +55,9 @@ const loginform = () => {
                 <FormItem>
                   <FormControl>
                     <Input
-                      className={" text-white text-xs border-none h-9 bg-[#8C8CA3] rounded-[5px] "}
+                      className={
+                        " text-white text-xs border-none h-9 bg-[#8C8CA3]/40 rounded-[5px] "
+                      }
                       placeholder={v.placeholder}
                       type={v.type}
                       {...field}
@@ -89,7 +91,7 @@ const loginform = () => {
           </Button>
         </form>
       </Form>
-    </div>
+    </>
   );
 };
 
