@@ -5,3 +5,7 @@
 .sidebarNavs::-webkit-scrollbar, body::-webkit-scrollbar {
   display: none;
 }
+
+body{
+    background-color: #060818;
+}
