@@ -6,7 +6,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <div className="flex">
-          <SideBar className="w-56" />
+          <div>
+            <SideBar className="shadow-white shadow-2xl" />
+          </div>
           <div className="flex-1">
             <TopBar />
             {children}
