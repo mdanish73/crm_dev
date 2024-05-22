@@ -49,7 +49,7 @@ const SideBarDropMenu = () => {
           } else {
             return (
               <>
-                <Link key={i} href={v.path} className={`text-[#506690] flex items-center gap-3 w-full mb-3 hover:bg-[#181F32] px-2 py-2 rounded-[7px] text-sm ${ pathname == v.path ? 'bg-[#2053EE]' : '' }`}>
+                <Link key={i} href={v.path} className={`text-[#506690] flex items-center gap-3 w-full mb-3 hover:bg-[#181F32] px-2 py-2 rounded-[7px] text-sm ${ pathname == v.path ? 'text-[#2053EE]' : '' }`}>
                   {v.icon}
                   {v.title}
                 </Link>
