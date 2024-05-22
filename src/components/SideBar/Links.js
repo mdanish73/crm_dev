@@ -64,10 +64,10 @@ const Links = () => {
       title: 'Dashboard', icon: <Home size={18} />, path: '/'
     },
     {
-      title: 'Dashboard', icon: <Home size={18} />, path: '/'
+      title: 'Dashboard', icon: <Home size={18} />, path: '/dashboard'
     },
     {
-      title: 'Dashboard', icon: <Home size={18} />, path: '/'
+      title: 'Companies', icon: <Home size={18} />, path: '/companies'
     },
   ];
   
@@ -130,10 +130,10 @@ const Links = () => {
       title: 'Dashboard', icon: <Home size={18} />, path: '/'
     },
     {
-      title: 'Dashboard', icon: <Home size={18} />, path: '/'
+      title: 'Dashboard', icon: <Home size={18} />, path: '/dashboard'
     },
     {
-      title: 'Dashboard', icon: <Home size={18} />, path: '/'
+      title: 'Branches', icon: <Home size={18} />, path: '/branches'
     },
   ];
   
@@ -196,10 +196,10 @@ const Links = () => {
       title: 'Dashboard', icon: <Home size={18} />, path: '/'
     },
     {
-      title: 'Dashboard', icon: <Home size={18} />, path: '/'
+      title: 'Dashboard', icon: <Home size={18} />, path: '/dashboard'
     },
     {
-      title: 'Dashboard', icon: <Home size={18} />, path: '/'
+      title: 'Employees', icon: <Home size={18} />, path: '/employees'
     },
   ];
 
