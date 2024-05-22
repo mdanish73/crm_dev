@@ -23,6 +23,7 @@ const POST = async (req) => {
         const saltRound = await bcryptjs.genSalt(
           Number(process.env.SALT_ROUND)
         );
+        console.log(process.env.SALT_ROUND);
         const hashedPassword = await bcryptjs.hash(password, saltRound);
         const data = await superAdmin.create({
           fullname,
