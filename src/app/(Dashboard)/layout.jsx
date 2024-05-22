@@ -1,15 +1,15 @@
-import SideBar from "@/components/SideBar";
+import SideBar from "@/components/SideBar/SideBar";
 import TopBar from "@/components/TopBar";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <div className="flex">
+      <body className="bg-[#060818]">
+        <div className="flex h-screen overflow-hidden">
           <div>
             <SideBar className="shadow-white shadow-2xl" />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 overflow-y-auto">
             <TopBar />
             {children}
           </div>
