@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -14,12 +15,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-
+//schema
 const schema = z.object({
   Username: z.string().nonempty("Username is required"),
   Password: z.string().nonempty("Password is required"),
 });
-
+//zod validation
 const LoginForm = () => {
   const form = useForm({
     resolver: zodResolver(schema),
@@ -30,17 +31,20 @@ const LoginForm = () => {
   });
 
   const { handleSubmit, control } = form;
+  const router = useRouter();
 
+  //axios
   const formSubmit = async (data) => {
     console.log("Form submitted with data:", data);
     try {
-      const response = await axios.post('/api/auth/superadmin/login', {
+      const response = await axios.post("/api/auth/superadmin/login", {
         email: data.Username,
         password: data.Password,
       });
 
       if (response.data.success) {
         console.log(response.data.message);
+        router.push("/dashboard");
       } else {
         console.log(response.data.message);
       }
@@ -53,7 +57,6 @@ const LoginForm = () => {
     { name: "Username", type: "text", placeholder: "Username" },
     { name: "Password", type: "password", placeholder: "Password" },
   ];
-
   return (
     <>
       <Form {...form}>
