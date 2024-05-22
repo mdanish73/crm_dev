@@ -20,6 +20,6 @@ export async function middleware(req) {
   }
 }
 
-export const config = {
-  matcher: ["/login", "/dashboard/:path*"],
-};
+// export const config = {
+//   matcher: ["/login", "/dashboard/:path*"],
+// };
