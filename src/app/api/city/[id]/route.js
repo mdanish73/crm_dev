@@ -1,8 +1,9 @@
 import dbConnection from "@/backend/db/dbconnection";
 import cities from "@/backend/models/cities/cities";
 import { NextResponse } from "next/server";
-
+// Call dbConnection For Connect DataBase
 dbConnection();
+// Get The ID From The Params argument and search the city on Bases of ID
 const GET = async (req, { params }) => {
   try {
     const { id } = params;
@@ -20,7 +21,7 @@ const GET = async (req, { params }) => {
     });
   }
 };
-
+// Get The ID From The Params argument and search the city on Bases of ID
 const DELETE = async (req, { params }) => {
   try {
     const { id } = params;
@@ -37,7 +38,7 @@ const DELETE = async (req, { params }) => {
     });
   }
 };
-
+// Get The ID From The Params argument and search the city on bases of ID
 const PUT = async (req, { params }) => {
   try {
     const { id } = params;
@@ -58,4 +59,4 @@ const PUT = async (req, { params }) => {
     });
   }
 };
-export { GET, DELETE };
+export { GET, DELETE, PUT };

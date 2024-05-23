@@ -1,8 +1,9 @@
 import dbConnection from "@/backend/db/dbconnection";
 import cityNames from "@/backend/models/cities/cityNames";
 import { NextResponse } from "next/server";
-
+// Call the dbfunction for Database Connection
 dbConnection();
+// Get The ID From The Params argument and search the cityname on idBase
 const GET = async (req, { params }) => {
   try {
     const { id } = params;
@@ -20,7 +21,7 @@ const GET = async (req, { params }) => {
     });
   }
 };
-
+// Get The ID From The Params argument and Delete the cityname on idBase
 const DELETE = async (req, { params }) => {
   try {
     const { id } = params;
@@ -38,8 +39,8 @@ const DELETE = async (req, { params }) => {
     });
   }
 };
-
-const PUT = async (req,{params}) => {
+// Get The ID From The Params argument and Update the cityname on idBase
+const PUT = async (req, { params }) => {
   try {
     const { id } = params;
     const data = await req.json();
