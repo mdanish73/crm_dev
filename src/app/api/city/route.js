@@ -1,8 +1,9 @@
 import dbConnection from "@/backend/db/dbconnection";
 import cities from "@/backend/models/cities/cities";
 import { NextResponse } from "next/server";
-
+// Call dbFunction for Connection the Database
 dbConnection();
+// Create The City
 const POST = async (req) => {
   try {
     const body = await req.json();
@@ -20,7 +21,7 @@ const POST = async (req) => {
     });
   }
 };
-
+// Get all the cities
 const GET = async () => {
   try {
     const allCities = await cities.find();
