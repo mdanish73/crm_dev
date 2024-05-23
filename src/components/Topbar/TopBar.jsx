@@ -12,6 +12,7 @@ import { MessageCircleMore } from "lucide-react";
 import Link from "next/link";
 import SearchBar from "./Search";
 import Notification from "./Notification";
+import Message from "./Message";
 
 const TopBar = () => {
   
@@ -63,13 +64,9 @@ const TopBar = () => {
           </div>
         </button>
 
+        <Message/>
         <Notification/>
-
-        <button className="bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]">
-          <div className=" size-9 rounded-full flex items-center justify-center">
-            <Bell size={20} strokeWidth={1} />
-          </div>
-        </button>
+        
         <div className="bg-[#292F46] rounded-full size-10 mx-1 my-2 cursor-pointer grayscale hover:grayscale-0">
           <Image
             src={"/team-1.jpg"}

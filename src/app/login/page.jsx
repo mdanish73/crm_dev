@@ -7,7 +7,7 @@ const Page = () => {
 
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen border-2 border-black">
         <div className="absolute inset-0 h-screen w-screen overflow-hidden bg-[url('/assets/dark1.svg')] bg-no-repeat bg-cover"></div>
     
       <div className="relative z-50 flex flex-col gap-5 items-center justify-center min-h-screen">
