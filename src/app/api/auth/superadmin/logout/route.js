@@ -1,9 +1,11 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-const OPTIONS = async () => {
+// EndPoint for Remove The Cookie/Logout the superAdmin
+const POST = async () => {
   try {
-    cookies().delete("AccessToken");
+    const cookie = cookies();
+    cookie.delete("AccessToken");
     return NextResponse.json({
       message: "LoggedOut!",
       success: true,
@@ -17,4 +19,4 @@ const OPTIONS = async () => {
   }
 };
 
-export { OPTIONS };
+export { POST };

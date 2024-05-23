@@ -72,7 +72,11 @@
   }
 }
 
+
 .sidebarNavs::-webkit-scrollbar,
 body::-webkit-scrollbar {
+
+.sidebarNavs::-webkit-scrollbar, body::-webkit-scrollbar, .mainContent::-webkit-scrollbar {
+
   display: none;
 }

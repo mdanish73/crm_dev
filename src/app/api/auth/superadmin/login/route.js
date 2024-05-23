@@ -5,8 +5,9 @@ import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
+// Connect The DataBase
 dbConnection();
-
+// Starting EndPoint For Login SuperAdmin
 const POST = async (req) => {
   try {
     const { email, password } = await req.json();
@@ -25,9 +26,13 @@ const POST = async (req) => {
       _id: foundByemail._id,
       email: foundByemail.email,
     };
+    // Generate The Token
     const token = await tokenGenerator(data);
+    // Handle Expiration Time Of Token
     const expirationTime = new Date(Date.now() + 10 * 60 * 1000);
-    cookies().set("AccessToken", token, {
+    // Use cookie function of Nextjs App Router
+    const cookie = cookies();
+    cookie.set("AccessToken", token, {
       httpOnly: true,
       path: "/",
       secure: true,
