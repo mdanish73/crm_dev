@@ -6,7 +6,6 @@ import { createContext } from "react";
 const Superadmin = ({ children }) => {
   // make the State and store the data
   const [data, setData] = useState({});
-  console.log(data);
   // This Function fetch the superAdmin when admin login the we get the ID from the token and give the ID to mongodb to fetch user
   async function fetchSuperadmin () {
     try {
