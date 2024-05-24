@@ -12,13 +12,20 @@ const POST = async (req) => {
   try {
     const { email, password } = await req.json();
     const foundByemail = await superAdmin.findOne({ email });
+
+    if (!foundByemail) {
+      return NextResponse.json({
+        message: "Email is invalid!!",
+        success: false,
+      });
+    }
     const passwordCompare = await bcrypt.compare(
       password,
       foundByemail.password
     );
-    if (!foundByemail || !passwordCompare) {
+    if (!passwordCompare) {
       return NextResponse.json({
-        message: "Email or Password Invalid",
+        message: "Password is invalid",
         success: false,
       });
     }
