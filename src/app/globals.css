@@ -38,6 +38,18 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --primaryBG: #0E1726;
+    --secondaryBG: #E8E8E8;
+
+    --primaryAccent:#eeeeee;
+    --secondaryAccent:#eeeeee;
+
+    --primaryText: #000000;
+    --secondaryText: #000000;
+
+    --primaryHover: #eeeeee;
+    --secondaryHover: #eeeeee;
   }
 
   .dark {
@@ -79,8 +91,7 @@
 
  
 
-body::-webkit-scrollbar .sidebarNavs::-webkit-scrollbar,
-body::-webkit-scrollbar,
+body::-webkit-scrollbar, .sidebarNavs::-webkit-scrollbar,
 .mainContent::-webkit-scrollbar {
   display: none;
 }

@@ -39,7 +39,7 @@ const Links = () => {
       title: 'Settings', icon: <Settings size={18} />, path: '/dashboard'
     },
     {
-      title: 'Log Out', icon: <LogOut size={18} />, path: '/companies'
+      title: 'Log Out', icon: <LogOut size={18} />, path: '/api/auth/login'
     },
   ];
   
