@@ -12,26 +12,35 @@ const GET = async () => {
     const cookie = cookies();
     const token = cookie.get("AccessToken");
     const isVerified = await tokenVerification(token.value);
-    if (isVerified) {
+    if (Object.keys(isVerified).length !== 0) {
       const id = isVerified._id;
       const user = await superAdmin.findById(id);
-      return NextResponse.json({
-        message: "Token is valid",
-        success: true,
-        data: user,
-      });
+      return NextResponse.json(
+        {
+          message: "Token is valid",
+          success: true,
+          data: user,
+        },
+        { status: 200 }
+      );
     } else {
-      return NextResponse.json({
-        message: "Token is invalid",
-        success: false,
-      });
+      return NextResponse.json(
+        {
+          message: "Token is invalid",
+          success: false,
+        },
+        { status: 500 }
+      );
     }
   } catch (error) {
     console.log(error.message);
-    return NextResponse.json({
-      message: "Internal Server Error",
-      success: false,
-    });
+    return NextResponse.json(
+      {
+        message: "Internal Server Error",
+        success: false,
+      },
+      { status: 500 }
+    );
   }
 };
 export { GET };
