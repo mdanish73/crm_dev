@@ -1,10 +1,9 @@
-import SideBar from "@/components/SideBar";
+import SideBar from "@/components/SideBar/SideBar";
 import TopBar from "@/components/Topbar/TopBar";
 
 export default function RootLayout({ children }) {
   return (
-    // <div className="bg-[#060818]">
-    <div className="bg-[url('/assets/images/bgImg3.jpg')] bg-cover bg-no-repeat h-screen brightness-75">
+    <div className="bodyBG bg-cover bg-no-repeat h-screen brightness-75">
       <div className="flex h-screen overflow-hidden">
         <div>
           <SideBar className="shadow-white shadow-2xl" />

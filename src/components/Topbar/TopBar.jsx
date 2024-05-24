@@ -1,4 +1,5 @@
-import React from "react";
+'use client'
+import React, { useContext } from "react";
 import Image from "next/image";
 import {
   Bell,
@@ -12,14 +13,16 @@ import { MessageCircleMore } from "lucide-react";
 import Link from "next/link";
 import SearchBar from "./Search";
 import Notification from "./Notification";
+import { SideContext } from "@/Context/SideBarContext";
 
 const TopBar = () => {
+  const { isOpened, setIsOpened } = useContext(SideContext);
   
   return (
     <>
-      <div className="w-full flex bg-[#0E1726] z-20 sticky px-4 text-white items-center">
-        <Image src={"/logo w.png"} alt="logo" width={150} height={0} />
-        <button className="bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]">
+      <div className="w-full flex bg-[#0E1726]/40 backdrop-blur-xl z-20 sticky px-4 text-white items-center">
+        <Image src={"/logo w.png"} alt="logo" width={150} height={0} className={`${ isOpened ? 'block' : 'hidden' }`} />
+        <button onClick={() => setIsOpened(!isOpened)} className={`bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9] ${ isOpened ? 'block' : 'hidden' }`}>
           <div className=" size-9 rounded-full flex items-center justify-center">
             <Menu size={20} strokeWidth={1} />
           </div>
@@ -48,7 +51,7 @@ const TopBar = () => {
             <MessageCircleMore size={20} strokeWidth={1} />
           </div>
         </Link>
-        <SearchBar/>
+        <SearchBar />
         <Link
           href="/"
           className="bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]"

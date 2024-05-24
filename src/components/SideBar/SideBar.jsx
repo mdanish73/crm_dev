@@ -7,16 +7,16 @@ import { SideContext } from '@/Context/SideBarContext';
 
 const SideBar = () => {
   const { isOpened } = useContext(SideContext);
-
+  
   return (
-    <div className={`bg-[#0E1726]/40 backdrop-blur-xl w-[263px] h-full shadow-xl shadow-[#ffffff28] overflow-hidden transition-max-width duration-700 relative z-30 ${ !isOpened ? 'py-1 px-2 max-w-[300px]' : 'max-w-0 p-0' }`}>
+    <div className={`bg-[#0E1726]/40 backdrop-blur-xl w-[263px] h-full overflow-hidden transition-max-width duration-700 ${ !isOpened ? 'py-1 px-2 max-w-[300px]' : 'max-w-0 p-0' }`}>
       <div className='flex items-center w-full justify-between pr-2'>
-        <SideBarLogo />
+        {/* <SideBarLogo /> */}
         <Arrow />
       </div>
 
-      <div className='p-1 sidebarNavs h-full overflow-y-scroll'>
-        <SideBarDropMenu />
+      <div className='py-5 px-1 sidebarNavs h-full overflow-y-scroll'>
+        <SideBarDropMenu isOpened={isOpened} />
       </div>
     </div>
   )
