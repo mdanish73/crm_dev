@@ -39,7 +39,7 @@ const POST = async (req) => {
         });
         return NextResponse.json(
           {
-            message: "User Created SuccessFully",
+            message: "SuperAdmin Created SuccessFully",
             success: true,
             data: data,
           },
