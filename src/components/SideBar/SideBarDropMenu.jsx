@@ -24,7 +24,7 @@ const SideBarDropMenu = ({ isOpened }) => {
     <>
       {navlinks.map((v, i) => {
         const linkClassNames = `text-slate-400 flex items-center gap-3 w-full mb-3 px-2 py-2 rounded-[7px] text-sm ${
-          !isOpened ? 'slide-ight' : ''
+          !isOpened ? 'slide-right' : ''
         } ${
           pathname === v.path ? 'text-[#2053EE]' : ''
         }`;
