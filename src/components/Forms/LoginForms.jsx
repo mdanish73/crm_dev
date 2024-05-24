@@ -46,8 +46,10 @@ const LoginForm = () => {
 
       if (response.data.success) {
         console.log(response.data.message);
-        router.refresh();
-        router.push("/dashboard");
+        setTimeout(() => {
+          router.refresh();
+          router.push("/dashboard");
+        }, 2000);
       } else {
         console.log(response.data.message);
       }
@@ -68,28 +70,28 @@ const LoginForm = () => {
           className="flex flex-col space-y-4 w-[250px] text-white text-xs"
         >
           <EachElement
-            of = {inputs}
-            render = {(v, i) => (
+            of={inputs}
+            render={(v, i) => (
               <FormField
-              control={control}
-              name={v.name}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      className="text-white text-xs border-none h-9 bg-[#8C8CA3]/40 rounded-[5px]"
-                      placeholder={v.placeholder}
-                      type={v.type}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                control={control}
+                name={v.name}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        className="text-white text-xs border-none h-9 bg-[#8C8CA3]/40 rounded-[5px]"
+                        placeholder={v.placeholder}
+                        type={v.type}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             )}
           />
-      
+
           <Button type="submit" className=" font-medium text-xs gap-2">
             LOG IN
           </Button>
