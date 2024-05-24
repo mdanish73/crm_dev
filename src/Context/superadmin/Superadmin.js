@@ -1,13 +1,17 @@
 "use client";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { createContext } from "react";
+
 // Create the context and save into the variable
- const SuperadminContext = createContext();
+const SuperadminContext = createContext();
 const Superadmin = ({ children }) => {
+  const pathname = usePathname();
   // make the State and store the data
   const [data, setData] = useState({});
+  console.log(data);
   // This Function fetch the superAdmin when admin login the we get the ID from the token and give the ID to mongodb to fetch user
-  async function fetchSuperadmin () {
+  async function fetchSuperadmin() {
     try {
       const response = await fetch("/api/superadmin/profile", {
         method: "GET",
@@ -19,10 +23,12 @@ const Superadmin = ({ children }) => {
     } catch (error) {
       console.log(error.message);
     }
-  };
-    useEffect(() => {
+  }
+  useEffect(() => {
+    if (Object.keys(data).length === 0) {
       fetchSuperadmin();
-    }, []);
+    }
+  }, [pathname]);
   return (
     <>
       <SuperadminContext.Provider value={{ data }}>
@@ -32,4 +38,4 @@ const Superadmin = ({ children }) => {
   );
 };
 
-export { Superadmin, SuperadminContext};
+export { Superadmin, SuperadminContext };
