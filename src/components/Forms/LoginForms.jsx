@@ -43,7 +43,8 @@ const LoginForm = () => {
       });
 
       if (response.data.success) {
-        console.log(response.data.message);
+        console.log(response.data.message)
+        router.refresh()
         router.push("/dashboard");
       } else {
         console.log(response.data.message);
