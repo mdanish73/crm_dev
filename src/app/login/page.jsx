@@ -11,13 +11,18 @@ const Page = () => {
         <div className="absolute inset-0 h-screen w-screen overflow-hidden bg-[url('/assets/dark1.svg')] bg-no-repeat bg-cover"></div>
     
       <div className="relative z-50 flex flex-col gap-5 items-center justify-center min-h-screen">
+        <div className="bg-[#27407a6c] backdrop-blur-md py-8 px-10 rounded-xl shadow-2xl flex flex-col gap-5 items-center justify-center overflow-hidden">
         <div>
-          <h1 className=' text-white text-3xl font-bold {poppins.classname} text-center'>Customer Relationship Management</h1>
+          <h1 className=' text-white text-xl font-semibold {poppins.classname} tracking-widest'>CRM</h1>
         </div>
-        <div className="bg-[#27407a6c] backdrop-blur-md w-[300px] h-[180px]  rounded-xl shadow-2xl flex items-center justify-center">
+        
           <Loginform />
+          <div className="relative group text-[10px] text-slate-200">
+      FORGOT YOUR PASSWORD?
+      <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-slate-200 group-hover:w-full transform transition-all duration-300 ease-out"></span>
+    </div>
         </div>
-        <div className=' text-[10px] text-slate-200 underline'>FORGOT YOUR PASSWORD?</div>
+        
       </div>
     </div>
   );
