@@ -1,25 +1,60 @@
-import React from 'react'
-import employeeModel from '@/backend/models/employees/employee'
+"use client"
+import React, { useContext } from 'react';
+import { SuperadminContext } from '@/Context/superadmin/Superadmin';
 
+const Data = () => {
+  const { data } = useContext(SuperadminContext);
 
-const data = () => {
   return (
-    <div>
-       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
-        {employees.map((employee) => (
-          <div key={employee._id} className="bg-gray-800 p-4 rounded-md">
-            <h2 className="text-xl text-white">{employee.firstName} {employee.lastName}</h2>
-            <p className="text-gray-400">{employee.email}</p>
-            <p className="text-gray-400">{employee.phoneNumber}</p>
-            <p className="text-gray-400">{employee.jobTitle}</p>
-            <p className="text-gray-400">{employee.hireDate}</p>
-            <p className="text-gray-400">{employee.dob}</p>
-            <p className="text-gray-400">{employee.address.house}, {employee.address.street}, {employee.address.area}, {employee.address.postalCode}</p>
-          </div>
-        ))}
-      </div>
+    <div className=" p-4">
+     
+     <div className="flex">
+  <div className="w-1/2 pr-4">
+    <div className="mb-4 flex items-start">
+      <h3 className="text-white w-32">Full Name:</h3>
+      <p className="text-blue-400 ml-auto">{data.fullname}</p>
     </div>
-  )
-}
+    <div className="mb-4 flex items-start">
+      <h3 className="text-white w-32">Username:</h3>
+      <p className="text-blue-400 ml-auto">{data.username}</p>
+    </div>
+    <div className="mb-4 flex items-start">
+      <h3 className="text-white w-32">Password:</h3>
+      <p className="text-blue-400 ml-auto ">{data.password}</p>
+    </div>
+    <div className="mb-4 flex items-start">
+      <h3 className="text-white w-32">Email:</h3>
+      <p className="text-blue-400 ml-auto">{data.email}</p>
+    </div>
+  </div>
+  <div className="w-1/2 pl-4">
+    <div className="mb-4 flex items-start">
+      <h3 className="text-white w-32">Phone Number:</h3>
+      <p className="text-blue-400 ml-auto">{data.phonenumber}</p>
+    </div>
+    <div className="mb-4 flex items-start">
+      <h3 className="text-white w-32">Admin Type:</h3>
+      <p className="text-blue-400 ml-auto">{data.AdminType}</p>
+    </div>
+    <div className="mb-4 flex items-start">
+      <h3 className="text-white w-32">Date of Birth:</h3>
+      <p className="text-blue-400 ml-auto">{data.dob}</p>
+    </div>
+    <div className="mb-4 flex items-start">
+      <h3 className="text-white w-32">CNIC:</h3>
+      <p className="text-blue-400 ml-auto">{data.cnic}</p>
+    </div>
+    <div className="mb-4 flex items-start">
+      <h3 className="text-white w-32">Access Level:</h3>
+      <p className="text-blue-400 ml-auto">{data.accesslevel}</p>
+    </div>
+  </div>
+</div>
+</div>
+  );
+};
 
-export default data
+export default Data;
+
+
+
