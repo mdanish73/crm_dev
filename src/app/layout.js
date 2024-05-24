@@ -14,7 +14,7 @@ const poppins = Poppins({
 export default function RootLayout({ children }) {
   return (
     <html>
-      <body>
+      <body className={`${poppins.variable}`}>
         <Superadmin>
           <SideBarContext>{children}</SideBarContext>
         </Superadmin>
