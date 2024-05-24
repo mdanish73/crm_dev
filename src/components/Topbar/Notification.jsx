@@ -1,8 +1,5 @@
 import React from 'react'
-import {Bell, Info,
-    Mail,
-    MoveRight,
-    Shield,
+import {Bell,
     X,} from "lucide-react";
   import {
     Popover,
@@ -22,7 +19,7 @@ const Notification = () => {
                 </div>
             </button>
         </PopoverTrigger>
-        <PopoverContent className="absolute p-0 w-[23rem] top-1 right-1 bg-[#1B2E4B]  rounded outline-none border-none overflow-hidden">
+        <PopoverContent className="absolute p-0 w-[23rem] top-1 right-1 bg-[#1B2E4B] bg-opacity-80 backdrop-blur-lg rounded outline-none border-none overflow-hidden">
 
             <div className="flex  p-3">
                 <h3 className="flex-1 text-lg text-left text-[#888EA8]">Notification</h3>
@@ -32,7 +29,7 @@ const Notification = () => {
             <hr className=" border-[#31415E]" />
 
             <div className="group flex m-4">
-                <div className="bg-[#292F46] rounded-full size-12 ">
+                <div className=" rounded-full size-12 ">
                         <Image
                         src={"/team-1.jpg"}
                         alt="profile"
@@ -52,7 +49,7 @@ const Notification = () => {
             <hr className=" border-[#31415E]" />
 
             <div className="group flex m-4">
-                <div className="bg-[#292F46] rounded-full size-12 ">
+                <div className="rounded-full size-12 ">
                         <Image
                         src={"/team-1.jpg"}
                         alt="profile"
@@ -73,7 +70,7 @@ const Notification = () => {
             <hr className=" border-[#31415E]" />
 
             <div className="group flex m-4">
-                <div className="bg-[#292F46] rounded-full size-12 ">
+                <div className=" rounded-full size-12 ">
                         <Image
                         src={"/team-1.jpg"}
                         alt="profile"

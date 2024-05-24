@@ -13,6 +13,7 @@ import Link from "next/link";
 import SearchBar from "./Search";
 import Notification from "./Notification";
 import Message from "./Message";
+import Profile from "./Profile";
 
 const TopBar = () => {
   
@@ -66,16 +67,8 @@ const TopBar = () => {
 
         <Message/>
         <Notification/>
-        
-        <div className="bg-[#292F46] rounded-full size-10 mx-1 my-2 cursor-pointer grayscale hover:grayscale-0">
-          <Image
-            src={"/team-1.jpg"}
-            alt="profile"
-            width={50}
-            height={50}
-            className="rounded-full"
-          />
-        </div>
+        <Profile/>
+       
       </div>
     </>
   );
