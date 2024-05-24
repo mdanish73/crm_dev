@@ -1,4 +1,5 @@
-import React from "react";
+'use client'
+import React, { useContext } from "react";
 import Image from "next/image";
 import {
   Popover,
@@ -7,9 +8,11 @@ import {
 } from "@/components/ui/popover";
 import Link from "next/link";
 import { LockKeyhole, LogOut, Mail, User } from 'lucide-react';
+import { SuperadminContext } from '@/Context/superadmin/Superadmin'
 
 
 const Profile = () => {
+  const { data } = useContext(SuperadminContext)
   return (
     <>
       <Popover>
@@ -37,8 +40,8 @@ const Profile = () => {
                         />
                 </div>
                 <div className=" flex-1   mx-4  text-left">
-                    <h2 className="text-[#888EA8] text-sm">John Doe</h2>
-                    <Link href='/' className="text-xs text-[#616b82] hover:underline">johndoe@gmail.com</Link>
+                    <h2 className="text-[#888EA8] text-sm">{data?.fullname}</h2>
+                    <Link href='/' className="text-xs text-[#616b82] hover:underline">{data?.email}</Link>
                 </div>
             </div>
             <Link href='/' className="w-full h-10 px-4 py-2 gap-3 text-sm flex text-[#888EA8] hover:bg-[#1F335B]">
