@@ -15,6 +15,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { ChevronRight } from "lucide-react";
+import { EachElement } from "@/components/others/Each";
 //schema
 const schema = z.object({
   Username: z.string().nonempty("Username is required"),
@@ -43,8 +45,8 @@ const LoginForm = () => {
       });
 
       if (response.data.success) {
-        console.log(response.data.message)
-        router.refresh()
+        console.log(response.data.message);
+        router.refresh();
         router.push("/dashboard");
       } else {
         console.log(response.data.message);
@@ -65,9 +67,10 @@ const LoginForm = () => {
           onSubmit={handleSubmit(formSubmit)}
           className="flex flex-col space-y-4 w-[250px] text-white text-xs"
         >
-          {inputs.map((v, i) => (
-            <FormField
-              key={i}
+          <EachElement
+            of = {inputs}
+            render = {(v, i) => (
+              <FormField
               control={control}
               name={v.name}
               render={({ field }) => (
@@ -84,27 +87,11 @@ const LoginForm = () => {
                 </FormItem>
               )}
             />
-          ))}
-          <Button type="submit" className="text-[10px] gap-2">
+            )}
+          />
+      
+          <Button type="submit" className=" font-medium text-xs gap-2">
             LOG IN
-            <span className="flex items-center space-x-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="blue"
-                strokeWidth="1.75"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-circle-arrow-right"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M8 12h8" />
-                <path d="m12 16 4-4-4-4" />
-              </svg>
-            </span>
           </Button>
         </form>
       </Form>
