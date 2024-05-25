@@ -1,12 +1,11 @@
 import { SignJWT, jwtVerify } from "jose";
-import nextConfig from "../../next.config.mjs";
 
 // Generate The Token
 async function tokenGenerator(data) {
   try {
     const token = await new SignJWT(data)
       .setProtectedHeader({ alg: "HS256" })
-      .setExpirationTime("10m")
+      .setExpirationTime("30m")
       .setIssuedAt()
       .sign(new TextEncoder().encode(process.env.SECRET_KEY));
     return token;

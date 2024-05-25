@@ -36,7 +36,7 @@ const POST = async (req) => {
     // Generate The Token
     const token = await tokenGenerator(data);
     // Handle Expiration Time Of Token
-    const expirationTime = new Date(Date.now() + 10 * 60 * 1000);
+    const expirationTime = new Date(Date.now() + 30 * 60 * 1000);
     // Use cookie function of Nextjs App Router
     const cookie = cookies();
     cookie.set("AccessToken", token, {
