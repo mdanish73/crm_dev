@@ -20,7 +20,7 @@ const SearchBar = () => {
           onBlur={() => setIsFocused(false)}
           type="search"
           placeholder="Search..."
-          className={`w-max pl-8 py-4 bg-[#121E32]/30 backdrop-blur-md text-[#6B7280] rounded-[10px] outline-none border ${
+          className={`w-max pl-8 py-4 bg-gray-700/90 backdrop-blur-md text-[#6B7280] rounded-[10px] outline-none border ${
             isFocused ? "border-[#3B51B9]" : "border-[#121E32]/30"
           }`}
         />

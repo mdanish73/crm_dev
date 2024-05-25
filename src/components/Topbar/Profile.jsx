@@ -17,7 +17,7 @@ const Profile = () => {
     <>
       <Popover>
         <PopoverTrigger asChild>
-          <div className="bg-[#292F46] rounded-full size-10 mx-1 my-2 cursor-pointer grayscale hover:grayscale-0">
+          <div className=" rounded-full size-10 mx-1 my-2 cursor-pointer grayscale hover:grayscale-0">
             <Image
               src={"/team-1.jpg"}
               alt="profile"

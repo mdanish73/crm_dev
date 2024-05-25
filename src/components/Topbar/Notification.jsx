@@ -13,7 +13,7 @@ const Notification = () => {
     <>
     <Popover>
         <PopoverTrigger asChild>
-            <button className="bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]">
+            <button className="bg-gray-700/90 rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]">
                 <div className=" size-9 rounded-full flex items-center justify-center">
                     <Bell size={20} strokeWidth={1} />
                 </div>

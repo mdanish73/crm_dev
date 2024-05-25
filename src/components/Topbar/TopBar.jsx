@@ -23,16 +23,18 @@ const TopBar = () => {
   
   return (
     <>
-      <div className="w-full flex bg-[#0E1726]/40 backdrop-blur-xl z-20 sticky px-4 text-white items-center">
+      <div className="w-full flex bg-gray-700/60  backdrop-blur-xl z-20 sticky px-4 text-white items-center">
         <Image src={"/logo w.png"} alt="logo" width={150} height={0} className={`${ isOpened ? 'block' : 'hidden' }`} />
-        <button onClick={() => setIsOpened(!isOpened)} className={`bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9] ${ isOpened ? 'block' : 'hidden' }`}>
+        
+        
+        <button onClick={() => setIsOpened(!isOpened)} className={`bg-gray-700/60  rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9] ${ isOpened ? 'block' : 'hidden' }`}>
           <div className=" size-9 rounded-full flex items-center justify-center">
             <Menu size={20} strokeWidth={1} />
           </div>
         </button>
         <Link
           href="/"
-          className="bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]"
+          className="bg-gray-700/60  rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]"
         >
           <div className=" size-9 rounded-full flex items-center justify-center">
             <Calendar size={20} strokeWidth={1} />
@@ -40,7 +42,7 @@ const TopBar = () => {
         </Link>
         <Link
           href="/"
-          className="bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]"
+          className="bg-gray-700/60  rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]"
         >
           <div className=" size-9 rounded-full flex items-center justify-center">
             <SquarePen size={20} strokeWidth={1} />
@@ -48,7 +50,7 @@ const TopBar = () => {
         </Link>
         <Link
           href="/"
-          className="bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]"
+          className="bg-gray-700/60 rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]"
         >
           <div className=" size-9 rounded-full flex items-center justify-center">
             <MessageCircleMore size={20} strokeWidth={1} />
@@ -57,13 +59,13 @@ const TopBar = () => {
         <SearchBar />
         <Link
           href="/"
-          className="bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]"
+          className="bg-gray-700/90 rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]"
         >
           <div className=" size-9 rounded-full flex items-center justify-center">
             <Moon size={20} strokeWidth={1} />
           </div>
         </Link>
-        <button className="bg-[#292F46] rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]">
+        <button className="bg-gray-700/90 rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9]">
           <div className=" size-9 rounded-full flex items-center justify-center">
             <Flag size={20} strokeWidth={1} />
           </div>
