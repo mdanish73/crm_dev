@@ -1,132 +1,154 @@
-'use client'
-import React  from 'react'
-import { useState,useEffect } from 'react';
-import { Poppins } from 'next/font/google';
-import Link from 'next/link';
+"use client";
+import React, { useContext } from "react";
+import { useState, useEffect } from "react";
+import { Poppins } from "next/font/google";
+import Link from "next/link";
 // import {styles} from '/global.css'
-import axios from 'axios';
-
+import axios from "axios";
+import Image from "next/image";
+import { SuperadminContext } from "@/Context/superadmin/Superadmin";
 const Home = () => {
+  const { data } = useContext(SuperadminContext);
+  //  Function of current time
 
-  //  Function of current time 
+  const [dateTime, setDateTime] = useState(new Date());
 
-    const [dateTime, setDateTime] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDateTime(new Date());
+    }, 1000);
 
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setDateTime(new Date());
-      }, 1000);
-  
-      return () => clearInterval(interval); // Cleanup interval on component unmount
-    }, []);
-  
-    const formatDate = (date) => {
-      const options = { weekday: 'long', month: 'long', day: 'numeric' };
-      return date.toLocaleDateString(undefined, options);
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
+
+  const formatDate = (date) => {
+    const options = { weekday: "long", month: "long", day: "numeric" };
+    return date.toLocaleDateString(undefined, options);
+  };
+  const formatTime = (date) => {
+    const options = { hour: "2-digit", minute: "2-digit" };
+    return date.toLocaleTimeString(undefined, options);
+  };
+
+  //  Animation and effect of Welcome back
+
+  const steps = ["Welcome Back", "To", "Customer Relationship Management"];
+  const [currentStep, setCurrentStep] = useState(0);
+  const [fadeOut, setFadeOut] = useState(false);
+
+  useEffect(() => {
+    if (currentStep < steps.length - 1) {
+      const timer = setTimeout(() => {
+        setFadeOut(true);
+        setTimeout(() => {
+          setCurrentStep((prevStep) => prevStep + 1);
+          setFadeOut(false);
+        }, 1000); // Match this timeout with the CSS transition duration
+      }, 3000); // Adjust the time as needed
+
+      return () => clearTimeout(timer); // Clean up the timer on component unmount
+    }
+  }, [currentStep]);
+
+  useEffect(() => {
+    if (currentStep === steps.length - 1) {
+      const finalStepTimer = setTimeout(() => {
+        setFadeOut(true);
+        setTimeout(() => {
+          setFadeOut(false);
+        }, 1000); // Match this timeout with the CSS transition duration
+      }, 3000); // Adjust the time as needed
+
+      return () => clearTimeout(finalStepTimer); // Clean up the timer on component unmount
+    }
+  }, [currentStep, steps.length]);
+
+  //       Function API of Live Weather
+
+  const [weather, setWeather] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://api.weatherapi.com/v1/current.json?key=0bb3aa2bba0a446986a95206242505&q=Faisalabad&aqi=yes"
+        );
+        // console.log(response.data.location.name)
+        setWeather(response.data);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
     };
-    const formatTime = (date) => {
-        const options = { hour: '2-digit', minute: '2-digit'};
-        return date.toLocaleTimeString(undefined, options);
-      };
 
-    
-//  Animation and effect of Welcome back
-
-      const steps = ['Welcome Back', 'To', 'Customer Relationship Management'];
-      const [currentStep, setCurrentStep] = useState(0);
-      const [fadeOut, setFadeOut] = useState(false);
-    
-      useEffect(() => {
-        if (currentStep < steps.length - 1) {
-          const timer = setTimeout(() => {
-            setFadeOut(true);
-            setTimeout(() => {
-              setCurrentStep((prevStep) => prevStep + 1);
-              setFadeOut(false);
-            }, 1000); // Match this timeout with the CSS transition duration
-          }, 3000); // Adjust the time as needed
-    
-          return () => clearTimeout(timer); // Clean up the timer on component unmount
-        }
-      }, [currentStep]);
-    
-      useEffect(() => {
-        if (currentStep === steps.length - 1) {
-          const finalStepTimer = setTimeout(() => {
-            setFadeOut(true);
-            setTimeout(() => {
-              setFadeOut(false);
-            }, 1000); // Match this timeout with the CSS transition duration
-          }, 3000); // Adjust the time as needed
-    
-          return () => clearTimeout(finalStepTimer); // Clean up the timer on component unmount
-        }
-      }, [currentStep, steps.length]);
-
-      
-
-//       Function API of Live Weather 
-
-
-
-
-      const [weather, setWeather] = useState(null);
-
-      useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await axios.get(
-              'https://api.openweathermap.org/data/2.5/weather?lat=31.418715&lon=73.079109&appid=cf6c39715df30d25257e7d9705ad9471'
-            );
-            console.log(response)
-            setWeather(response.data);
-          } catch (error) {
-            console.error('Error fetching weather data:', error);
-          }
-        };
-    
-        fetchData();
-      }, []);
-
+    fetchData();
+  }, []);
 
   return (
     <>
-      <div className=" bg-[url('/Homepage.jpg')] bg-cover bg-center w-full pt-16 text-center min-h-screen text-white">
-
+      <div className=" bg-[url('/Homepage.jpg')] bg-cover bg-center w-full text-center min-h-screen text-white">
         {/* div of Time */}
-        <div className="text-center mb-16">
-            <p className="text-6xl font-bold my-4">{formatTime(dateTime)}</p>
-            <p className="text-xl">{formatDate(dateTime)}</p>
+        <div className="text-center py-16">
+          <p className="text-6xl font-bold my-4">{formatTime(dateTime)}</p>
+          <p className="text-xl">{formatDate(dateTime)}</p>
         </div>
-        
+
         {/* Div of Welcome */}
-        <div className={`text-2xl transition-opacity duration-1000 ease-out ${fadeOut ? 'opacity-0' : 'opacity-100'} font-semibold mb-16`}>
-            {steps[currentStep]}
+        <div
+          className={`text-2xl transition-opacity duration-1000 ease-out ${
+            fadeOut ? "opacity-0" : "opacity-100"
+          } font-semibold mb-16`}
+        >
+          {steps[currentStep]}
         </div>
 
         {/* Login of Button */}
-         <Link href='/login' className="px-32 py-4 rounded-lg bg-black">
-            LOG IN
-         </Link>
-         
+        <Link href={Object.keys(data).length !== 0 ? "/dashboard" : "/login"}>
+          <span className="px-14 py-4 font-bold text-sm rounded-lg bg-black bg-opacity-70 text-white transition-all duration-700 ease-in-out hover:bg-white hover:bg-opacity-20 hover:scale-110 hover:text-black">
+            {Object.keys(data).length !== 0 ? <>Dashboard</> : <>Login</>}
+          </span>
+        </Link>
 
-         {/* Function Of Weather */}
-         {weather && (
-            <div className="w-96 h-48 mx-10 px-10 py-5 rounded bg-black bg-opacity-50 ">
-                <h2 className="text-4xl mb-4 text-left font-semibold">{weather.name}</h2>
-                <div className="flex text-2xl mb-6 gap-4">
-                  <p className="font-semibold">{weather.main.temp}°C</p>
-                  <p className="">{weather.weather[0].description}</p>
-                </div>
-                <Link href='https://www.google.com/search?q=weather+forecast&oq=weather&gs_lcrp=EgZjaHJvbWUqEAgBEAAYgwEYsQMYyQMYgAQyEQgAEEUYJxg7GJ0CGIAEGIoFMhAIARAAGIMBGLEDGMkDGIAEMg0IAhAAGJIDGIAEGIoFMg0IAxAAGJIDGIAEGIoFMg0IBBAAGIMBGLEDGIAEMgYIBRBFGDwyBggGEEUYPDIGCAcQRRg80gEIODEwMWowajeoAgCwAgA&sourceid=chrome&ie=UTF-8'
-                className='text-center'>
-                  View Full Forecast
-                </Link>
+        {/* Function Of Weather */}
+        {weather && (
+          <div className="bottom-7 absolute mx-10 px-8 py-2 rounded text-left bg-black bg-opacity-50 ">
+            <h2 className="text-base font-semibold uppercase pt-2">
+              {weather?.location?.name}
+            </h2>
+            <div className="flex gap-5 py-4">
+              {weather?.current?.condition?.text === "Sunny" ? (
+                <Image
+                  priority
+                  height={400}
+                  width={400}
+                  alt="image here"
+                  className="rounded-full h-12 w-12 object-cover"
+                  src="https://img.freepik.com/free-photo/view-3d-burning-sun_23-2150938039.jpg?t=st=1716633955~exp=1716637555~hmac=099964a6b0f248ee8da0928e74db31298b7156d0bc9774a6cfb68c2c967f8e69&w=900"
+                />
+              ) : (
+                <Image
+                  priority
+                  height={400}
+                  width={400}
+                  alt="image here"
+                  className="rounded-full h-12 w-12 object-cover"
+                  src="https://img.freepik.com/premium-photo/thunder-cloud_895561-15273.jpg?w=900"
+                />
+              )}
+              <div>
+                <p className="font-bold text-3xl">
+                  {weather?.current?.temp_c}
+                  <span className="text-xs transform translate-y-full">°C</span>
+                </p>
+                <p className="text-gray-300 text-xs">
+                  {weather?.current?.condition?.text}
+                </p>
+              </div>
             </div>
-          )}
+          </div>
+        )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
