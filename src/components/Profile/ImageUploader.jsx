@@ -1,114 +1,44 @@
-"use client";
-import React, { useState } from "react";
+// components/Profile.js
+"use client"
+import { useState } from 'react';
 
-const ProfileCover = () => {
-  const [imageSrc1, setImageSrc1] = useState(null);
-  const [imageSrc2, setImageSrc2] = useState(null);
+const Profile = () => {
+  const [profilePic, setProfilePic] = useState('/default-profile.png');
+  const [imageUploaded, setImageUploaded] = useState(false);
 
-  const handleImageChange1 = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      setImageSrc1(e.target.result);
-    };
-
-    reader.readAsDataURL(file);
-  };
-
-  const handleImageChange2 = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      setImageSrc2(e.target.result);
-    };
-
-    reader.readAsDataURL(file);
-  };
-
-  const handleRemovePhoto1 = () => {
-    console.log("click")
-    setImageSrc1(null);
-  };
-
-  const handleRemovePhoto2 = () => {
-    setImageSrc2(null);
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setProfilePic(event.target.result);
+        setImageUploaded(true);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
   };
 
   return (
-    <div className=" flex flex-col  ">
-     <div className="relative justify-center items-center h-[150px] lg:w-8/12 bg-gray-700 lg:rounded-2xl md:rounded-2xl sm:rounded-none border-none">
-     
-          <img
-            id="displayedImage1"
-            src={imageSrc1}
-            alt="image"
-            className="w-full h-full object-cover lg:rounded-2xl md:rounded-2xl"
-          />
-        
-
-        <input
-          type="file"
-          id="imageInput1"
-          accept="image/*"
-          onChange={handleImageChange1}
-          className="hidden"
-        />
-        {!imageSrc1 ? (
-          <button
-            className="absolute bottom-1 p-2 right-1 text-xs bg-black text-white rounded-[12px] shadow-lg cursor-pointer hover:bg-gray-500 z-30"
-            onClick={handleRemovePhoto1}
-          >
-            Remove image
-          </button>
-        ) : (
-          <button
-            htmlFor="imageInput1"
-            className="absolute bottom-1 p-2 right-1 text-xs bg-black text-white rounded-[10px] shadow-md cursor-pointer hover:bg-gray-500"
-          >
-            Upload image
-          </button>
-        )}
-      </div>
-        <div>
-        <div className="relative flex bottom-12 left-14">
-        <div className="w-[110px] h-[130px] bg-gray-700 rounded-2xl ">
-          <img
-            id="displayedImage2"
-            src={imageSrc2}
-            alt="image"
-            className="w-full h-full object-cover rounded-2xl "
-          />
-          <div className="flex mt-2 space-x-2">
-            <input
-              type="file"
-              id="imageInput2"
-              accept="image/*"
-              onChange={handleImageChange2}
-              className="hidden"
-            />
-            <label htmlFor="imageInput2">
-              <span className="text-xs items-center text-green-600 cursor-pointer">
-                Change
-              </span>
-            </label>
-            <button
-              className="text-xs text-blue-500 cursor-pointer"
-              onClick={handleRemovePhoto2}
-            >
-              Remove
-            </button>
+    <div className='bg-[#212B35] rounded-lg px-10 py-16 shadow-lg'>
+      <div className="flex flex-col gap-5 items-center text-white">
+        <div className="relative mb-4">
+          <img src={profilePic} alt="Profile Image" className="rounded-full w-32 h-32 object-cover" />
+          <div>
+          <label className={`  ${imageUploaded ? 'bg-blue-500' : 'bg-green-500'} rounded-[5px] w-20 h-7 flex justify-center mt-4 ml-6 items-center cursor-pointer`}>
+            <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+            <span className="text-white text-sm leading-none">{imageUploaded ? "edit" : 'Upload'}</span>
+          </label>
+          </div>
+          <div className="text-center mt-2">
+            <h1 className='text-lg font-semibold'>Admin</h1>
           </div>
         </div>
-        <div className="ml-4 mt-10 flex flex-col justify-center">
-          <h1 className="text-blue-500 text-lg">example name</h1>
-          <div className="text-green-500 text-xs cursor-pointer">edit name</div>
+        <div>
+          <button className="bg-red-400/50 hover:bg-gray-600 rounded-lg px-4 py-2">Deactivate Account</button>
         </div>
       </div>
-    </div>
     </div>
   );
 };
 
-export default ProfileCover;
+export default Profile;
+
