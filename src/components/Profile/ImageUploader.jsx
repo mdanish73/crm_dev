@@ -37,8 +37,8 @@ const ProfileCover = () => {
   };
 
   return (
-    <div className=" flex flex-col ">
-     <div className="relative h-[150px] w-full lg:w-5/6 md:w-5/6 bg-gray-700 lg:rounded-2xl md:rounded-2xl sm:rounded-none border-none">
+    <div className=" flex flex-col  ">
+     <div className="relative justify-center items-center h-[150px] lg:w-8/12 bg-gray-700 lg:rounded-2xl md:rounded-2xl sm:rounded-none border-none">
      
           <img
             id="displayedImage1"
