@@ -18,7 +18,7 @@ import {
         <>   
             <Popover className='relative'>
             <PopoverTrigger asChild>
-            <button className="bg-[#292f46] rounded-full w-9 h-9 mx-1 my-2 relative">
+            <button className="bg-gray-700/90 rounded-full w-9 h-9 mx-1 my-2 relative">
                 <div className="absolute inset-0 flex items-center justify-center rounded-full hover:text-[#3B51B9] ">
                     <Mail size={20} strokeWidth={1} />
                 </div>
