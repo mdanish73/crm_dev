@@ -5,14 +5,14 @@ const page = () => {
 
 
   return (
-    <div className='bg-[#202D36] min-h-screen'>
-      <div>
-        <ImageUploader />
-      </div>
-      <div>
-        <Data/>
-      </div>
-    </div>
+    <div className='bg-[#202D36] min-h-screen flex flex-col justify-center items-center overflow-hidden'>
+  <div className="w-full">
+    <ImageUploader />
+  </div>
+  <div>
+    <Data/>
+  </div>
+</div>
   );
 };
 
