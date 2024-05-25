@@ -5,8 +5,8 @@ const page = () => {
 
 
   return (
-    <div className='bg-[#202D36] min-h-screen flex flex-col justify-center items-center overflow-hidden'>
-  <div className="w-full">
+    <div className=' bg-[#151c24] min-h-screen gap-10 flex justify-center items-center overflow-hidden'>
+  <div className="">
     <ImageUploader />
   </div>
   <div>
