@@ -13,7 +13,7 @@ import { MessageCircleMore } from "lucide-react";
 import Link from "next/link";
 import SearchBar from "./Search";
 import Notification from "./Notification";
-import { SideContext } from "@/Context/SideBarContext";
+import { SideContext } from "@/Context/sidebar/SideBarContext";
 import Message from "./Message";
 import Profile from "./Profile";
 

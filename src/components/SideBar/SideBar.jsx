@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import SideBarLogo from './SideBarLogo';
 import SideBarDropMenu from './SideBarDropMenu';
 import Arrow from './Arrow';
-import { SideContext } from '@/Context/SideBarContext';
+import { SideContext } from '@/Context/sidebar/SideBarContext';
 
 const SideBar = () => {
   const { isOpened } = useContext(SideContext);
