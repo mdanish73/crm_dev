@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext } from 'react'
 import { ChevronsLeft } from 'lucide-react'
-import { SideContext } from '@/Context/SideBarContext';
+import { SideContext } from '@/Context/sidebar/SideBarContext';
 
 const Arrow = () => {
   const { isOpened, setIsOpened } = useContext(SideContext);
