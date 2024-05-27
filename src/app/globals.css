@@ -38,6 +38,21 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --primaryBG: #0E1726;
+    --secondaryBG: #E8E8E8;
+
+    --primaryAccent:#506690;
+    --secondaryAccent:#181f32;
+
+    --primaryText: slate-400;
+    --secondaryText: #eeeeeec8;
+
+    --primaryHover: #4a62a6;
+    --secondaryHover: blue-500;
+
+    --primaryTextHover: #2053EE;
+    --secondaryTextHover: #888EA8;
   }
 
   
