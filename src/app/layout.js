@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body className={`${poppins.variable}`} suppressHydrationWarning={true}>
-        <Toaster />
+        <Toaster position="top-center" reverseOrder={false} />
         <Superadmin>
           <SideBarContext>{children}</SideBarContext>
         </Superadmin>
