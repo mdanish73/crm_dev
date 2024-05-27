@@ -44,7 +44,7 @@ const SideBarDropMenu = ({ isOpened }) => {
                 {v.icon}
                 {v.title}
               </span>
-              {v.children && <ChevronRight size={20} />}
+              {v.children && <ChevronRight size={20} className={`transition-transform ${openMenuIndex === i ? '-rotate-90' : ''}`} />}
             </Link>
             {v.children && (
               <div className={`${openMenuIndex === i ? 'max-h-[1000px]' : 'max-h-0'} transition-max-height duration-700 overflow-hidden pl-3`}>

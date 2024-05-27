@@ -175,11 +175,11 @@ const Links = () => {
     },
   ];
 
-  if (pathname === '/dashboard') {
+  if (pathname.startsWith === '/dashboard') {
     return superAdmin;
-  } else if (pathname === '/companies') {
+  } else if (pathname.startsWith === '/companies') {
     return companyAdmin;
-  } else if (pathname === '/branches') {
+  } else if (pathname.startsWith === '/branches') {
     return branchAdmin;
   }
 }
