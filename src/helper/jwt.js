@@ -3,11 +3,12 @@ import { SignJWT, jwtVerify } from "jose";
 // Generate The Token
 async function tokenGenerator(data) {
   try {
+    const secret = process.env.SECRET_KEY;
     const token = await new SignJWT(data)
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("30m")
       .setIssuedAt()
-      .sign(new TextEncoder().encode(process.env.SECRET_KEY));
+      .sign(new TextEncoder().encode(secret));
     return token;
   } catch (error) {
     console.log(error, "from tokenGenerator");
@@ -16,9 +17,10 @@ async function tokenGenerator(data) {
 // Check Token Verification
 async function tokenVerification(token) {
   try {
+    const secret = process.env.SECRET_KEY;
     const { payload } = await jwtVerify(
       token,
-      new TextEncoder().encode(process.env.SECRET_KEY)
+      new TextEncoder().encode(secret)
     );
     return payload;
   } catch (error) {
