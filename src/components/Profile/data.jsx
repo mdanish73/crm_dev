@@ -1,14 +1,14 @@
-// components/Data.js
-
-"use client"
+"use client";
 import React, { useContext, useState } from 'react';
 import { SuperadminContext } from '@/Context/superadmin/Superadmin';
 
 const Data = () => {
-  const { data, setData } = useContext(SuperadminContext);
+  const { data } = useContext(SuperadminContext);
   const [editMode, setEditMode] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [tempData, setTempData] = useState({ ...data });
+  const id=data._id
+  console.log(id)
 
   const fields = [
     { label: 'Full Name', field: 'fullname', type: 'text' },
@@ -22,14 +22,35 @@ const Data = () => {
   ];
 
   const handleEditClick = () => {
+    console.log('Edit button clicked');
     setIsEditing(true);
     setEditMode(fields.reduce((acc, field) => ({ ...acc, [field.field]: true }), {}));
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async () => {
+    console.log('Save button clicked');
     setIsEditing(false);
     setEditMode(fields.reduce((acc, field) => ({ ...acc, [field.field]: false }), {}));
-    setData({ ...tempData });
+
+    console.log('Data before posting:', tempData);
+
+    try {
+      const result = await updateSuperadminData(tempData);
+      console.log('Data saved successfully:', result);
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
+  };
+
+  const updateSuperadminData = async (data) => {
+    const response = await fetch(`/api/superadmin/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return await response.json();
   };
 
   const handleInputChange = (e, field) => {
@@ -37,9 +58,9 @@ const Data = () => {
   };
 
   return (
-    <div className="bg-[#212B35] p-8 rounded-lg">
-      <div className="flex gap-6">
-        <div className="w-1/2 pr-4">
+    <div className="bg-[#212B35] p-9 rounded-lg">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-4">
           {fields.slice(0, 4).map(({ label, field, type }) => (
             <div key={field} className="mb-4">
               <h3 className="text-white w-32">{label}:</h3>
@@ -58,7 +79,7 @@ const Data = () => {
             </div>
           ))}
         </div>
-        <div className="w-1/2 pl-4">
+        <div className="space-y-4">
           {fields.slice(4).map(({ label, field, type }) => (
             <div key={field} className="mb-4">
               <h3 className="text-white w-32">{label}:</h3>
@@ -78,13 +99,13 @@ const Data = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-end text-sm mt-6">
-        <button className="bg-red-600 text-white px-3 py-2 rounded mr-4">
+      <div className="flex flex-row gap-4 justify-end text-sm mt-6">
+        <button className="bg-red-600 text-white px-3 py-2 rounded">
           Change Password
         </button>
         <button 
           onClick={isEditing ? handleSaveClick : handleEditClick} 
-          className="bg-green-600 text-white px-3 py-2 rounded"
+          className="bg-green-600 text-sm text-white px-3 py-2 rounded"
         >
           {isEditing ? 'Save Data' : 'Edit Data'}
         </button>
@@ -94,3 +115,4 @@ const Data = () => {
 };
 
 export default Data;
+

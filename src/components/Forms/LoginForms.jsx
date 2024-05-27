@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { ChevronRight } from "lucide-react";
 import { EachElement } from "@/components/others/Each";
+import toast from "react-hot-toast";
 //schema
 const schema = z.object({
   Username: z.string().nonempty("Username is required"),
@@ -24,6 +25,7 @@ const schema = z.object({
 });
 //zod validation
 const LoginForm = () => {
+  const[passwordshown,setPasswordShown]=useState(false)
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -46,7 +48,10 @@ const LoginForm = () => {
 
       if (response.data.success) {
         console.log(response.data.message);
-        router.push("/dashboard");
+        setTimeout(() => {
+          toast.success("WelCome!!");
+          router.push("/dashboard");
+        }, 2000);
       } else {
         console.log(response.data.message);
       }
