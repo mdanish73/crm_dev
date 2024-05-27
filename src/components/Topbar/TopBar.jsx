@@ -23,7 +23,7 @@ const TopBar = () => {
   
   return (
     <>
-      <div className="w-full flex bg-gray-700/60  backdrop-blur-xl z-20 sticky px-4 text-white items-center">
+      <div className="w-full flex secondaryBG/60  backdrop-blur-xl z-20 sticky px-4 text-white items-center">
         <Image src={"/logo w.png"} alt="logo" width={150} height={0} className={`${ isOpened ? 'block' : 'hidden' }`} />
         
         
