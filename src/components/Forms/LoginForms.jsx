@@ -15,9 +15,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { ChevronRight } from "lucide-react";
 import { EachElement } from "@/components/others/Each";
-import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 //schema
 const schema = z.object({
   Username: z.string().nonempty("Username is required"),
@@ -25,7 +25,8 @@ const schema = z.object({
 });
 //zod validation
 const LoginForm = () => {
-  const[passwordshown,setPasswordShown]=useState(false)
+  const [passwordshown, setPasswordShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -39,7 +40,10 @@ const LoginForm = () => {
 
   //axios
   const formSubmit = async (data) => {
-    console.log("Form submitted with data:", data);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
     try {
       const response = await axios.post("/api/auth/superadmin/login", {
         email: data.Username,
@@ -47,9 +51,8 @@ const LoginForm = () => {
       });
 
       if (response.data.success) {
-        console.log(response.data.message);
         setTimeout(() => {
-          toast.success("WelCome!!");
+          toast.success("Welcome Admin");
           router.push("/dashboard");
         }, 2000);
       } else {
@@ -94,9 +97,22 @@ const LoginForm = () => {
             )}
           />
 
-          <Button type="submit" className=" font-medium text-xs gap-2">
-            LOG IN
-          </Button>
+          {isLoading ? (
+            <Button
+              disabled
+              className="bg-gray-500 text-white font-medium text-xs gap-2 flex items-center justify-center h-9 rounded-[5px]"
+            >
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Please wait
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-medium text-xs gap-2 flex items-center justify-center h-9 rounded-[5px]"
+            >
+              Login
+            </Button>
+          )}
         </form>
       </Form>
     </>
