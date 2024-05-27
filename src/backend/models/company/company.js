@@ -8,31 +8,35 @@ const companySchema = new mongoose.Schema({
   contact: {
     type: Number,
     required: true,
-    unique: true
+    unique: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   identificationNumber: {
     type: String,
     unique: true,
     required: true,
-    trim: true
+    trim: true,
   },
   industry: {
     type: String,
   },
   subIndustry: {
-    type: String
+    type: String,
   },
-  country:[
+  country: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Countries'
-    }
-  ] 
+      ref: "Countries",
+    },
+  ],
+  companyCeo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "CompanyCEO",
+  },
 });
 
 const companies =

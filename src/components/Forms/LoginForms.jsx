@@ -46,10 +46,7 @@ const LoginForm = () => {
 
       if (response.data.success) {
         console.log(response.data.message);
-        setTimeout(() => {
-          router.refresh();
-          router.push("/dashboard");
-        }, 2000);
+        router.push("/dashboard");
       } else {
         console.log(response.data.message);
       }

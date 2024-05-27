@@ -1,8 +1,9 @@
 import dbConnection from "@/backend/db/dbconnection";
 import superAdmin from "@/backend/models/admins/superadmin";
 import { NextResponse } from "next/server";
+import bcryptjs from "bcryptjs"
 const GET = async (req, { params }) => {
-   dbConnection();
+  dbConnection();
   try {
     const { id } = params;
     const admin = await superAdmin.findById(id);
@@ -28,10 +29,16 @@ const PUT = async (req, { params }) => {
   try {
     const { id } = params;
     const body = await req.json();
-    const updateDate = await superAdmin.findByIdAndUpdate(id, body, {
-      new: true,
-      runValidators: true,
-    });
+    const saltRound = await bcryptjs.genSalt(Number(process.env.SALT_ROUND));
+    const hashedPassword = await bcryptjs.hash(body.password, saltRound);
+    const updateDate = await superAdmin.findByIdAndUpdate(
+      id,
+      { ...body, password: hashedPassword },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     return NextResponse.json(
       {
         message: "User Updated",

@@ -1,60 +1,96 @@
+// components/Data.js
+
 "use client"
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { SuperadminContext } from '@/Context/superadmin/Superadmin';
 
 const Data = () => {
-  const { data } = useContext(SuperadminContext);
+  const { data, setData } = useContext(SuperadminContext);
+  const [editMode, setEditMode] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempData, setTempData] = useState({ ...data });
+
+  const fields = [
+    { label: 'Full Name', field: 'fullname', type: 'text' },
+    { label: 'Username', field: 'username', type: 'text' },
+    { label: 'Email', field: 'email', type: 'text' },
+    { label: 'Phone Number', field: 'phonenumber', type: 'text' },
+    { label: 'Admin Type', field: 'AdminType', type: 'text' },
+    { label: 'Date of Birth', field: 'dob', type: 'text' },
+    { label: 'CNIC', field: 'cnic', type: 'text' },
+    { label: 'Access Level', field: 'accesslevel', type: 'text' },
+  ];
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setEditMode(fields.reduce((acc, field) => ({ ...acc, [field.field]: true }), {}));
+  };
+
+  const handleSaveClick = () => {
+    setIsEditing(false);
+    setEditMode(fields.reduce((acc, field) => ({ ...acc, [field.field]: false }), {}));
+    setData({ ...tempData });
+  };
+
+  const handleInputChange = (e, field) => {
+    setTempData({ ...tempData, [field]: e.target.value });
+  };
 
   return (
-    <div className=" p-4">
-     
-     <div className="flex">
-  <div className="w-1/2 pr-4">
-    <div className="mb-4 flex items-start">
-      <h3 className="text-white w-32">Full Name:</h3>
-      <p className="text-blue-400 ml-auto">{data.fullname}</p>
+    <div className="bg-[#212B35] p-8 rounded-lg">
+      <div className="flex gap-6">
+        <div className="w-1/2 pr-4">
+          {fields.slice(0, 4).map(({ label, field, type }) => (
+            <div key={field} className="mb-4">
+              <h3 className="text-white w-32">{label}:</h3>
+              <div className="flex justify-between items-center mt-2 space-x-2">
+                {editMode[field] ? (
+                  <input
+                    type={type}
+                    value={tempData[field]}
+                    onChange={(e) => handleInputChange(e, field)}
+                    className="text-blue-400 bg-gray-700 rounded p-1 flex-1"
+                  />
+                ) : (
+                  <p className="text-blue-400 flex-1 mr-10">{tempData[field]}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="w-1/2 pl-4">
+          {fields.slice(4).map(({ label, field, type }) => (
+            <div key={field} className="mb-4">
+              <h3 className="text-white w-32">{label}:</h3>
+              <div className="flex justify-between items-center mt-2 space-x-2">
+                {editMode[field] ? (
+                  <input
+                    type={type}
+                    value={tempData[field]}
+                    onChange={(e) => handleInputChange(e, field)}
+                    className="text-blue-400 bg-gray-700 rounded p-1 flex-1"
+                  />
+                ) : (
+                  <p className="text-blue-400 flex-1 mr-10">{tempData[field]}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex justify-end text-sm mt-6">
+        <button className="bg-red-600 text-white px-3 py-2 rounded mr-4">
+          Change Password
+        </button>
+        <button 
+          onClick={isEditing ? handleSaveClick : handleEditClick} 
+          className="bg-green-600 text-white px-3 py-2 rounded"
+        >
+          {isEditing ? 'Save Data' : 'Edit Data'}
+        </button>
+      </div>
     </div>
-    <div className="mb-4 flex items-start">
-      <h3 className="text-white w-32">Username:</h3>
-      <p className="text-blue-400 ml-auto">{data.username}</p>
-    </div>
-    <div className="mb-4 flex items-start">
-      <h3 className="text-white w-32">Password:</h3>
-      <p className="text-blue-400 ml-auto ">{data.password}</p>
-    </div>
-    <div className="mb-4 flex items-start">
-      <h3 className="text-white w-32">Email:</h3>
-      <p className="text-blue-400 ml-auto">{data.email}</p>
-    </div>
-  </div>
-  <div className="w-1/2 pl-4">
-    <div className="mb-4 flex items-start">
-      <h3 className="text-white w-32">Phone Number:</h3>
-      <p className="text-blue-400 ml-auto">{data.phonenumber}</p>
-    </div>
-    <div className="mb-4 flex items-start">
-      <h3 className="text-white w-32">Admin Type:</h3>
-      <p className="text-blue-400 ml-auto">{data.AdminType}</p>
-    </div>
-    <div className="mb-4 flex items-start">
-      <h3 className="text-white w-32">Date of Birth:</h3>
-      <p className="text-blue-400 ml-auto">{data.dob}</p>
-    </div>
-    <div className="mb-4 flex items-start">
-      <h3 className="text-white w-32">CNIC:</h3>
-      <p className="text-blue-400 ml-auto">{data.cnic}</p>
-    </div>
-    <div className="mb-4 flex items-start">
-      <h3 className="text-white w-32">Access Level:</h3>
-      <p className="text-blue-400 ml-auto">{data.accesslevel}</p>
-    </div>
-  </div>
-</div>
-</div>
   );
 };
 
 export default Data;
-
-
-

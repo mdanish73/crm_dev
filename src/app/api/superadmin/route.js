@@ -2,7 +2,6 @@ import dbConnection from "@/backend/db/dbconnection";
 import superAdmin from "@/backend/models/admins/superadmin";
 import bcryptjs from "bcryptjs";
 import { NextResponse } from "next/server";
-import nextConfig from "../../../../next.config.mjs";
 dbConnection();
 const POST = async (req) => {
   try {
@@ -22,9 +21,8 @@ const POST = async (req) => {
           dob,
         } = await req.json();
         const saltRound = await bcryptjs.genSalt(
-          Number(nextConfig.env.SALT_ROUND)
+          Number(process.env.SALT_ROUND)
         );
-        console.log(nextConfig.env.SALT_ROUND);
         const hashedPassword = await bcryptjs.hash(password, saltRound);
         const data = await superAdmin.create({
           fullname,
