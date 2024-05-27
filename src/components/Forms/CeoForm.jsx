@@ -41,7 +41,7 @@ const CeoForm = () => {
     console.log(data);
   };
   const Password = () => {
-    setShowPassword(!password);
+    setShowPassword(!showPassword);
   };
   const inputFields = [
     {
@@ -63,7 +63,7 @@ const CeoForm = () => {
       type: showPassword ? "text" : "password",
       label: "Password",
       placeHolder: "Enter Your Password",
-      icons: [<EyeOff />, <Eye />],
+      icon: showPassword ? <EyeOff /> : <Eye />,
     },
     {
       name: "phone",
@@ -87,8 +87,41 @@ const CeoForm = () => {
       icon: <User />,
     },
   ];
-
-  return <section className=""></section>;
+  return (
+    <section className="">
+      <Form {...form}>
+        <form className="grid grid-cols-2 gap-5 px-40">
+          <EachElement
+            of={inputFields}
+            render={(v, i) => (
+              <div className="flex flex-col">
+                <FormLabel htmlFor="">{v.label}</FormLabel>
+                <div onClick={Password}>{v.icon}</div>
+                <FormField
+                  key={i}
+                  control={control}
+                  name={v.name}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className="text-white text-xs border-none h-9 bg-[#8C8CA3]/40 rounded-[5px]"
+                          placeholder={v.placeholder}
+                          type={v.type}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
+          />
+        </form>
+      </Form>
+    </section>
+  );
 };
 
 export default CeoForm;
