@@ -42,14 +42,17 @@
     --primaryBG: #0E1726;
     --secondaryBG: #E8E8E8;
 
-    --primaryAccent:#eeeeee;
-    --secondaryAccent:#eeeeee;
+    --primaryAccent:#506690;
+    --secondaryAccent:#181f32;
 
-    --primaryText: #000000;
-    --secondaryText: #000000;
+    --primaryText: slate-400;
+    --secondaryText: #eeeeeec8;
 
-    --primaryHover: #eeeeee;
-    --secondaryHover: #eeeeee;
+    --primaryHover: #4a62a6;
+    --secondaryHover: blue-500;
+
+    --primaryTextHover: #2053EE;
+    --secondaryTextHover: #888EA8;
   }
 
   .dark {
