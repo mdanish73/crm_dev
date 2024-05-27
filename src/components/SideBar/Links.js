@@ -4,7 +4,7 @@ import { Building2, Home, LogOut, NotebookText, Settings, UserCog, Users } from 
 
 const Links = () => {
   const pathname = usePathname();
-  console.log("Current Pathname:", pathname);
+  
   const superAdmin = [
     {
       title: 'Dashboard', icon: <Home size={18} />, children: [
