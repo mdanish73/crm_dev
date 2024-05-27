@@ -1,8 +1,8 @@
 "use client";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import SideBarContext from "@/Context/SideBarContext";
-import { Superadmin } from "@/Context/superadmin/Superadmin";
+import SideBarContext from "@/Context/sidebar/SideBarContext";
+import { Superadmin, } from "@/Context/superadmin/Superadmin";
 import { Toaster } from "react-hot-toast";
 
 const poppins = Poppins({

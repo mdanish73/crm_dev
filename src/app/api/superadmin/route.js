@@ -2,7 +2,6 @@ import dbConnection from "@/backend/db/dbconnection";
 import superAdmin from "@/backend/models/admins/superadmin";
 import bcryptjs from "bcryptjs";
 import { NextResponse } from "next/server";
-import nextConfig from "../../../../next.config.mjs";
 dbConnection();
 const POST = async (req) => {
   try {

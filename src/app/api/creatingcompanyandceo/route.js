@@ -13,18 +13,26 @@ const POST = async (req) => {
       ...company,
       companyCeo: ceoCreated._id,
     });
-    return NextResponse.json({
-      message: "CEO and Company Created",
-      success: true,
-      dataOne: ceoCreated,
-      dataTwo: companyCreated,
-    });
+    return NextResponse.json(
+      {
+        message: "CEO and Company Created",
+        success: true,
+      },
+      {
+        status: 201,
+      }
+    );
   } catch (error) {
     console.log(error.message);
-    return NextResponse.json({
-      message: "Internal Server Error",
-      success: false,
-    });
+    return NextResponse.json(
+      {
+        message: "Internal Server Error",
+        success: false,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 };
 export { POST };

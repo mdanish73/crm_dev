@@ -11,7 +11,7 @@ const Superadmin = ({ children }) => {
   async function fetchData() {
     try {
       const request = await fetch("/api/superadmin/profile", { method: "GET" });
-      if (request.status === 200) {
+      if (request.ok) {
         const response = await request.json();
         setData(response.data);
       }
