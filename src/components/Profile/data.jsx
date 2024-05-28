@@ -58,22 +58,22 @@ const Data = () => {
   };
 
   return (
-    <div className="bg-[#212B35] p-9 rounded-lg">
+    <div className="bg-[#212B35] p-9 px-32 rounded-lg">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
           {fields.slice(0, 4).map(({ label, field, type }) => (
             <div key={field} className="mb-4">
-              <h3 className="text-white w-32">{label}:</h3>
+              <h3 className="text-slate-400 w-32">{label}:</h3>
               <div className="flex justify-between items-center mt-2 space-x-2">
                 {editMode[field] ? (
                   <input
                     type={type}
                     value={tempData[field]}
                     onChange={(e) => handleInputChange(e, field)}
-                    className="text-blue-400 bg-gray-700 rounded p-1 flex-1"
+                    className="text-[#eeeeeec8] bg-gray-700 rounded p-1 flex-1"
                   />
                 ) : (
-                  <p className="text-blue-400 flex-1 mr-10">{tempData[field]}</p>
+                  <p className="text-[#eeeeeec8] flex-1 mr-10">{tempData[field]}</p>
                 )}
               </div>
             </div>
@@ -82,17 +82,17 @@ const Data = () => {
         <div className="space-y-4">
           {fields.slice(4).map(({ label, field, type }) => (
             <div key={field} className="mb-4">
-              <h3 className="text-white w-32">{label}:</h3>
+              <h3 className="text-slate-400 w-32">{label}:</h3>
               <div className="flex justify-between items-center mt-2 space-x-2">
                 {editMode[field] ? (
                   <input
                     type={type}
                     value={tempData[field]}
                     onChange={(e) => handleInputChange(e, field)}
-                    className="text-blue-400 bg-gray-700 rounded p-1 flex-1"
+                    className="text-[#eeeeeec8] bg-gray-700 rounded p-1 flex-1"
                   />
                 ) : (
-                  <p className="text-blue-400 flex-1 mr-10">{tempData[field]}</p>
+                  <p className="text-[#eeeeeec8] flex-1 mr-10">{tempData[field]}</p>
                 )}
               </div>
             </div>

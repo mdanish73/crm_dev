@@ -49,7 +49,7 @@ const IndustryForm = () => {
                 <FormControl>
                   <Input
                     {...field}
-                    className="text-white text-xs border-none h-9 bg-[#8C8CA3]/40 rounded-[5px]"
+                    className="text-white text-xs border-none h-9 w-1/3 bg-[#8C8CA3]/40 rounded-[5px]"
                     placeholder="Industry name"
                     type="text"
                   />
@@ -72,7 +72,7 @@ const IndustryForm = () => {
                   render={({ field }) => (
                     <Input
                       {...field}
-                      className="block w-full p-2 border border-gray-300 rounded-md"
+                      className="text-white focus:bg-[#8C8CA3]/40 text-xs border-none h-9 w-1/3 bg-[#8C8CA3]/40 rounded-[5px]"
                       placeholder="Sub-industry name"
                       type="text"
                     />
