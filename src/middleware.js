@@ -9,17 +9,22 @@ export async function middleware(req) {
   const loginRoute = "/login";
   const dashboardRoute = "/dashboard";
 
-  // If the user is trying to access a protected route without a verified token, redirect to login
-  if (!verified && !req.nextUrl.pathname.startsWith(loginRoute)) {
+  const { pathname } = req.nextUrl;
+
+  if (pathname.startsWith("/api/auth/")) {
+    return NextResponse.next();
+  }
+
+  if (!verified && !pathname.startsWith(loginRoute)) {
     return NextResponse.redirect(new URL(loginRoute, req.url));
   }
 
-  // If the user is trying to access the login page while authenticated, redirect to dashboard
-  if (verified && req.nextUrl.pathname.startsWith(loginRoute)) {
+  if (verified && pathname.startsWith(loginRoute)) {
     return NextResponse.redirect(new URL(dashboardRoute, req.url));
   }
+
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login", "/profile/:path*"],
+  matcher: ["/dashboard","/profile/:path*","/login", "/api/:path*"],
 };
