@@ -21,7 +21,7 @@ const Profile = () => {
   };
 
   return (
-    <div className='bg-[#212B35] rounded-lg py-20 px-16 shadow-lg'>
+    <div className='bg-[#212B35] rounded-lg py-20 px-16'>
       <div className="flex flex-col gap-5 items-center text-white">
         <div className="relative mb-4">
           <img src={profilePic} alt="Profile Image" className="rounded-full w-32 h-32 object-cover" />
