@@ -17,20 +17,10 @@ export default function RootLayout({ children }) {
     <html>
       <body className={`${poppins.variable}`} suppressHydrationWarning={true}>
         <Superadmin>
-          <SideBarContext>
-            {children}
-            <Toaster
-              // toastOptions={{
-              //   style: {
-              //     padding: "30px",
-              //     fontSize: "1.2rem",
-              //     width: "80%",
-              //     height: "100%",
-              //   },
-              // }}
-              position="bottom-right"
-            />
-          </SideBarContext>
+            <SideBarContext>
+              {children}
+              <Toaster position="bottom-right" />
+            </SideBarContext>
         </Superadmin>
       </body>
     </html>

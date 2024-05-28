@@ -1,54 +1,56 @@
 "use client";
-import React, { useContext, useState } from 'react';
-import { SuperadminContext } from '@/Context/superadmin/Superadmin';
+import React, { useContext, useState } from "react";
+import { SuperadminContext } from "@/Context/superadmin/Superadmin";
 
 const Data = () => {
   const { data } = useContext(SuperadminContext);
   const [editMode, setEditMode] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [tempData, setTempData] = useState({ ...data });
-  const id=data._id
-  console.log(id)
-
+  const id = data._id;
   const fields = [
-    { label: 'Full Name', field: 'fullname', type: 'text' },
-    { label: 'Username', field: 'username', type: 'text' },
-    { label: 'Email', field: 'email', type: 'text' },
-    { label: 'Phone Number', field: 'phonenumber', type: 'text' },
-    { label: 'Admin Type', field: 'AdminType', type: 'text' },
-    { label: 'Date of Birth', field: 'dob', type: 'text' },
-    { label: 'CNIC', field: 'cnic', type: 'text' },
-    { label: 'Access Level', field: 'accesslevel', type: 'text' },
+    { label: "Full Name", field: "fullname", type: "text" },
+    { label: "Username", field: "username", type: "text" },
+    { label: "Email", field: "email", type: "text" },
+    { label: "Phone Number", field: "phonenumber", type: "text" },
+    { label: "Admin Type", field: "AdminType", type: "text" },
+    { label: "Date of Birth", field: "dob", type: "text" },
+    { label: "CNIC", field: "cnic", type: "text" },
+    { label: "Access Level", field: "accesslevel", type: "text" },
   ];
 
   const handleEditClick = () => {
-    console.log('Edit button clicked');
+    console.log("Edit button clicked");
     setIsEditing(true);
-    setEditMode(fields.reduce((acc, field) => ({ ...acc, [field.field]: true }), {}));
+    setEditMode(
+      fields.reduce((acc, field) => ({ ...acc, [field.field]: true }), {})
+    );
   };
 
   const handleSaveClick = async () => {
-    console.log('Save button clicked');
+    console.log("Save button clicked");
     setIsEditing(false);
-    setEditMode(fields.reduce((acc, field) => ({ ...acc, [field.field]: false }), {}));
+    setEditMode(
+      fields.reduce((acc, field) => ({ ...acc, [field.field]: false }), {})
+    );
 
-    console.log('Data before posting:', tempData);
+    console.log("Data before posting:", tempData);
 
     try {
       const result = await updateSuperadminData(tempData);
-      console.log('Data saved successfully:', result);
+      console.log("Data saved successfully:", result);
     } catch (error) {
-      console.error('Error saving data:', error);
+      console.error("Error saving data:", error);
     }
   };
 
   const updateSuperadminData = async (data) => {
     const response = await fetch(`/api/superadmin/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error("Network response was not ok");
     }
     return await response.json();
   };
@@ -73,7 +75,7 @@ const Data = () => {
                     className="text-[#eeeeeec8] bg-gray-700 rounded p-1 flex-1"
                   />
                 ) : (
-                  <p className="text-[#eeeeeec8] flex-1 mr-10">{tempData[field]}</p>
+                  <p className="text-blue-400 flex-1 mr-10">{tempData[field]}</p>
                 )}
               </div>
             </div>
@@ -82,17 +84,17 @@ const Data = () => {
         <div className="space-y-4">
           {fields.slice(4).map(({ label, field, type }) => (
             <div key={field} className="mb-4">
-              <h3 className="text-slate-400 w-32">{label}:</h3>
+              <h3 className="text-white w-32">{label}:</h3>
               <div className="flex justify-between items-center mt-2 space-x-2">
                 {editMode[field] ? (
                   <input
                     type={type}
                     value={tempData[field]}
                     onChange={(e) => handleInputChange(e, field)}
-                    className="text-[#eeeeeec8] bg-gray-700 rounded p-1 flex-1"
+                    className="text-blue-400 bg-gray-700 rounded p-1 flex-1"
                   />
                 ) : (
-                  <p className="text-[#eeeeeec8] flex-1 mr-10">{tempData[field]}</p>
+                  <p className="text-blue-400 flex-1 mr-10">{tempData[field]}</p>
                 )}
               </div>
             </div>
@@ -103,11 +105,11 @@ const Data = () => {
         <button className="bg-red-600 text-white px-3 py-2 rounded">
           Change Password
         </button>
-        <button 
-          onClick={isEditing ? handleSaveClick : handleEditClick} 
+        <button
+          onClick={isEditing ? handleSaveClick : handleEditClick}
           className="bg-green-600 text-sm text-white px-3 py-2 rounded"
         >
-          {isEditing ? 'Save Data' : 'Edit Data'}
+          {isEditing ? "Save Data" : "Edit Data"}
         </button>
       </div>
     </div>
@@ -115,4 +117,3 @@ const Data = () => {
 };
 
 export default Data;
-
