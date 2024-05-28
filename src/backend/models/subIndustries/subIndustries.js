@@ -7,7 +7,6 @@ const subIndustry = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true
       },
       code: {
         type: String,
@@ -18,5 +17,5 @@ const subIndustry = new mongoose.Schema({
   ]
 });
 
-const subIndustries = mongoose.models?.Sub_Industries || mongoose.models('Sub_Industries', subIndustry);
+const subIndustries = mongoose.models?.Sub_Industries || mongoose.model('Sub_Industries', subIndustry);
 export default subIndustries;

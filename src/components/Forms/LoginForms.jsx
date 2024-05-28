@@ -16,7 +16,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { EachElement } from "@/components/others/Each";
-import { Loader2 } from "lucide-react";
+import { Loader2, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 //schema
 const schema = z.object({
@@ -41,25 +41,23 @@ const LoginForm = () => {
   //axios
   const formSubmit = async (data) => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
     try {
       const response = await axios.post("/api/auth/superadmin/login", {
         email: data.Username,
         password: data.Password,
       });
-
       if (response.data.success) {
-        setTimeout(() => {
-          toast.success("Welcome Admin");
-          router.push("/dashboard");
-        }, 2000);
+        router.push("/dashboard");
+        toast.success("Login Successfully", {
+          className: "toastSuccess",
+        });
       } else {
         console.log(response.data.message);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -97,22 +95,12 @@ const LoginForm = () => {
             )}
           />
 
-          {isLoading ? (
-            <Button
-              disabled
-              className="bg-gray-500 text-white font-medium text-xs gap-2 flex items-center justify-center h-9 rounded-[5px]"
-            >
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Please wait
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-medium text-xs gap-2 flex items-center justify-center h-9 rounded-[5px]"
-            >
-              Login
-            </Button>
-          )}
+          <Button
+            type={isLoading ? "" : "submit"}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-medium text-xs gap-2 flex items-center justify-center h-9 rounded-[5px] w-full"
+          >
+            {isLoading ? <><LoaderCircle className="animate-spin" />Please wait</> : "Login"}
+          </Button>
         </form>
       </Form>
     </>

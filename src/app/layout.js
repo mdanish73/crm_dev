@@ -20,12 +20,15 @@ export default function RootLayout({ children }) {
           <SideBarContext>
             {children}
             <Toaster
-              toastOptions={{
-                style: {
-                  padding: "30px",
-                },
-              }}
-              closeButton
+              // toastOptions={{
+              //   style: {
+              //     padding: "30px",
+              //     fontSize: "1.2rem",
+              //     width: "80%",
+              //     height: "100%",
+              //   },
+              // }}
+              position="bottom-right"
             />
           </SideBarContext>
         </Superadmin>

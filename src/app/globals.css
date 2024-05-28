@@ -39,11 +39,11 @@
 
     --radius: 0.5rem;
 
-    --primaryBG: #0E1726;
-    --secondaryBG: #E8E8E8;
+    --primaryBG: #0e1726;
+    --secondaryBG: #e8e8e8;
 
-    --primaryAccent:#506690;
-    --secondaryAccent:#181f32;
+    --primaryAccent: #506690;
+    --secondaryAccent: #181f32;
 
     --primaryText: slate-400;
     --secondaryText: #eeeeeec8;
@@ -51,11 +51,10 @@
     --primaryHover: #4a62a6;
     --secondaryHover: blue-500;
 
-    --primaryTextHover: #2053EE;
-    --secondaryTextHover: #888EA8;
+    --primaryTextHover: #2053ee;
+    --secondaryTextHover: #888ea8;
   }
 
-  
   * {
     @apply border-border;
   }
@@ -64,9 +63,7 @@
   }
 }
 
- 
-
-*::-webkit-scrollbar  {
+*::-webkit-scrollbar {
   display: none;
 }
 
@@ -101,5 +98,16 @@
 }
 /*  Animation of side bar  ================================================================================== */
 
+.toastSuccess {
+  background-color: rgb(9, 9, 11); /* Green background */
+  color: white;
+  padding: 25px 15px;
+  font-size: 1rem;
+}
 
-
+.toastError {
+  background-color: rgb(127, 29, 29); /* Red background */
+  color: white;
+  padding: 25px 15px;
+  font-size: 1rem;
+}
