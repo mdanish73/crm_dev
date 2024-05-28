@@ -188,5 +188,94 @@ export default CompanyForms
 
 
 
+<<<<<<< HEAD
 
+=======
+  const handleFormSubmit = (data) => {
+    console.log(data);
+  };
+  const Password = () => {
+    setShowPassword(!showPassword);
+  };
+  const inputFields = [
+    {
+      name: "fullName",
+      label: "Full Name",
+      type: "text",
+      placeHolder: "Enter Your Full Name",
+      icon: <User />,
+    },
+    {
+      name: "username",
+      type: "text",
+      label: "Username",
+      placeHolder: "Enter Your Username",
+      icon: <User />,
+    },
+    {
+      name: "password",
+      type: showPassword ? "text" : "password",
+      label: "Password",
+      placeHolder: "Enter Your Password",
+      icon: showPassword ? <EyeOff /> : <Eye />,
+    },
+    {
+      name: "phone",
+      type: "tel",
+      label: "Phone Number",
+      placeHolder: "Enter Your Phone Number",
+      icon: <Phone />,
+    },
+    {
+      name: "dob",
+      type: "date",
+      label: "Date of Birth",
+      placeHolder: "Enter Your Date of Birth",
+      icon: <User />,
+    },
+    {
+      name: "identification_number",
+      type: "number",
+      label: "Identification Number",
+      placeHolder: "Enter Your Identification Number",
+      icon: <User />,
+    },
+  ];
+  return (
+    <section className="">
+      <Form {...form}>
+        <form className="grid grid-cols-2 gap-5 px-40">
+          <EachElement
+            of={inputFields}
+            render={(v, i) => (
+              <div className="flex flex-col">
+                <FormLabel htmlFor="">{v.label}</FormLabel>
+                <div onClick={Password}>{v.icon}</div>
+                <FormField
+                  key={i}
+                  control={control}
+                  name={v.name}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          className="text-white text-xs border-none h-9 bg-[#8C8CA3]/40 rounded-[5px]"
+                          placeholder={v.placeholder}
+                          type={v.type}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
+          />
+        </form>
+      </Form>
+    </section>
+  );
+};
+>>>>>>> 2cff8d8260b948d65ac730c5695fde23d70c6851
 

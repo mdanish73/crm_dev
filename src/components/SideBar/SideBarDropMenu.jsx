@@ -8,6 +8,7 @@ import Links from './Links';
 const SideBarDropMenu = ({ isOpened }) => {
   const pathname = usePathname();
   const navlinks = Links();
+  
   const [openMenuIndex, setOpenMenuIndex] = useState(null);
 
   const toggleMenu = (index) => {

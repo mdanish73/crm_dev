@@ -4,7 +4,7 @@ import { Building2, Home, LogOut, NotebookText, Settings, UserCog, Users } from 
 
 const Links = () => {
   const pathname = usePathname();
-
+  
   const superAdmin = [
     {
       title: 'Dashboard', icon: <Home size={18} />, children: [
@@ -175,12 +175,14 @@ const Links = () => {
     },
   ];
 
-  if (pathname === '/dashboard') {
+  if (pathname && pathname.startsWith('/dashboard')) {
     return superAdmin;
-  } else if (pathname === '/companies') {
+  } else if (pathname && pathname.startsWith('/companies')) {
     return companyAdmin;
-  } else if (pathname === '/branches') {
+  } else if (pathname && pathname.startsWith('/branches')) {
     return branchAdmin;
+  } else {
+    return null;
   }
 }
 
