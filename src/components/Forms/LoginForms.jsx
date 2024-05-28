@@ -15,7 +15,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { ChevronRight } from "lucide-react";
 import { EachElement } from "@/components/others/Each";
 import toast from "react-hot-toast";
 //schema
