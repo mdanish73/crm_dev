@@ -181,6 +181,8 @@ const Links = () => {
     return companyAdmin;
   } else if (pathname && pathname.startsWith('/branches')) {
     return branchAdmin;
+  } else if (pathname && pathname.startsWith('/profile')) {
+    return branchAdmin;
   } else {
     return null;
   }
