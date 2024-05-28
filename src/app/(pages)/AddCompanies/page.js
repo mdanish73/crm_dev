@@ -1,12 +1,14 @@
-import CeoForm from "@/components/Forms/CeoForm";
-import CompanyForms from "@/components/Forms/CompanyForms";
 import React from "react";
+import CompanyForms from "@/components/Forms/CompanyForms";
+import CeoForm from "@/components/Forms/CeoForm";
+
 
 const page = () => {
+  
   return (
-    <div className="w-full h-[100vh] bg-black/80">
+    <div className="w-full h-screen py-10 px-20 overflow-hidden text-primaryText bg-primary_bg">
       {/* <CompanyForms /> */}
-      <CeoForm />
+      <CeoForm/>
     </div>
   );
 };

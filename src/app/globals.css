@@ -45,14 +45,17 @@
     --primaryAccent:#506690;
     --secondaryAccent:#181f32;
 
-    --primaryText: slate-400;
+    --primaryText: rgb(148 163 184);
     --secondaryText: #eeeeeec8;
 
+    --secondaryHeading: rgb(234 88 12);
+
     --primaryHover: #4a62a6;
-    --secondaryHover: blue-500;
+    --secondaryHover: rgb(59 130 246);
 
     --primaryTextHover: #2053EE;
     --secondaryTextHover: #888EA8;
+
   }
 
   
@@ -63,7 +66,9 @@
     @apply bg-background text-foreground;
   }
 }
-
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
  
 
 *::-webkit-scrollbar  {
