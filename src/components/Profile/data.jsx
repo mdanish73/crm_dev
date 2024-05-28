@@ -83,27 +83,6 @@ const Data = () => {
             </div>
           ))}
         </div>
-        <div className="space-y-4">
-          {fields.slice(4).map(({ label, field, type }) => (
-            <div key={field} className="mb-4">
-              <h3 className="text-white w-32">{label}:</h3>
-              <div className="flex justify-between items-center mt-2 space-x-2">
-                {editMode[field] ? (
-                  <input
-                    type={type}
-                    value={tempData[field]}
-                    onChange={(e) => handleInputChange(e, field)}
-                    className="text-blue-400 bg-gray-700 rounded p-1 flex-1"
-                  />
-                ) : (
-                  <p className="text-blue-400 flex-1 mr-10">
-                    {tempData[field]}
-                  </p>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
       <div className="flex flex-row gap-4 justify-end text-sm mt-6">
         <button className="bg-red-600 text-white px-3 py-2 rounded">
