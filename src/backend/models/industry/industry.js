@@ -8,10 +8,11 @@ const industry = new mongoose.Schema({
         required: true,
         trim: true,
       },
-      options: [
+      subindustries: [
         {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Sub_Industries",
+          name: {
+            type: String,
+          },
         },
       ],
     },

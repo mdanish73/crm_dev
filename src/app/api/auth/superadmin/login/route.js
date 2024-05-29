@@ -12,8 +12,7 @@ const POST = async (req) => {
   try {
     const { email, password } = await req.json();
     const foundByemail = await superAdmin.findOne({ email });
-
-    if (!foundByemail) {
+    if (Object.keys(foundByemail).length === 0) {
       return NextResponse.json({
         message: "Email is invalid!!",
         success: false,

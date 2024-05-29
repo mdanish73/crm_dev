@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { usePathname } from "next/navigation";
 import {
   Building2,
@@ -10,9 +10,10 @@ import {
   Users,
 } from "lucide-react";
 import axios from "axios";
-import { toast } from "sonner";
+import { SuperadminContext } from "@/Context/superadmin/Superadmin";
 
 const Links = () => {
+  const { data } = useContext(SuperadminContext);
   const pathname = usePathname();
   const superAdmin = [
     {
@@ -39,8 +40,8 @@ const Links = () => {
       title: "Forms",
       icon: <NotebookText size={18} />,
       children: [
-        { title: "Companies", path: "/" },
-        { title: "Industries", path: "/" },
+        { title: "Companies", path: "/companies/add" },
+        { title: "Industries", path: "/industries/add" },
         { title: "Departments", path: "/" },
       ],
     },
@@ -52,7 +53,7 @@ const Links = () => {
     {
       title: "Profile",
       icon: <UserCog size={18} />,
-      path: "/profile",
+      path: `/profile`,
     },
     {
       title: "Settings",

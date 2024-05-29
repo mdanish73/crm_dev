@@ -1,7 +1,8 @@
-
-import React from 'react';
-import ImageUploader from '@/components/Profile/ImageUploader';
-import Data from '@/components/Profile/Data';
+"use client";
+import React from "react";
+import ImageUploader from "@/components/Profile/ImageUploader";
+import Data from "@/components/Profile/Data";
+import { useParams } from "next/navigation";
 
 const Page = () => {
   return (
@@ -10,11 +11,10 @@ const Page = () => {
         <ImageUploader />
       </div>
       <div className="">
-        <Data />
+        <Data/>
       </div>
     </div>
   );
 };
 
 export default Page;
-
