@@ -18,8 +18,6 @@ const POST = async (req) => {
       {
         message: "Subindustry and industry created",
         success: true,
-        data1: subIndustry,
-        data2: Industry,
       },
       {
         status: 200,

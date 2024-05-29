@@ -8,7 +8,7 @@ const subIndustry = new mongoose.Schema({
         required: true,
         trim: true,
       },
-      code: {
+      subindustrycode: {
         type: String,
         required: true,
         unique: true

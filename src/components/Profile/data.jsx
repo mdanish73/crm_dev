@@ -75,7 +75,9 @@ const Data = () => {
                     className="text-[#eeeeeec8] bg-gray-700 rounded p-1 flex-1"
                   />
                 ) : (
-                  <p className="text-blue-400 flex-1 mr-10">{tempData[field]}</p>
+                  <p className="text-blue-400 flex-1 mr-10">
+                    {tempData[field]}
+                  </p>
                 )}
               </div>
             </div>
@@ -94,7 +96,9 @@ const Data = () => {
                     className="text-blue-400 bg-gray-700 rounded p-1 flex-1"
                   />
                 ) : (
-                  <p className="text-blue-400 flex-1 mr-10">{tempData[field]}</p>
+                  <p className="text-blue-400 flex-1 mr-10">
+                    {tempData[field]}
+                  </p>
                 )}
               </div>
             </div>
