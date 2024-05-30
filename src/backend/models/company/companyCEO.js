@@ -37,7 +37,7 @@ const companyAdmin = new mongoose.Schema({
   },
   otp: {
     type: String,
-    unique: true,
+    default: null,
   },
   isVerified: {
     type: Boolean,

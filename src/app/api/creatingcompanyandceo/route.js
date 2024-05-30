@@ -3,6 +3,7 @@ import companyCEO from "@/backend/models/company/companyCEO";
 import companies from "@/backend/models/company/company";
 import { NextResponse } from "next/server";
 
+
 // Establish database connection
 dbConnection();
 
@@ -11,21 +12,6 @@ const POST = async (req) => {
     // Parse request body
     const body = await req.json();
     const { ceo, company } = body;
-
-    // Basic validation for required fields
-    if (!ceo && !company) {
-      return NextResponse.json(
-        {
-          message: "CEO and Company data are required",
-          success: false,
-        },
-        {
-          status: 400,
-        }
-      );
-    }
-
-    // Create CEO and Company
     const ceoCreated = await companyCEO.create(ceo);
     const companyCreated = await companies.create({
       ...company,
@@ -43,24 +29,7 @@ const POST = async (req) => {
       }
     );
   } catch (error) {
-    console.error(error.message);
-
-    // Handle MongoDB duplicate key error
-    if (error.code === 11000) {
-      const field = Object.keys(error.keyValue)[0];
-      console.log(field);
-      return NextResponse.json(
-        {
-          success: false,
-          message: `${field} already exists!`,
-        },
-        {
-          status: 409,
-        }
-      );
-    }
-
-    // Handle other errors
+    console.log(error.message);
     return NextResponse.json(
       {
         message: "Internal Server Error",

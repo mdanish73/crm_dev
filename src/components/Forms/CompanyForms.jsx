@@ -26,7 +26,7 @@ import {
 // schema
 const schema = z.object({
   companyname: z.string().nonempty(""),
-  contact: z.string().nonempty(""),
+  contact: z.string().transform((contact) => parseFloat(contact)),
   email: z.string().email("Invalid email address").nonempty(""),
   identificationNumber: z.string().nonempty(""),
   industry: z.string().nonempty(""),
