@@ -23,16 +23,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+
+
 // schema
 const schema = z.object({
-  companyname: z.string().nonempty(""),
-  contact: z.string().transform((contact) => parseFloat(contact)),
-  email: z.string().email("Invalid email address").nonempty(""),
-  identificationNumber: z.string().nonempty(""),
-  industry: z.string().nonempty(""),
-  subIndustry: z.string().nonempty(""),
-  // country: z.string().nonempty(""),
+  companyname: z.string().nonempty("Company Name is required"),
+  contact: z.string().nonempty("Contact Number is required").transform((contact) => parseFloat(contact)),
+  email: z.string().email("Invalid email address").nonempty("Email  is required"),
+  identificationNumber: z.string().nonempty("identificationnumber is required"),
+  industry: z.string().nonempty("Industry is required"),
+  subIndustry: z.string().nonempty("subIndustry is required"),
 });
+// country: z.string().nonempty(""),
 
 const CompanyForms = ({ onSubmit }) => {
   const form = useForm({
@@ -88,6 +90,9 @@ const CompanyForms = ({ onSubmit }) => {
     // },
   ];
 
+
+
+  
   return (
     <>
       <div className="mb-6">

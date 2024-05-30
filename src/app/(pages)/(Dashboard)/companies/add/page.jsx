@@ -39,7 +39,7 @@ const Page = () => {
   }
 
   return (
-    <div className="px-4  text-secondaryText">
+    <div className="px-4  m-auto text-secondaryText">
       {steps == 1 && <CompanyForms onSubmit={handleCompanyFormSubmit} />}
       {steps == 2 && (
         <CeoForm onSubmit={CeoSubmit} Step={steps} setSteps={setSteps} />
