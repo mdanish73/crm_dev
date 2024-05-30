@@ -17,16 +17,14 @@ export async function POST(req){
        })
     } catch (error) {
         if (error.code === 11000) {
-            // Extract the duplicated key information from the error message
-            const keyValue = error.keyValue ? error.keyValue : 'Unknown key';
-            console.log(`Duplicate key error: ${JSON.stringify(keyValue)}`);
+            const key = Object.keys(error.keyValue)[0];
             return NextResponse.json({
-                message: `${JSON.stringify(keyValue)} already exists`,
+                message: `${key} : already exists`,
                 success: false,
-            },{
+            }, {
                 status: 403
-            }) 
-        } 
+            });
+        }
         return NextResponse.json({
                 message: "Error in POST API",
                 data: error.message,

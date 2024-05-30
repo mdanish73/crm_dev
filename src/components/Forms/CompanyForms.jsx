@@ -26,12 +26,12 @@ import {
 // schema
 const schema = z.object({
   companyname: z.string().nonempty(""),
-  contact: z.string().nonempty(""),
+  contact: z.string().transform((contact) => parseFloat(contact)),
   email: z.string().email("Invalid email address").nonempty(""),
   identificationNumber: z.string().nonempty(""),
   industry: z.string().nonempty(""),
   subIndustry: z.string().nonempty(""),
-  country: z.string().nonempty(""),
+  // country: z.string().nonempty(""),
 });
 
 const CompanyForms = ({ onSubmit }) => {
@@ -44,7 +44,7 @@ const CompanyForms = ({ onSubmit }) => {
       identificationNumber: "",
       industry: "",
       subIndustry: "",
-      country: "",
+      // country: "",
     },
   });
 
@@ -80,12 +80,12 @@ const CompanyForms = ({ onSubmit }) => {
       type: "select",
       placeholder: "Sub-Industry",
     },
-    {
-      label: "Country",
-      name: "country",
-      type: "select",
-      placeholder: "Country",
-    },
+    // {
+    //   label: "Country",
+    //   name: "country",
+    //   type: "select",
+    //   placeholder: "Country",
+    // },
   ];
 
   return (

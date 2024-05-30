@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import CompanyForms from "@/components/Forms/CompanyForms";
 import CeoForm from "@/components/Forms/CeoForm";
 import axios from "axios";
+import { toast } from "sonner";
 
 const Page = () => {
   const [form, setForm] = useState({});
@@ -16,20 +17,29 @@ const Page = () => {
       console.log(error);
     }
   };
-  async function CeoSubmit(data) {
+  async function CeoSubmit(ceo) {
     try {
-      setForm({ ...form, ceo: { ...data } });
-      const final = form
-      console.log(final)
-      const req = await axios.post("/api/creatingcompanyandceo",final)
-      console.log(req.data)
+      const updateForm = { ...form, ceo: { ...ceo } };
+      const { data } = await axios.post(
+        "/api/creatingcompanyandceo",
+        updateForm
+      );
+      if (data.success) {
+        toast.success(data.message, {
+          className: "toastSuccess",
+        });
+      } else {
+        toast.error(data.message, {
+          className: "toastError",
+        });
+      }
     } catch (error) {
       console.log(error);
     }
   }
-  // console.log(form);
+
   return (
-    <div className="px-5  text-secondaryText">
+    <div className="px-4  text-secondaryText">
       {steps == 1 && <CompanyForms onSubmit={handleCompanyFormSubmit} />}
       {steps == 2 && (
         <CeoForm onSubmit={CeoSubmit} Step={steps} setSteps={setSteps} />
