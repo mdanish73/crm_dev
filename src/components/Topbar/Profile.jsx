@@ -39,8 +39,8 @@ const Profile = () => {
                         />
                 </div>
                 <div className=" flex-1   mx-4  text-left">
-                    <h2 className="text-[#888EA8] text-sm">{data.fullname}</h2>
-                    <Link href='/' className="text-xs text-[#616b82] hover:underline">{data.email}</Link>
+                    <h2 className="text-[#888EA8] text-sm"></h2>
+                    <Link href='/' className="text-xs text-[#616b82] hover:underline"> </Link>
                 </div>
             </div>
             <Link href='/' className="w-full h-10 px-4 py-2 gap-3 text-sm flex text-[#888EA8] hover:bg-[#1F335B]">

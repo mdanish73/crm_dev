@@ -8,13 +8,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { EachElement } from "../others/Each";
@@ -31,7 +24,7 @@ const inputs = [
   },
   {
     label: "Identification Number",
-    name: "identificationNumber",
+    name: "identification_number",
     type: "text",
     placeholder: "Identification Number",
   },
@@ -55,54 +48,50 @@ const inputs = [
     placeholder: "Password",
   },
   {
-    label: "Access Level",
-    name: "accessLevel",
-    type: "select",
-    placeholder: "Access Level",
+    label: "Email",
+    name: "email",
+    type: "email",
+    placeholder: "Email",
   },
 ];
 
 // schema
 const schema = z.object({
   fullName: z.string().nonempty(""),
-  identificationNumber: z.string().nonempty(""),
-  phone: z.string().nonempty(""),
+  identification_number: z.string().nonempty(""),
+  phone: z.string().transform((phone) => parseFloat(phone)),
   dateOfBirth: z.string().nonempty(""),
   username: z.string().nonempty(""),
   password: z.string().nonempty(""),
-  accessLevel: z.string().nonempty(""),
+  email: z.string().nonempty(""),
 });
 
-const CEO = ({onSubmit,Step,setSteps}) => {
+const CEO = ({ onSubmit, Step, setSteps }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       fullName: "",
-      identificationNumber: "",
+      identification_number: "",
       phone: "",
       dateOfBirth: "",
       username: "",
       password: "",
-      accessLevel: "",
+      email: "",
     },
   });
 
   const onBack = () => {
-    setSteps( Step-1  ) ;
-
-  }
-
+    setSteps(Step - 1);
+  };
 
   return (
     <>
-      <div className="mb-6">
-        <h1 className="text-2xl flex mb-2 gap-2">
+      <div className="mb-4">
+        <h1 className="text-2xl flex gap-2">
           <span className="text-secondaryHeading">CEO</span>
           Information
         </h1>
-        <p>
-          This form enables users to input and submit comprehensive ceo data.
-        </p>
+        <p>This form enables users to input and submit comprehensive CEO data.</p>
         <p>It collects essential information about CEO.</p>
       </div>
       <Form {...form}>
@@ -110,64 +99,30 @@ const CEO = ({onSubmit,Step,setSteps}) => {
           <div className="grid grid-cols-2 gap-5">
             <EachElement
               of={inputs}
-              render={(v, i) => {
-                if (v.type === "select") {
-                  return (
-                    <FormField
-                      key={i}
-                      control={form?.control}
-                      name={v.name}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{v.label}</FormLabel>
-                          <Select
-                            onValueChange={field?.onChange}
-                            defaultValue={field?.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger className=" w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]">
-                                <SelectValue placeholder={v.placeholder} />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="bg-secondaryAccent text-secondaryText rounded-[5px]">
-                              <SelectItem value="option1">1</SelectItem>
-                              <SelectItem value="option2">2</SelectItem>
-                              <SelectItem value="option3">3</SelectItem>
-                              <SelectItem value="option4">4</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  );
-                } else {
-                  return (
-                    <FormField
-                      key={i}
-                      control={form.control}
-                      name={v.name}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel htmlFor={v.name}>{v.label}</FormLabel>
-                          <FormControl>
-                            <Input
-                              className="text-secondaryText w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
-                              placeholder={v.placeholder}
-                              type={v.type}
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  );
-                }
-              }}
+              render={(v, i) => (
+                <FormField
+                  key={i}
+                  control={form.control}
+                  name={v.name}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel htmlFor={v.name}>{v.label}</FormLabel>
+                      <FormControl>
+                        <Input
+                          className="text-secondaryText w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
+                          placeholder={v.placeholder}
+                          type={v.type}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
             />
           </div>
-          <div className="text-right ">
+          <div className="text-right mt-4">
             <Button
               type="button"
               className="bg-secondary_bg mx-10"
