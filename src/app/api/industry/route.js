@@ -1,16 +1,25 @@
 import dbConnection from "@/backend/db/dbconnection";
 import { NextResponse } from "next/server";
 import industries from "@/backend/models/industry/industry";
+import subIndustries from "@/backend/models/subIndustries/subIndustries";
 
 dbConnection();
 
 export async function POST (req) {
   try {
     const request = await req.json();
-    const industry = await industries.create(request);
+    const { industry, subIndustry } = request;
+    console.log(industry)
+    console.log(subIndustry)
+    const createdSubIndustry = await subIndustries.create(subIndustry);
+    console.log(createdIndustry);
+    const createdIndustry = await industries.create({
+      ...industry,
+      options: createdSubIndustry._id
+    })
     return NextResponse.json({
       success: true,
-      message: industry
+      message: createdIndustry
     }, {
       status: 201
     })
