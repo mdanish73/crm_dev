@@ -19,11 +19,20 @@ const Page = () => {
   };
   async function CeoSubmit(ceo) {
     try {
-      setForm({ ...form, ceo: { ...data } });
-      const final = form
-      console.log(final)
-      const req = await axios.post("/api/creatingcompanyandceo",final)
-      console.log(req.data)
+      const updateForm = { ...form, ceo: { ...ceo } };
+      const { data } = await axios.post(
+        "/api/creatingcompanyandceo",
+        updateForm
+      );
+      if (data.success) {
+        toast.success(data.message, {
+          className: "toastSuccess",
+        });
+      } else {
+        toast.error(data.message, {
+          className: "toastError",
+        });
+      }
     } catch (error) {
       console.log(error);
     }
