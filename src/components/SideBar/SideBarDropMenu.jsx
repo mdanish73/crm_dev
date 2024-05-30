@@ -8,24 +8,26 @@ import Links from './Links';
 const SideBarDropMenu = ({ isOpened }) => {
   const pathname = usePathname();
   const navlinks = Links();
-  
   const [openMenuIndex, setOpenMenuIndex] = useState(null);
+  const [animate, setAnimate] = useState(false);
 
   const toggleMenu = (index) => {
     setOpenMenuIndex(openMenuIndex === index ? null : index);
   };
 
   useLayoutEffect(() => {
-    if (isOpened) {
-      setOpenMenuIndex(null);
-    }
-  }, [isOpened]);
+    if (isOpened) return;
+    setOpenMenuIndex(null);
+    setAnimate(true);
+    const timer = setTimeout(() => setAnimate(false), 3000);
+    return () => clearTimeout(timer);
+  }, [isOpened, pathname]);
 
   return (
     <>
       {navlinks?.map((v, i) => {
         const linkClassNames = `text-slate-400 flex items-center gap-3 w-full mb-3 px-2 py-2 rounded-[7px] text-sm ${
-          !isOpened ? 'slide-right' : ''
+          animate ? 'slide-right' : ''
         } ${
           pathname === v.path ? 'text-[#2053EE]' : ''
         }`;
