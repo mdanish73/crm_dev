@@ -31,7 +31,7 @@ const schema = z.object({
   identificationNumber: z.string().nonempty(""),
   industry: z.string().nonempty(""),
   subIndustry: z.string().nonempty(""),
-  country: z.string().nonempty(""),
+  // country: z.string().nonempty(""),
 });
 
 const CompanyForms = ({ onSubmit }) => {
@@ -44,7 +44,7 @@ const CompanyForms = ({ onSubmit }) => {
       identificationNumber: "",
       industry: "",
       subIndustry: "",
-      country: "",
+      // country: "",
     },
   });
 
@@ -80,12 +80,12 @@ const CompanyForms = ({ onSubmit }) => {
       type: "select",
       placeholder: "Sub-Industry",
     },
-    {
-      label: "Country",
-      name: "country",
-      type: "select",
-      placeholder: "Country",
-    },
+    // {
+    //   label: "Country",
+    //   name: "country",
+    //   type: "select",
+    //   placeholder: "Country",
+    // },
   ];
 
   return (

@@ -21,8 +21,8 @@ const Page = () => {
       setForm({ ...form, ceo: { ...data } });
       const final = form
       console.log(final)
-      const req = await axios.post("/api/creatingcompanyandceo",final)
-      console.log(req.data)
+      // const req = await axios.post("/api/creatingcompanyandceo",final)
+      // console.log(req.data)
     } catch (error) {
       console.log(error);
     }

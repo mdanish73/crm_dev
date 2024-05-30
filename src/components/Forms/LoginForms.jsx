@@ -25,7 +25,6 @@ const schema = z.object({
 });
 //zod validation
 const LoginForm = () => {
-
   const [passwordshown, setPasswordShown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -55,6 +54,9 @@ const LoginForm = () => {
         });
       } else {
         console.log(response.data.message);
+        toast.error("Login Unsuccessfully", {
+          className: "toastError",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -101,7 +103,14 @@ const LoginForm = () => {
             type={isLoading ? "" : "submit"}
             className="bg-blue-500 hover:bg-blue-600 text-white font-medium text-xs gap-2 flex items-center justify-center h-9 rounded-[5px] w-full"
           >
-            {isLoading ? <><LoaderCircle className="animate-spin" />Please wait</> : "Login"}
+            {isLoading ? (
+              <>
+                <LoaderCircle className="animate-spin" />
+                Please wait
+              </>
+            ) : (
+              "Login"
+            )}
           </Button>
         </form>
       </Form>

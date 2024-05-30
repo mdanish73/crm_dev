@@ -12,6 +12,7 @@ const industry = new mongoose.Schema({
         {
           name: {
             type: String,
+            trim: true,
           },
         },
       ],
