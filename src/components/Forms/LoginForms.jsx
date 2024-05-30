@@ -15,9 +15,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { ChevronRight } from "lucide-react";
 import { EachElement } from "@/components/others/Each";
-import toast from "react-hot-toast";
+import { Loader2, LoaderCircle } from "lucide-react";
+import { toast } from "sonner";
 //schema
 const schema = z.object({
   Username: z.string().nonempty("Username is required"),
@@ -25,7 +25,10 @@ const schema = z.object({
 });
 //zod validation
 const LoginForm = () => {
-  const[passwordshown,setPasswordShown]=useState(false)
+
+  const [passwordshown, setPasswordShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -39,24 +42,24 @@ const LoginForm = () => {
 
   //axios
   const formSubmit = async (data) => {
-    console.log("Form submitted with data:", data);
+    setIsLoading(true);
     try {
       const response = await axios.post("/api/auth/superadmin/login", {
         email: data.Username,
         password: data.Password,
       });
-
       if (response.data.success) {
-        console.log(response.data.message);
-        setTimeout(() => {
-          toast.success("WelCome!!");
-          router.push("/dashboard");
-        }, 2000);
+        router.push("/dashboard");
+        toast.success("Login Successfully", {
+          className: "toastSuccess",
+        });
       } else {
         console.log(response.data.message);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -94,8 +97,11 @@ const LoginForm = () => {
             )}
           />
 
-          <Button type="submit" className=" font-medium text-xs gap-2">
-            LOG IN
+          <Button
+            type={isLoading ? "" : "submit"}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-medium text-xs gap-2 flex items-center justify-center h-9 rounded-[5px] w-full"
+          >
+            {isLoading ? <><LoaderCircle className="animate-spin" />Please wait</> : "Login"}
           </Button>
         </form>
       </Form>

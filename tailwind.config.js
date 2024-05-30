@@ -57,6 +57,7 @@ module.exports = {
         secondaryAccent: "var(--secondaryAccent)",
         primaryText: "var(--primaryText)",
         secondaryText: "var(--secondaryText)",
+        secondaryHeading:"var(--secondaryHeading)",
         primaryHover: "var(--primaryHover)",
         secondaryHover: "var(--secondaryHover)",
         primaryTextHover: "var(--primaryTextHover)",

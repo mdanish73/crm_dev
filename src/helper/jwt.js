@@ -6,12 +6,12 @@ async function tokenGenerator(data) {
     const secret = process.env.SECRET_KEY;
     const token = await new SignJWT(data)
       .setProtectedHeader({ alg: "HS256" })
-      .setExpirationTime("30m")
+      .setExpirationTime("5d") 
       .setIssuedAt()
       .sign(new TextEncoder().encode(secret));
     return token;
   } catch (error) {
-    console.log(error, "from tokenGenerator");
+    console.log(error.message, "from tokenGenerator");
   }
 }
 // Check Token Verification
@@ -24,7 +24,7 @@ async function tokenVerification(token) {
     );
     return payload;
   } catch (error) {
-    console.log(error, "from tokenVerification");
+    console.log(error.message, "from tokenVerification");
   }
 }
 
