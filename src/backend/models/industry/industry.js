@@ -6,8 +6,7 @@ const industry = new mongoose.Schema({
       name: {
         type: String,
         required: true,
-        trim: true,
-        unique: true
+        trim: true
       },
       options: [
         {
@@ -19,5 +18,5 @@ const industry = new mongoose.Schema({
   ]
 });
 
-const industries = mongoose.models?.Industries || mongoose.models('Industries', industry);
+const industries = mongoose.models?.Industries || mongoose.model('Industries', industry);
 export default industries;
