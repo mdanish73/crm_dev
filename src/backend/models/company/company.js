@@ -4,14 +4,17 @@ const companySchema = new mongoose.Schema({
   companyname: {
     type: String,
     trim: true,
+    required: true,
+    unique: true,
   },
   contact: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
   email: {
     type: String,
+    trim: true,
     required: true,
     unique: true,
   },
@@ -23,9 +26,13 @@ const companySchema = new mongoose.Schema({
   },
   industry: {
     type: String,
+    trim: true,
+    required: true,
   },
   subIndustry: {
     type: String,
+    trim: true,
+    required: true,
   },
   country: [
     {

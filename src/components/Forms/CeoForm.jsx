@@ -59,8 +59,10 @@ const inputs = [
 // schema
 const schema = z.object({
   fullName: z.string().nonempty("Fullname is required"),
-  identification_number: z.string().nonempty("identification_number is required"),
-  phone: z.string().nonempty("Phone number is required").transform((phone) => parseFloat(phone)),
+  identification_number: z
+    .string()
+    .nonempty("identification_number is required"),
+  phone: z.string(),
   dateOfBirth: z.string().nonempty("DoB is required"),
   username: z.string().nonempty("Username is required"),
   password: z.string().nonempty("Password is required"),
