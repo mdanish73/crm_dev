@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 dbConnection();
 
 // End Point to fetch the SuperAdmin when he login the token generate we get the ID from the token and give to mongodb to fetch superAdmin
-const GET = async () => {
+export const GET = async () => {
   try {
     const cookie = cookies();
     const token = cookie.get("AccessToken");
@@ -43,4 +43,3 @@ const GET = async () => {
     );
   }
 };
-export { GET };

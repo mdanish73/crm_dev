@@ -14,6 +14,7 @@ import { EachElement } from "../others/Each";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderCircle } from "lucide-react";
 
 const inputs = [
   {
@@ -58,8 +59,10 @@ const inputs = [
 // schema
 const schema = z.object({
   fullName: z.string().nonempty("Fullname is required"),
-  identification_number: z.string().nonempty("identification_number is required"),
-  phone: z.string().nonempty("Phone number is required").transform((phone) => parseFloat(phone)),
+  identification_number: z
+    .string()
+    .nonempty("identification_number is required"),
+  phone: z.string(),
   dateOfBirth: z.string().nonempty("DoB is required"),
   username: z.string().nonempty("Username is required"),
   password: z.string().nonempty("Password is required"),
@@ -91,7 +94,9 @@ const CeoForm = ({ onSubmit, Step, setSteps }) => {
           <span className="text-secondaryHeading">CEO</span>
           Information
         </h1>
-        <p>This form enables users to input and submit comprehensive CEO data.</p>
+        <p>
+          This form enables users to input and submit comprehensive CEO data.
+        </p>
         <p>It collects essential information about CEO.</p>
       </div>
       <Form {...form}>
@@ -125,16 +130,23 @@ const CeoForm = ({ onSubmit, Step, setSteps }) => {
           <div className="text-right mt-4">
             <Button
               type="button"
-              className="bg-secondary_bg mx-10"
+              className="bg-secondary_bg mx-10 py-5 w-[12%]"
               onClick={onBack}
             >
               Previous
             </Button>
             <Button
-              type="submit"
-              className="bg-secondaryHeading text-secondaryText"
+              type={loading ? "" : "submit"}
+              className="bg-secondaryHeading text-secondaryText py-5 w-[12%]"
             >
-              SUBMIT
+              {loading ? (
+                <>
+                  <LoaderCircle className="mr-3 animate-spin text-blue-800" />
+                  Please wait
+                </>
+              ) : (
+                <>Submit</>
+              )}
             </Button>
           </div>
         </form>

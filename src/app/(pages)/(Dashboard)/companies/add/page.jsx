@@ -6,9 +6,10 @@ import { toast } from "sonner";
 import CeoForm from "@/components/Forms/CeoForm";
 
 const Page = () => {
+  const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({});
   const [steps, setSteps] = useState(1);
-
   const handleCompanyFormSubmit = async (data) => {
     try {
       setForm({ ...form, company: { ...data } });
@@ -18,6 +19,7 @@ const Page = () => {
     }
   };
   async function CeoSubmit(ceo) {
+    setLoading(true);
     try {
       const updateForm = { ...form, ceo: { ...ceo } };
       const { data } = await axios.post(
@@ -35,14 +37,23 @@ const Page = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <div className="px-4  m-auto text-secondaryText">
-      {steps == 1 && <CompanyForms onSubmit={handleCompanyFormSubmit} />}
+      {steps == 1 && (
+        <CompanyForms formdata={form} onSubmit={handleCompanyFormSubmit} />
+      )}
       {steps == 2 && (
-        <CeoForm onSubmit={CeoSubmit} Step={steps} setSteps={setSteps} />
+        <CeoForm
+          onSubmit={CeoSubmit}
+          Step={steps}
+          setSteps={setSteps}
+          loading={loading}
+        />
       )}
     </div>
   );

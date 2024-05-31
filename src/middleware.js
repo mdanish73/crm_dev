@@ -28,7 +28,7 @@ export async function middleware(req) {
   if (!verified && !pathname.startsWith(loginRoute)) {
     return NextResponse.redirect(new URL(loginRoute, req.url));
   }
-  
+
   // If the cookies is verified and user pathname is login redirect to dashboard
   if (verified && pathname.startsWith(loginRoute)) {
     return NextResponse.redirect(new URL(dashboardRoute, req.url));
@@ -36,5 +36,12 @@ export async function middleware(req) {
 }
 // write the paths the middleware run
 export const config = {
-  matcher: ["/dashboard", "/profile/:path*", "/login", "/api/:path*"],
+  matcher: [
+    "/dashboard",
+    "/profile/:path*",
+    "/login",
+    "/api/:path*",
+    "/companies/:path*",
+    "/industries/:path*",
+  ],
 };
