@@ -1,24 +1,23 @@
 import mongoose from "mongoose";
-
-const industry = new mongoose.Schema({
-  industry: [
+const industrySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  },
+  subindustry: [
     {
       name: {
         type: String,
         required: true,
+        unique: true,
         trim: true,
       },
-      subindustries: [
-        {
-          name: {
-            type: String,
-            trim: true,
-          },
-        },
-      ],
     },
   ],
 });
 
-const industries = mongoose.models?.Industries || mongoose.model('Industries', industry);
-export default industries;
+const industriesModel =
+  mongoose.models?.industries || mongoose.model("industries", industrySchema);
+export default industriesModel;

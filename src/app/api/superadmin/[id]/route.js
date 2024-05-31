@@ -1,16 +1,41 @@
 import dbConnection from "@/backend/db/dbconnection";
 import superAdmin from "@/backend/models/admins/superadmin";
 import { NextResponse } from "next/server";
-import bcryptjs from "bcryptjs";
+import mongoose from "mongoose";
+
+dbConnection();
+
 const GET = async (req, { params }) => {
-  dbConnection();
   try {
     const { id } = params;
+    // Validate id
+    const idCheck = mongoose.Types.ObjectId.isValid(id);
+    if (!idCheck) {
+      return NextResponse.json(
+        {
+          message: "ID is invalid",
+          success: false,
+        },
+        { status: 400 }
+      );
+    }
+
     const admin = await superAdmin.findById(id);
+
+    if (!admin) {
+      return NextResponse.json(
+        {
+          message: "Super Admin not found",
+          success: false,
+        },
+        { status: 404 }
+      );
+    }
+
     return NextResponse.json(
       {
-        message: "Super Admin Found",
-        sucess: true,
+        message: "Super Admin found",
+        success: true,
         data: admin,
       },
       { status: 200 }
@@ -25,24 +50,68 @@ const GET = async (req, { params }) => {
     );
   }
 };
+
 const PUT = async (req, { params }) => {
   try {
     const { id } = params;
+    const idCheck = mongoose.Types.ObjectId.isValid(id);
+    // Validate MongoDB ObjectId
+    if (!idCheck) {
+      return NextResponse.json(
+        {
+          message: "ID is invalid",
+          success: false,
+        },
+        { status: 400 }
+      );
+    }
+
     const body = await req.json();
-    const updateDate = await superAdmin.findByIdAndUpdate(id, body, {
+
+    // Check if request body is empty
+    if (Object.keys(body).length === 0) {
+      return NextResponse.json(
+        {
+          message: "Please fill all required fields",
+          success: false,
+        },
+        { status: 400 }
+      );
+    }
+
+    // Update the document
+    const admin = await superAdmin.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
+
+    // Check if the update was successful
+    if (Object.keys(updatedData).length === 0) {
+      return NextResponse.json(
+        {
+          message: "User not found or no data to update",
+          success: false,
+        },
+        { status: 404 }
+      );
+    }
     return NextResponse.json(
       {
-        message: "User Updated",
+        message: "User updated successfully",
         success: true,
-        data: updateDate,
+        data: admin,
       },
       { status: 200 }
     );
   } catch (error) {
-    console.log(error, "From PUT API");
+    if (error.code === 1100) {
+      const field = Object.keys(error.keyValue)[0];
+      return NextResponse.json({
+        message: `${field} is Already Exists`,
+        success: false,
+      });
+    }
+    console.error(error, "From PUT API");
     return NextResponse.json(
       {
         message: "Internal Server Error",
@@ -56,11 +125,28 @@ const PUT = async (req, { params }) => {
 const DELETE = async (req, { params }) => {
   try {
     const { id } = params;
-    const deleteAdmin = await superAdmin.findByIdAndDelete(id);
+    if (!mongoose.Schema.Types.ObjectId(id)) {
+      return NextResponse.json({
+        message: "ID is inValid ",
+        success: false,
+      });
+    }
+    const admin = await superAdmin.findByIdAndDelete(id);
+    if (Object.keys(deleteAdmin).length === 0) {
+      return NextResponse.json(
+        {
+          message: "User not found or no data to delete",
+          success: false,
+        },
+        {
+          status: 404,
+        }
+      );
+    }
     return NextResponse.json({
       message: "Admin Deleted",
       success: true,
-      data: deleteAdmin,
+      data: admin,
     });
   } catch (error) {
     return NextResponse.json(

@@ -14,6 +14,7 @@ import { EachElement } from "../others/Each";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderCircle } from "lucide-react";
 
 const inputs = [
   {
@@ -66,7 +67,7 @@ const schema = z.object({
   email: z.string().nonempty(""),
 });
 
-const CEO = ({ onSubmit, Step, setSteps }) => {
+const CEO = ({ onSubmit, Step, setSteps, loading }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -91,7 +92,9 @@ const CEO = ({ onSubmit, Step, setSteps }) => {
           <span className="text-secondaryHeading">CEO</span>
           Information
         </h1>
-        <p>This form enables users to input and submit comprehensive CEO data.</p>
+        <p>
+          This form enables users to input and submit comprehensive CEO data.
+        </p>
         <p>It collects essential information about CEO.</p>
       </div>
       <Form {...form}>
@@ -125,16 +128,23 @@ const CEO = ({ onSubmit, Step, setSteps }) => {
           <div className="text-right mt-4">
             <Button
               type="button"
-              className="bg-secondary_bg mx-10"
+              className="bg-secondary_bg mx-10 py-5 w-[12%]"
               onClick={onBack}
             >
               Previous
             </Button>
             <Button
-              type="submit"
-              className="bg-secondaryHeading text-secondaryText"
+              type={loading ? "" : "submit"}
+              className="bg-secondaryHeading text-secondaryText py-5 w-[12%]"
             >
-              SUBMIT
+              {loading ? (
+                <>
+                  <LoaderCircle className="mr-3 animate-spin text-blue-800" />
+                  Please wait
+                </>
+              ) : (
+                <>Submit</>
+              )}
             </Button>
           </div>
         </form>
