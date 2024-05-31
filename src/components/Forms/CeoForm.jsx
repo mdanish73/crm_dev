@@ -66,7 +66,7 @@ const schema = z.object({
   email: z.string().nonempty("Email is required"),
 });
 
-const CEO = ({ onSubmit, Step, setSteps }) => {
+const CeoForm = ({ onSubmit, Step, setSteps }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -143,4 +143,4 @@ const CEO = ({ onSubmit, Step, setSteps }) => {
   );
 };
 
-export default CEO;
+export default CeoForm;

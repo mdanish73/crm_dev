@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import CompanyForms from "@/components/Forms/CompanyForms";
-import CeoForm from "@/components/Forms/CeoForm";
 import axios from "axios";
 import { toast } from "sonner";
+import CeoForm from "@/components/Forms/CeoForm";
 
 const Page = () => {
   const [form, setForm] = useState({});
