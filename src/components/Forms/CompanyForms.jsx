@@ -27,14 +27,14 @@ import {
 
 // schema
 const schema = z.object({
-  companyname: z.string().nonempty("Company Name is required"),
-  contact: z.string().nonempty("Contact Number is required").transform((contact) => parseFloat(contact)),
-  email: z.string().email("Invalid email address").nonempty("Email  is required"),
-  identificationNumber: z.string().nonempty("identificationnumber is required"),
-  industry: z.string().nonempty("Industry is required"),
-  subIndustry: z.string().nonempty("subIndustry is required"),
+  companyname: z.string().nonempty(""),
+  contact: z.string().transform((contact) => parseFloat(contact)),
+  email: z.string().email("Invalid email address").nonempty(""),
+  identificationNumber: z.string().nonempty(""),
+  industry: z.string().nonempty(""),
+  subIndustry: z.string().nonempty(""),
+  // country: z.string().nonempty(""),
 });
-// country: z.string().nonempty(""),
 
 const CompanyForms = ({ onSubmit }) => {
   const form = useForm({
@@ -46,7 +46,6 @@ const CompanyForms = ({ onSubmit }) => {
       identificationNumber: "",
       industry: "",
       subIndustry: "",
-      // country: "",
     },
   });
 
@@ -82,12 +81,6 @@ const CompanyForms = ({ onSubmit }) => {
       type: "select",
       placeholder: "Sub-Industry",
     },
-    // {
-    //   label: "Country",
-    //   name: "country",
-    //   type: "select",
-    //   placeholder: "Country",
-    // },
   ];
 
 
@@ -100,15 +93,13 @@ const CompanyForms = ({ onSubmit }) => {
           <span className="text-secondaryHeading">Company</span> Information
         </h1>
         <p>
-          This form enables users to input and submit comprehensive company data.
+          This form enables users to input and submit comprehensive company
+          data.
         </p>
         <p>It collects essential information about company.</p>
       </div>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="text-xs"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="text-xs">
           <div className="grid grid-cols-2 gap-5">
             <EachElement
               of={inputs}
@@ -122,7 +113,10 @@ const CompanyForms = ({ onSubmit }) => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{v.label}</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
                             <FormControl>
                               <SelectTrigger className="w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]">
                                 <SelectValue placeholder={v.placeholder} />

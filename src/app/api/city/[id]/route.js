@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 // Call dbConnection For Connect DataBase
 dbConnection();
 // Get The ID From The Params argument and search the city on Bases of ID
-const GET = async (req, { params }) => {
+export const GET = async (req, { params }) => {
   try {
     const { id } = params;
     const city = await cities.findById(id);
@@ -22,7 +22,7 @@ const GET = async (req, { params }) => {
   }
 };
 // Get The ID From The Params argument and search the city on Bases of ID
-const DELETE = async (req, { params }) => {
+export const DELETE = async (req, { params }) => {
   try {
     const { id } = params;
     const city = await cities.findById(id);
@@ -39,7 +39,7 @@ const DELETE = async (req, { params }) => {
   }
 };
 // Get The ID From The Params argument and search the city on bases of ID
-const PUT = async (req, { params }) => {
+export const PUT = async (req, { params }) => {
   try {
     const { id } = params;
     const data = await req.json();
@@ -59,4 +59,3 @@ const PUT = async (req, { params }) => {
     });
   }
 };
-export { GET, DELETE, PUT };
