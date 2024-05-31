@@ -23,6 +23,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+
+
 // schema
 const schema = z.object({
   companyname: z.string().nonempty(""),
@@ -31,6 +33,7 @@ const schema = z.object({
   identificationNumber: z.string().nonempty(""),
   industry: z.string().nonempty(""),
   subIndustry: z.string().nonempty(""),
+  // country: z.string().nonempty(""),
 });
 
 const CompanyForms = ({ onSubmit }) => {
@@ -80,6 +83,9 @@ const CompanyForms = ({ onSubmit }) => {
     },
   ];
 
+
+
+  
   return (
     <>
       <div className="mb-6">

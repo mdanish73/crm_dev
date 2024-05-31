@@ -58,13 +58,13 @@ const inputs = [
 
 // schema
 const schema = z.object({
-  fullName: z.string().nonempty(""),
-  identification_number: z.string().nonempty(""),
-  phone: z.string().transform((phone) => parseFloat(phone)),
-  dateOfBirth: z.string().nonempty(""),
-  username: z.string().nonempty(""),
-  password: z.string().nonempty(""),
-  email: z.string().nonempty(""),
+  fullName: z.string().nonempty("Fullname is required"),
+  identification_number: z.string().nonempty("identification_number is required"),
+  phone: z.string().nonempty("Phone number is required").transform((phone) => parseFloat(phone)),
+  dateOfBirth: z.string().nonempty("DoB is required"),
+  username: z.string().nonempty("Username is required"),
+  password: z.string().nonempty("Password is required"),
+  email: z.string().nonempty("Email is required"),
 });
 
 const CEO = ({ onSubmit, Step, setSteps, loading }) => {

@@ -19,12 +19,7 @@ const Links = () => {
     {
       title: "Dashboard",
       icon: <Home size={18} />,
-      children: [
-        { title: "Dashboard", path: "/dashboard" },
-        { title: "Analytics", path: "/" },
-        { title: "Finance", path: "/" },
-        { title: "Crypto", path: "/" },
-      ],
+      path: "/dashboard",
     },
     {
       title: "Companies",
@@ -243,14 +238,12 @@ const Links = () => {
     },
   ];
 
-  if (pathname && pathname.startsWith("/dashboard")) {
+  if (pathname && pathname.startsWith("/dashboard") || pathname.startsWith("/profile")) {
     return superAdmin;
   } else if (pathname && pathname.startsWith("/companies")) {
     return companyAdmin;
   } else if (pathname && pathname.startsWith("/branches")) {
     return branchAdmin;
-  } else if (pathname && pathname.startsWith("/profile")) {
-    return superAdmin;
   } else {
     return null;
   }
