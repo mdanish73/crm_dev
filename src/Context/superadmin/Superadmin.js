@@ -25,7 +25,7 @@ const Superadmin = ({ children }) => {
     }
   }, [pathname]);
   return (
-    <SuperadminContext.Provider value={{ data }}>
+    <SuperadminContext.Provider value={{ data, setData }}>
       {children}
     </SuperadminContext.Provider>
   );

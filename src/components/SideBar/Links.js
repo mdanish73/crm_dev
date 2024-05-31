@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import { usePathname } from "next/navigation";
 import {
   Building2,
@@ -9,11 +8,8 @@ import {
   UserCog,
   Users,
 } from "lucide-react";
-import axios from "axios";
-import { SuperadminContext } from "@/Context/superadmin/Superadmin";
 
 const Links = () => {
-  const { data } = useContext(SuperadminContext);
   const pathname = usePathname();
   const superAdmin = [
     {
@@ -58,7 +54,8 @@ const Links = () => {
     {
       title: "Log Out",
       icon: <LogOut size={18} />,
-      path: "/api/auth/login",
+      path: "#",
+      isLogOut: true
     },
   ];
 
