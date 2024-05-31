@@ -10,10 +10,10 @@ const Page = () => {
 
   const [form, setForm] = useState({});
   const [steps, setSteps] = useState(1);
-console.log(form)
+  console.log(form);
   const handleCompanyFormSubmit = async (data) => {
     try {
-      setForm({ company: { ...data } });
+      setForm({ ...form, company: { ...data } });
       setSteps(2);
     } catch (error) {
       console.log(error);
@@ -47,7 +47,12 @@ console.log(form)
     <div className="px-4  text-secondaryText">
       {steps == 1 && <CompanyForms onSubmit={handleCompanyFormSubmit} />}
       {steps == 2 && (
-        <CeoForm onSubmit={CeoSubmit} Step={steps} setSteps={setSteps} loading={loading}/>
+        <CeoForm
+          onSubmit={CeoSubmit}
+          Step={steps}
+          setSteps={setSteps}
+          loading={loading}
+        />
       )}
     </div>
   );
