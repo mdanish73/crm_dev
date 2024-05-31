@@ -8,7 +8,7 @@ import { cookies } from "next/headers";
 // Connect The DataBase
 dbConnection();
 // Starting EndPoint For Login SuperAdmin
-const POST = async (req) => {
+export const POST = async (req) => {
   try {
     const { email, password } = await req.json();
     const foundByemail = await superAdmin.findOne({ email });
@@ -64,4 +64,3 @@ const POST = async (req) => {
     );
   }
 };
-export { POST };

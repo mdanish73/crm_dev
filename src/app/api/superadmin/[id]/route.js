@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 dbConnection();
 
-const GET = async (req, { params }) => {
+export const GET = async (req, { params }) => {
   try {
     const { id } = params;
     // Validate id
@@ -51,7 +51,7 @@ const GET = async (req, { params }) => {
   }
 };
 
-const PUT = async (req, { params }) => {
+export const PUT = async (req, { params }) => {
   try {
     const { id } = params;
     const idCheck = mongoose.Types.ObjectId.isValid(id);
@@ -122,7 +122,7 @@ const PUT = async (req, { params }) => {
   }
 };
 
-const DELETE = async (req, { params }) => {
+export const DELETE = async (req, { params }) => {
   try {
     const { id } = params;
     if (!mongoose.Schema.Types.ObjectId(id)) {
@@ -158,4 +158,3 @@ const DELETE = async (req, { params }) => {
     );
   }
 };
-export { GET, PUT, DELETE };

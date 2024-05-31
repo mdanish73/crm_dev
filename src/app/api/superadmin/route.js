@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 dbConnection();
 
-const POST = async (req) => {
+export const POST = async (req) => {
   try {
     const documentsCount = await superAdmin.countDocuments();
     if (documentsCount >= 2) {
@@ -69,7 +69,7 @@ const POST = async (req) => {
   }
 };
 
-const GET = async () => {
+export const GET = async () => {
   try {
     const Data = await superAdmin.find();
     if (Object.keys(Data).length === 0) {
@@ -90,4 +90,3 @@ const GET = async () => {
     });
   }
 };
-export { POST, GET };

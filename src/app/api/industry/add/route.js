@@ -3,10 +3,10 @@ import industriesModel from "@/backend/models/industry/industry";
 import { NextResponse } from "next/server";
 dbConnection();
 
-const POST = async (req) => {
+export const POST = async (req) => {
   try {
     const body = await req.json();
-    if (Object.keys(body).length !== 0) {
+    if (Object.keys(body).length === 0) {
       return NextResponse.json(
         {
           message: "Please Fill Required Feilds",
@@ -18,6 +18,17 @@ const POST = async (req) => {
       );
     }
     const request = await industriesModel.create(body);
+    if (Object.keys(request) === 0) {
+      return NextResponse.json(
+        {
+          message: "Industry and Subindustry not Created ",
+          success: false,
+        },
+        {
+          status: 404,
+        }
+      );
+    }
     return NextResponse.json(
       {
         message: "Industry and Subindustry created",
@@ -52,7 +63,7 @@ const POST = async (req) => {
   }
 };
 
-const GET = async (req) => {
+export const GET = async (req) => {
   try {
     const fetchedIndustries = await industries.find();
     return NextResponse.json(
@@ -76,5 +87,3 @@ const GET = async (req) => {
     );
   }
 };
-
-export { GET, POST };

@@ -19,5 +19,5 @@ const industrySchema = new mongoose.Schema({
 });
 
 const industriesModel =
-  mongoose.models?.industries || mongoose.model("industries", industrySchema);
+  mongoose.models?.Industries || mongoose.model("Industries", industrySchema);
 export default industriesModel;

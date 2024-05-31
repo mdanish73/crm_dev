@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 // Call dbFunction for Connection the Database
 dbConnection();
 // Create The City
-const POST = async (req) => {
+export const POST = async (req) => {
   try {
     const body = await req.json();
     const createdCity = await cities.create(body);
@@ -22,7 +22,7 @@ const POST = async (req) => {
   }
 };
 // Get all the cities
-const GET = async () => {
+export const GET = async () => {
   try {
     const allCities = await cities.find();
     return NextResponse.json({
@@ -37,4 +37,3 @@ const GET = async () => {
     });
   }
 };
-export { POST, GET };

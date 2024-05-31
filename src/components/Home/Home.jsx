@@ -8,7 +8,6 @@ import { SuperadminContext } from "@/Context/superadmin/Superadmin";
 
 const Home = () => {
   const { data } = useContext(SuperadminContext);
-  
   // Function of current time
   const [dateTime, setDateTime] = useState(new Date());
 
@@ -19,7 +18,7 @@ const Home = () => {
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
   }, []);
-  
+
   const formatDate = (date) => {
     const options = { weekday: "long", month: "long", day: "numeric" };
     return date.toLocaleDateString("en-US", options);
@@ -27,7 +26,10 @@ const Home = () => {
 
   const formatTime = (date) => {
     const options = { hour: "2-digit", minute: "2-digit", hour12: true };
-    return date.toLocaleTimeString("en-US", options).replace(" am", " AM").replace(" pm", " PM");
+    return date
+      .toLocaleTimeString("en-US", options)
+      .replace(" am", " AM")
+      .replace(" pm", " PM");
   };
 
   // Animation and effect of Welcome back
