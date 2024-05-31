@@ -30,10 +30,9 @@ const SideBarDropMenu = ({ isOpened }) => {
   const Logout = async () => {
     try {
       const {data} = await axios.delete("/api/auth/logout");
-      console.log(data);
       if (data.success) {
         toast.success("LoggedOut Successfully", { className: "toastSuccess" });
-        router.push("/")
+        router.push("/login")
       }
     } catch (error) {
       console.log(error.message);

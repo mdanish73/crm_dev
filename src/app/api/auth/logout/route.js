@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 // EndPoint for Remove The Cookie/Logout the superAdmin
-export const OPTION = async () => {
+export const DELETE = async () => {
   try {
     const cookie = cookies();
     cookie.delete("AccessToken");
