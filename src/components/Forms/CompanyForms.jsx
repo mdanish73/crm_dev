@@ -34,7 +34,7 @@ const schema = z.object({
   // country: z.string().nonempty(""),
 });
 
-const CompanyForms = ({ onSubmit, formdata }) => {
+const CompanyForms = ({ onSubmit, formdata,errors }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -46,6 +46,7 @@ const CompanyForms = ({ onSubmit, formdata }) => {
       subIndustry: formdata.company?.subIndustry || "",
     },
   });
+
 
   const inputs = [
     {
@@ -145,7 +146,13 @@ const CompanyForms = ({ onSubmit, formdata }) => {
                               {...field}
                             />
                           </FormControl>
-                          <FormMessage />
+                             {errors && errors.global && (
+                              <FormMessage>
+                                <div className="text-red-500 text-sm mt-2">
+                                {errors.global}
+                                </div>
+                              </FormMessage>
+                            )}
                         </FormItem>
                       )}
                     />
