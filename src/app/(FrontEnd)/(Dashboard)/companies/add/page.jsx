@@ -12,8 +12,6 @@ const Page = () => {
   const [form, setForm] = useState({});
   const [steps, setSteps] = useState(1);
 
-
-
   const handleCompanyFormSubmit = async (data) => {
     try {
       setForm({ ...form, company: { ...data } });
@@ -23,21 +21,22 @@ const Page = () => {
     }
   };
 
-
-
-
   const CeoSubmit = async (ceo) => {
     setLoading(true);
     setError(null);
     try {
       const updateForm = { ...form, ceo: { ...ceo } };
-      const {data} = await axios.post("/api/creatingcompanyandceo", updateForm, {
-        headers: { 'Content-Type': 'application/json' },
-      });
-   
+      const { data } = await axios.post(
+        "/api/creatingcompanyandceo",
+        updateForm,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
       if (!data.success) {
         if (data.errors) {
-          console.log(data.errors)
+          console.log(data.errors);
           setError(data.errors);
         } else {
           setError({ global: data.message });
@@ -61,10 +60,6 @@ const Page = () => {
       setLoading(false);
     }
   };
-
-
-
-
 
   return (
     <div className="px-4  m-auto text-secondaryText">
