@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   Form,
   FormControl,
@@ -59,17 +59,15 @@ const inputs = [
 // schema
 const schema = z.object({
   fullName: z.string().nonempty("Fullname is required"),
-  identification_number: z
-    .string()
-    .nonempty("identification_number is required"),
+  identification_number: z.string().nonempty("Identification number is required"),
   phone: z.string(),
-  dateOfBirth: z.string().nonempty("DoB is required"),
+  dateOfBirth: z.string().nonempty("Date of birth is required"),
   username: z.string().nonempty("Username is required"),
   password: z.string().nonempty("Password is required"),
   email: z.string().nonempty("Email is required"),
 });
 
-const CEO = ({ onSubmit, Step, setSteps, loading }) => {
+const CeoForm = ({ onSubmit, Step, setSteps, errors, loading }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -97,7 +95,7 @@ const CEO = ({ onSubmit, Step, setSteps, loading }) => {
         <p>
           This form enables users to input and submit comprehensive CEO data.
         </p>
-        <p>It collects essential information about CEO.</p>
+        <p>It collects essential information about the CEO.</p>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -120,7 +118,13 @@ const CEO = ({ onSubmit, Step, setSteps, loading }) => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      {errors && errors.global && (
+                        <FormMessage>
+                          <div className="text-red-500 text-sm mt-2">
+                          {errors.global}
+                          </div>
+                        </FormMessage>
+                      )}
                     </FormItem>
                   )}
                 />
@@ -155,4 +159,4 @@ const CEO = ({ onSubmit, Step, setSteps, loading }) => {
   );
 };
 
-export default CEO;
+export default CeoForm;
