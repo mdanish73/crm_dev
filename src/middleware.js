@@ -37,11 +37,12 @@ export async function middleware(req) {
 // write the paths the middleware run
 export const config = {
   matcher: [
-    "/dashboard",
-    "/profile/:path*",
-    "/login",
-    "/api/:path*",
-    "/companies/:path*",
-    "/industries/:path*",
+    // "/dashboard",
+    // "/profile/:path*",
+    // "/login",
+    // "/api/:path*",
+    // "/companies/:path*",
+    // "/industries/:path*",
+    // "/ceo/:path*",
   ],
 };

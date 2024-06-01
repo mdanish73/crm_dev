@@ -1,7 +1,8 @@
 import dbConnection from "@/backend/db/dbconnection";
-import companyCEO from "@/backend/models/company/companyCEO";
-import companies from "@/backend/models/company/company";
+import companyModel from "@/backend/models/company/company";
+import companyceoModel from "@/backend/models/company/companyceo";
 import { NextResponse } from "next/server";
+
 
 // Establish database connection
 dbConnection();
@@ -22,8 +23,8 @@ export const POST = async (req) => {
         }
       );
     }
-    const ceoCreated = await companyCEO.create(ceo);
-    const companyCreated = await companies.create({
+    const ceoCreated = await companyceoModel.create(ceo);
+    const companyCreated = await companyModel.create({
       ...company,
       companyCeo: ceoCreated._id,
     });
@@ -44,7 +45,7 @@ export const POST = async (req) => {
       }
     );
   } catch (error) {
-    if (error.code === 1100) {
+    if (error.code === 11000) {
       const feilds = Object.keys(error.keyValue)[0];
       return NextResponse.json(
         {
@@ -56,7 +57,6 @@ export const POST = async (req) => {
         }
       );
     }
-    console.log(error.message);
     return NextResponse.json(
       {
         message: "Internal Server Error",
@@ -68,3 +68,38 @@ export const POST = async (req) => {
     );
   }
 };
+
+export async function GET() {
+  try {
+    const company = await companyModel.find().populate("companyCeo");
+    if (company.length === 0) {
+      return NextResponse.json(
+        {
+          message: "Companies Not Found",
+          success: false,
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+    return NextResponse.json(
+      {
+        message: company,
+        success: true,
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    console.error("Error fetching companies:", error.message);
+    return NextResponse.json(
+      {
+        message: "Internal Server Error",
+        success: false,
+      },
+      { status: 500 }
+    );
+  }
+}

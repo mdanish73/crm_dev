@@ -1,6 +1,6 @@
 import dbConnection from "@/backend/db/dbconnection";
 import { NextResponse } from "next/server";
-import employeeModel from "@/backend/models/employees/employee";
+import employeeModel from "@/backend/models/employee/employee";
 
 export async function POST(req){
     await dbConnection();
