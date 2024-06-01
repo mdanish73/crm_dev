@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const companyAdmin = new mongoose.Schema({
+const companyCeoschema = new mongoose.Schema({
   fullName: {
     type: String,
     required: true,
@@ -43,7 +43,6 @@ const companyAdmin = new mongoose.Schema({
   },
   otp: {
     type: String,
-    default: null,
   },
   isVerified: {
     type: Boolean,
@@ -52,6 +51,6 @@ const companyAdmin = new mongoose.Schema({
   },
 });
 
-const companyCEO =
-  mongoose.models?.CompanyCEO || mongoose.model("CompanyCEO", companyAdmin);
-export default companyCEO;
+const companyceoModel =
+  mongoose.models?.Companyceo || mongoose.model("Companyceo", companyCeoschema);
+export default companyceoModel;

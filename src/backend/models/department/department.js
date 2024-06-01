@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const departmentSchema = new mongoose.Schema({
 
     code: {
         type: String,
@@ -19,12 +19,12 @@ const userSchema = new mongoose.Schema({
       },
       employees: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'employeeModel'
+        ref: 'Employee'
       }],
 
 },{
     timestamps :true,
 })
 
-const departmentModel = mongoose?.models?.department || mongoose.model("department",userSchema)
+const departmentModel = mongoose?.models?.Department || mongoose.model("Department",departmentSchema)
 export default departmentModel;

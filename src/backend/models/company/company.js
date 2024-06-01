@@ -42,10 +42,10 @@ const companySchema = new mongoose.Schema({
   ],
   companyCeo: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "CompanyCEO",
+    ref: "Companyceo",
   },
 });
 
-const companies =
-  mongoose.models?.Companies || mongoose.model("Companies", companySchema);
-export default companies;
+const companyModel =
+  mongoose.models?.Company || mongoose.model("Company", companySchema);
+export default companyModel;
