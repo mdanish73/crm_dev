@@ -1,4 +1,5 @@
 import TopBar from "@/components/Topbar/TopBar";
+import SideBar from "@/components/Aside/SideBar";
 
 export default function RootLayout({ children }) {
   return (
