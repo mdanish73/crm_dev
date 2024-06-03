@@ -4,14 +4,17 @@ const companySchema = new mongoose.Schema({
   companyname: {
     type: String,
     trim: true,
+    required: true,
+    unique: true,
   },
   contact: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
   email: {
     type: String,
+    trim: true,
     required: true,
     unique: true,
   },
@@ -23,9 +26,13 @@ const companySchema = new mongoose.Schema({
   },
   industry: {
     type: String,
+    trim: true,
+    required: true,
   },
   subIndustry: {
     type: String,
+    trim: true,
+    required: true,
   },
   country: [
     {
@@ -35,10 +42,10 @@ const companySchema = new mongoose.Schema({
   ],
   companyCeo: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "CompanyCEO",
+    ref: "Companyceo",
   },
 });
 
-const companies =
-  mongoose.models?.Companies || mongoose.model("Companies", companySchema);
-export default companies;
+const companyModel =
+  mongoose.models?.Company || mongoose.model("Company", companySchema);
+export default companyModel;

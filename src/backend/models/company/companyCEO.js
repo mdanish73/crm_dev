@@ -1,20 +1,24 @@
 import mongoose from "mongoose";
 
-const companyAdmin = new mongoose.Schema({
+const companyCeoschema = new mongoose.Schema({
   fullName: {
     type: String,
+    required: true,
     trim: true,
   },
   identification_number: {
     type: String,
+    required: true,
     unique: true,
   },
   phone: {
-    type: Number,
+    type: String,
+    required: true,
     unique: true,
   },
   dateOfBirth: {
     type: String,
+    required: true,
   },
   accessLevel: {
     type: Number,
@@ -24,10 +28,12 @@ const companyAdmin = new mongoose.Schema({
   email: {
     type: String,
     trim: true,
+    required: true,
     unique: true,
   },
   username: {
     type: String,
+    required: true,
     unique: true,
     trim: true,
   },
@@ -37,7 +43,6 @@ const companyAdmin = new mongoose.Schema({
   },
   otp: {
     type: String,
-    default: null,
   },
   isVerified: {
     type: Boolean,
@@ -46,6 +51,6 @@ const companyAdmin = new mongoose.Schema({
   },
 });
 
-const companyCEO =
-  mongoose.models?.CompanyCEO || mongoose.model("CompanyCEO", companyAdmin);
-export default companyCEO;
+const companyceoModel =
+  mongoose.models?.Companyceo || mongoose.model("Companyceo", companyCeoschema);
+export default companyceoModel;

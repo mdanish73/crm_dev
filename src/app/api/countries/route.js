@@ -1,5 +1,5 @@
 import dbConnection from "@/backend/db/dbconnection";
-import countries from "@/backend/models/countries/countries";
+import countries from "@/backend/models/country/countries";
 import { NextResponse } from 'next/server';
 
 dbConnection();

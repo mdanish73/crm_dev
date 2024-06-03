@@ -1,4 +1,3 @@
-// import SideBar from "@/components/SideBar/SideBar";
 import TopBar from "@/components/Topbar/TopBar";
 import SideBar from "@/components/Aside/SideBar";
 
@@ -7,7 +6,6 @@ export default function RootLayout({ children }) {
     <div className="bodyBG h-screen">
       <div className="flex h-full">
         <div>
-          <SideBar />
         </div>
         <div className="flex-1 flex flex-col">
           <TopBar />

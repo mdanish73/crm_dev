@@ -1,9 +1,10 @@
 import dbConnection from "@/backend/db/dbconnection";
 import { NextResponse } from "next/server";
-import employeeModel from "@/backend/models/employees/employee";
+import employeeModel from "@/backend/models/employee/employee";
+
+await dbConnection();
 
 export async function POST(req){
-    await dbConnection();
     try {
         const data = await req.json();
         const createdUser = await employeeModel.create(data)
@@ -36,7 +37,6 @@ export async function POST(req){
         
     }
 export async function GET(req){
-    dbConnection();
     try {
         const alluser = await employeeModel.find();
         return NextResponse.json({

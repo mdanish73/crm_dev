@@ -104,7 +104,7 @@ export const PUT = async (req, { params }) => {
       { status: 200 }
     );
   } catch (error) {
-    if (error.code === 1100) {
+    if (error.code === 11000) {
       const field = Object.keys(error.keyValue)[0];
       return NextResponse.json({
         message: `${field} is Already Exists`,

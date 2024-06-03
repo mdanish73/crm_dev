@@ -1,15 +1,15 @@
-import dbConnection from '@/backend/db/dbconnection';
-import countryNames from '@/backend/models/country/countryNames';
-import { NextResponse } from 'next/server';
+import dbConnection from "@/backend/db/dbconnection";
+import companyCEO from "@/backend/models/company/companyCEO";
+import { NextResponse } from "next/server";
 
 dbConnection();
 
-export async function GET (req) {
+export const GET = async (req) => {
   try {
-    const country_names = await countryNames.find();
+    const company_ceo = await companyCEO.find();
     return NextResponse.json({
       success: true,
-      message: country_names
+      message: company_ceo
     }, {
       status: 200
     });
@@ -21,18 +21,18 @@ export async function GET (req) {
       status: 500
     });
   }
-}
+};
 
-export async function POST (req) {
+export const POST = async (req) => {
   try {
     const request = await req.json();
-    const country_names = await countryNames.create(request);
+    const ceo = await companyCEO.create(request);
     return NextResponse.json({
       success: true,
-      message: country_names
+      message: ceo
     }, {
       status: 201
-    });
+    }); 
   } catch (error) {
     if (error.code === 11000) {
       const keyValue = error.keyValue ? error.keyValue : 'Unknown Key';
@@ -46,12 +46,12 @@ export async function POST (req) {
         status: 403
       });
     }
-    
+
     return NextResponse.json({
       success: false,
       message: error.message
     }, {
       status: 500
-    });
+    })
   }
-}
+};

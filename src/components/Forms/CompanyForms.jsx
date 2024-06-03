@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   FormControl,
@@ -23,12 +23,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-
-
 // schema
 const schema = z.object({
   companyname: z.string().nonempty(""),
-  contact: z.string().transform((contact) => parseFloat(contact)),
+  contact: z.string(),
   email: z.string().email("Invalid email address").nonempty(""),
   identificationNumber: z.string().nonempty(""),
   industry: z.string().nonempty(""),
@@ -36,18 +34,19 @@ const schema = z.object({
   // country: z.string().nonempty(""),
 });
 
-const CompanyForms = ({ onSubmit }) => {
+const CompanyForms = ({ onSubmit, formdata,errors }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      companyname: "",
-      contact: "",
-      email: "",
-      identificationNumber: "",
-      industry: "",
-      subIndustry: "",
+      companyname: formdata.company?.companyname || "",
+      contact: formdata.company?.contact || "",
+      email: formdata.company?.email || "",
+      identificationNumber: formdata.company?.identificationNumber || "",
+      industry: formdata.company?.industry || "",
+      subIndustry: formdata.company?.subIndustry || "",
     },
   });
+
 
   const inputs = [
     {
@@ -57,7 +56,7 @@ const CompanyForms = ({ onSubmit }) => {
       placeholder: "Company Name",
     },
     {
-      label: "Phone Number",
+      label: "Contact Number",
       name: "contact",
       type: "tel",
       placeholder: "Phone Number",
@@ -83,9 +82,6 @@ const CompanyForms = ({ onSubmit }) => {
     },
   ];
 
-
-
-  
   return (
     <>
       <div className="mb-6">
@@ -150,7 +146,13 @@ const CompanyForms = ({ onSubmit }) => {
                               {...field}
                             />
                           </FormControl>
-                          <FormMessage />
+                             {errors && errors.global && (
+                              <FormMessage>
+                                <div className="text-red-500 text-sm mt-2">
+                                {errors.global}
+                                </div>
+                              </FormMessage>
+                            )}
                         </FormItem>
                       )}
                     />

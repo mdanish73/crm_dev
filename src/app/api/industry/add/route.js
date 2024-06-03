@@ -39,7 +39,7 @@ export const POST = async (req) => {
       }
     );
   } catch (error) {
-    if (error.code === 1100) {
+    if (error.code === 11000) {
       const Feilds = Object.keys(error.keyValues)[0];
       return NextResponse.json(
         {
@@ -47,7 +47,7 @@ export const POST = async (req) => {
           success: false,
         },
         {
-          status: 1100,
+          status: 409,
         }
       );
     }
