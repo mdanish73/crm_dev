@@ -17,13 +17,13 @@ import {
     return (
         <>   
             <Popover className='relative'>
-            <PopoverTrigger asChild>
-            <button className="bg-gray-700/90 rounded-full w-9 h-9 mx-1 my-2 relative">
-                <div className="absolute inset-0 flex items-center justify-center rounded-full hover:text-[#3B51B9] ">
-                    <Mail size={20} strokeWidth={1} />
-                </div>
-            </button>
-            </PopoverTrigger>
+                <PopoverTrigger asChild>
+                    <button className="bg-gray-700/90 rounded-full size-8 lg:size-9 mx-1 my-2 relative">
+                        <div className="absolute inset-0 flex items-center justify-center rounded-full hover:text-[#3B51B9] ">
+                            <Mail size={20} strokeWidth={1} />
+                        </div>
+                    </button>
+                </PopoverTrigger>
             <PopoverContent className="absolute p-0 w-96 top-1 right-1 bg-[#1b2e4b22] backdrop-blur-md  rounded outline-none border-none overflow-hidden">
 
                 <div className="bg-[url('/menu-heade.jpg')] w-full bg-cover text-white p-5">

@@ -15,7 +15,7 @@ const poppins = Poppins({
 export default function RootLayout({ children }) {
   return (
     <html>
-      <body className={`${poppins.variable}`} suppressHydrationWarning={true}>
+      <body className={`${poppins.variable} m-0 p-0`} suppressHydrationWarning={true}>
         <Superadmin>
             <SideBarContext>
               {children}
