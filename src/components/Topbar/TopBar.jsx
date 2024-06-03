@@ -19,15 +19,15 @@ import Profile from "./Profile";
 
 
 const TopBar = () => {
-  const { isOpened, setIsOpened } = useContext(SideContext);
+  const { isSidebarVisible, setIsSidebarVisible } = useContext(SideContext);
   
   return (
     <>
       <div className="w-full flex secondaryBG/60  backdrop-blur-xl z-20 sticky px-4 text-white items-center">
-        <Image src={"/logo w.png"} alt="logo" width={150} height={0} className={`${ isOpened ? 'block' : 'hidden' }`} />
+        <Image src={"/logow.png"} alt="logo" width={150} height={0} className={`${ !isSidebarVisible ? 'block' : 'hidden' }`} />
         
         
-        <button onClick={() => setIsOpened(!isOpened)} className={`bg-gray-700/60  rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9] ${ isOpened ? 'block' : 'hidden' }`}>
+        <button onClick={() => setIsSidebarVisible(!isSidebarVisible)} className={`bg-gray-700/60  rounded-full size-9 mx-1 my-2 hover:bg-[3b82f680] hover:text-[#3B51B9] ${ !isSidebarVisible ? 'block' : 'hidden' }`}>
           <div className=" size-9 rounded-full flex items-center justify-center">
             <Menu size={20} strokeWidth={1} />
           </div>
