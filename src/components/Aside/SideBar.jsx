@@ -40,24 +40,31 @@ export default function SideBar() {
     <AnimatePresence>
       {isSidebarVisible && (
         <motion.section
-          className="bg-primary_bg/40 backdrop-blur-md h-full overflow-hidden"
+          className="bg-primary_bg/40 absolute z-50 lg:static backdrop-blur-md h-full overflow-hidden"
           initial="hidden"
           animate="visible"
           exit="hidden"
           variants={sideBarVariants}
           transition={{ duration: 0.5 }}
         >
-          <span className="flex items-center justify-between p-2">
-            <Image src={"/logow.png"} alt="logo" width={150} height={0} className={`${ isSidebarVisible ? 'opacity-100' : 'opacity-0' }`} />
+          <motion.span 
+            className="flex items-center justify-between p-2"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={navItemVariants}
+            transition={{ duration: 0.2 }}
+          >
+            <Image src={"/logow.png"} alt="logo" width={150} height={0} sizes='100' className={`${ isSidebarVisible ? 'opacity-100' : 'opacity-0' }`} />
             <button
-              className="bg-slate-800 w-5 h-5 p-[2px] rounded-full flex items-center justify-center relative"
+              className="bg-slate-800 w-5 h-5 p-[2px] rounded-full flex items-center justify-center"
               onClick={() => setIsSidebarVisible(!isSidebarVisible)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#eee" className="size-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
               </svg>
             </button>
-          </span>
+          </motion.span>
           <nav className="p-2">
             {data.map((section, index) => (
               <NavItem key={index} section={section} index={index} />
@@ -80,10 +87,10 @@ function NavItem({ section, index }) {
         animate="visible"
         exit="hidden"
         variants={navItemVariants}
-        transition={{ duration: 0.3, delay: index * 0.1 }}
+        transition={{ duration: 0.2, delay: index * 0.1 }}
       >
         <button
-          className="flex items-center justify-between w-full text-left text-sm hover:bg-slate-800 rounded-md text-slate-400 p-2"
+          className="flex items-center whitespace-nowrap justify-between w-full text-left text-sm hover:bg-slate-800 rounded-md text-slate-400 p-2"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span className='flex items-center gap-3'>
@@ -130,7 +137,7 @@ function NavItem({ section, index }) {
   return (
     <motion.a
       href={section.path}
-      className="flex items-center gap-3 hover:bg-slate-800 rounded-md text-slate-400 text-sm p-2 mb-2"
+      className="flex items-center gap-3 whitespace-nowrap hover:bg-slate-800 rounded-md text-slate-400 text-sm p-2 mb-2"
       initial="hidden"
       animate="visible"
       exit="hidden"

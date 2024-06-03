@@ -7,8 +7,8 @@ const SearchBar = () => {
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <>
-      <div className="flex-1 relative">
+    <div className="flex-1 relative">
+      <div >
         <Search
           size={20}
           strokeWidth={0.5}
@@ -25,7 +25,7 @@ const SearchBar = () => {
           }`}
         />
       </div>
-    </>
+    </div>
   )
 }
 
