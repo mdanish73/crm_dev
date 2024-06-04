@@ -1,6 +1,6 @@
 import dbConnection from "@/backend/db/dbconnection";
-import companyModel from "@/backend/models/companies/company";
-import companyceoModel from "@/backend/models/companies/companyceo";
+import companyModel from "@/backend/models/company/company";
+import companyceoModel from "@/backend/models/company/companyceo";
 import { NextResponse } from "next/server";
 
 // Establish database connection
@@ -58,12 +58,11 @@ export const POST = async (req) => {
       const fields = Object.keys(error.keyValue)[0];
       return NextResponse.json(
         {
-          message: `${fields} Already Exists`,
+          message: `${feilds} is Already Exists`,
           success: false,
-          fieldError: fields,
         },
         {
-          status: 409,
+          status: 200,
         }
       );
     }
