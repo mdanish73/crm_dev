@@ -8,10 +8,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { useForm } from "react-hook-form";
-import { EachElement } from "../others/Each";
-import { Input } from "../ui/input";
+import { EachElement } from "../../others/Each";
+import { Input } from "../../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle, User } from "lucide-react";
@@ -68,7 +68,11 @@ const schema = z.object({
   email: z.string().nonempty("Email is required"),
 });
 
-const CeoForm = ({ onSubmit, Step, setSteps, loading, errors }) => {
+const CeoForm = () => {
+  // states
+  const [loading, setLoading] = useState(false);
+  const [duplicate, setDuplicate] = useState(null);
+
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -81,6 +85,33 @@ const CeoForm = ({ onSubmit, Step, setSteps, loading, errors }) => {
       email: "",
     },
   });
+     
+  const onSubmit = async (ceo) => {
+        setLoading(true);
+    
+        try {
+          const updateForm = { ...form, ceo: { ...ceo } };
+          const { data } = await axios.post("/api/creating", updateForm);
+          if (!data.success) {
+            if (data.field) {
+              console.log(`Duplication error in field: ${data.field}`);
+              const field = data.field;
+              setDuplicate(field)
+            }
+            toast.error(data.message, {
+              className: "toastError",
+            });
+          } else {
+            toast.success(data.message, {
+              className: "toastSuccess",
+            });
+          }
+        } catch (error) {
+          console.log(error)
+        } finally {
+          setLoading(false);
+        }
+      };
 
   // const onBack = () => {
   //   setSteps(Step - 1);
@@ -118,13 +149,9 @@ const CeoForm = ({ onSubmit, Step, setSteps, loading, errors }) => {
                           {...field}
                         />
                       </FormControl>
-                      {errors && errors.global && (
-                        <FormMessage>
-                          <div className="text-red-500 text-sm mt-2">
-                          {errors.global}
-                          </div>
-                        </FormMessage>
-                      )}
+                      <FormMessage>
+                            {duplicate?.[v.name]?.message || (duplicate === v.name && `${v.label} , Already Exist`)}
+                          </FormMessage>
                     </FormItem>
                   )}
                 />
