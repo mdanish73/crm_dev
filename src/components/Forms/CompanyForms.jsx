@@ -21,8 +21,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import axios from "axios";
-import { User } from "lucide-react";
+import { toast } from "sonner";
+import { LoaderCircle } from "lucide-react";
 
 // schema
 const schema = z.object({
@@ -34,54 +34,85 @@ const schema = z.object({
   subIndustry: z.string().nonempty(""),
   // country: z.string().nonempty(""),
 });
+// inputs
+const inputs = [
+  {
+    label: "Company Name",
+    name: "companyname",
+    type: "text",
+    placeholder: "Company Name",
+  },
+  {
+    label: "Contact Number",
+    name: "contact",
+    type: "tel",
+    placeholder: "Phone Number",
+  },
+  { label: "Email", name: "email", type: "email", placeholder: "Email" },
+  {
+    label: "Identification Number",
+    name: "identificationNumber",
+    type: "text",
+    placeholder: "Identification Number",
+  },
+  {
+    label: "Industry",
+    name: "industry",
+    type: "select",
+    placeholder: "Industry",
+  },
+  {
+    label: "Sub-Industry",
+    name: "subIndustry",
+    type: "select",
+    placeholder: "Sub-Industry",
+  },
+];
 
-const CompanyForms = ({ onSubmit, formdata, errors }) => {
+const CompanyForms = () => {
+  // states
+  const [loading, setLoading] = useState(false);
+  const [duplicate, setDuplicate] = useState(null);
+
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      companyname: formdata.company?.companyname || "",
-      contact: formdata.company?.contact || "",
-      email: formdata.company?.email || "",
-      identificationNumber: formdata.company?.identificationNumber || "",
-      industry: formdata.company?.industry || "",
-      subIndustry: formdata.company?.subIndustry || "",
+      companyname:"",
+      contact:"",
+      email:"",
+      identificationNumber:"",
+      industry:"",
+      subIndustry:"",
     },
   });
 
-  const inputs = [
-    {
-      label: "Company Name",
-      name: "companyname",
-      type: "text",
-      placeholder: "Company Name",
-    },
-    {
-      label: "Contact Number",
-      name: "contact",
-      type: "tel",
-      placeholder: "Phone Number",
-    },
-    { label: "Email", name: "email", type: "email", placeholder: "Email" },
-    {
-      label: "Identification Number",
-      name: "identificationNumber",
-      type: "text",
-      placeholder: "Identification Number",
-    },
-    {
-      label: "Industry",
-      name: "industry",
-      type: "select",
-      placeholder: "Industry",
-    },
-    {
-      label: "Sub-Industry",
-      name: "subIndustry",
-      type: "select",
-      placeholder: "Sub-Industry",
-    },
-  ];
 
+  const onSubmit = async (company) => {
+    setLoading(true);
+    try {
+      const updateForm = { ...form, company: { ...company } };
+      const { data } = await axios.post("/api/creating", updateForm);
+      if (!data.success) {
+        if (data.field) {
+          const field = data.field;
+          setDuplicate(field)
+        }
+        toast.error(data.message, {
+          className: "toastError",
+        });
+      } else {
+        toast.success(data.message, {
+          className: "toastSuccess",
+        });
+    }
+  } 
+    catch (error) {
+      console.log(error);
+    }
+    finally {
+          setLoading(false);
+        }
+  }
   return (
     <>
       <div className="mb-6">
@@ -146,13 +177,9 @@ const CompanyForms = ({ onSubmit, formdata, errors }) => {
                               {...field}
                             />
                           </FormControl>
-                             {errors && errors.global && (
-                              <FormMessage>
-                                <div className="text-red-500 text-sm mt-2">
-                                {errors.global}
-                                </div>
-                              </FormMessage>
-                            )}
+                          <FormMessage>
+                            {duplicate?.[v.name]?.message || (duplicate === v.name && `${v.label}, Already Exist`)}
+                          </FormMessage>
                         </FormItem>
                       )}
                     />
@@ -162,11 +189,18 @@ const CompanyForms = ({ onSubmit, formdata, errors }) => {
             />
           </div>
           <div className="text-left mt-10">
-            <Button
-              type="submit"
-              className="bg-secondaryHeading text-secondaryText"
+          <Button
+              type={loading ? "" : "submit"}
+              className="bg-secondaryHeading text-secondaryText mx-10 py-5 w-[12%]"
             >
-              SUBMIT
+              {loading ? (
+                <>
+                  <LoaderCircle className="mr-3 animate-spin text-blue-800" />
+                  Please wait
+                </>
+              ) : (
+                <>Submit</>
+              )}
             </Button>
           </div>
         </form>
