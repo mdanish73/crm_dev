@@ -1,5 +1,5 @@
 import dbConnection from "@/backend/db/dbconnection";
-import companyModel from "@/backend/models/company/company";
+import companyModel from "@/backend/models/company";
 import { NextResponse } from "next/server";
 
  dbConnection();

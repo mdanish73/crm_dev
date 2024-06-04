@@ -1,5 +1,5 @@
 import dbConnection from "@/backend/db/dbconnection";
-import superAdmin from "@/backend/models/admins/superadmin";
+import superAdminmodel from "@/backend/models/admins/superadmin";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
@@ -7,7 +7,7 @@ dbConnection();
 
 export const POST = async (req) => {
   try {
-    const documentsCount = await superAdmin.countDocuments();
+    const documentsCount = await superAdminmodel.countDocuments();
     if (documentsCount >= 2) {
       return NextResponse.json(
         {
@@ -19,7 +19,7 @@ export const POST = async (req) => {
     }
 
     const body = await req.json();
-
+console.log(body)
     // Check for required fields
     if (Object.keys(body).length === 0) {
       return NextResponse.json(
@@ -34,7 +34,7 @@ export const POST = async (req) => {
     const saltRound = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
     const hashedPassword = await bcrypt.hash(body.password, saltRound);
 
-    const response = await superAdmin.create({
+    const response = await superAdminmodel.create({
       ...body,
       password: hashedPassword,
     });
@@ -71,7 +71,7 @@ export const POST = async (req) => {
 
 export const GET = async () => {
   try {
-    const Data = await superAdmin.find();
+    const Data = await superAdminmodel.find();
     if (Object.keys(Data).length === 0) {
       return NextResponse.json({
         message: "Data not found",

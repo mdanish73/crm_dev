@@ -49,6 +49,10 @@ const companyCeoschema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  CeoImage: {
+    type: String,
+    required: true,
+  },
 });
 
 const companyceoModel =
