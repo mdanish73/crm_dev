@@ -1,40 +1,22 @@
 import dbConnection from "@/backend/db/dbconnection";
-import companyModel from "@/backend/models/company/company";
+import companyModel from "@/backend/models/companies/company";
 import { NextResponse } from "next/server";
 
-dbConnection();
-// Create The Company
-const POST = async (req) => {
-  try {
-    const body = await req.json();
-    const data = await companyModel.create(body);
-    return NextResponse.json({
-      message: "Company Created!",
-      success: true,
-      data: data,
-    });
-  } catch (error) {
-    console.log(error, "Error From POST API");
-    return NextResponse.json(
-      {
-        message: "Internal Server Error",
-        success: false,
-      },
-      { status: 201 }
-    );
-  }
-};
-
 // Get all Companies
-const GET = async () => {
+dbConnection();
+export async function GET(req) {
   try {
+    const headers = new Headers(req.headers);
+    const headerAuthKey = headers.get("Authorization");
+    console.log(headerAuthKey);
+
     const getAllcompanies = await companyModel.find();
     return NextResponse.json({
-      message: "All Companies Found",
+      message: getAllcompanies,
       success: true,
-      data: getAllcompanies,
     });
   } catch (error) {
+    console.log(error.message);
     return NextResponse.json(
       {
         message: "Internal Server Error",
@@ -43,5 +25,66 @@ const GET = async () => {
       { status: 500 }
     );
   }
-};
-export { POST, GET };
+}
+
+export async function POST(req) {
+  try {
+    const body = await req.json();
+    if (Object.keys(body).length === 0 || !body) {
+      return NextResponse.json(
+        {
+          message: "Please Fill All Required Feilds",
+          success: false,
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+    const data = await companyModel.create(body);
+    if (Object.keys(data).length === 0 || !data) {
+      return NextResponse.json(
+        {
+          message: "Data Not Created!!",
+          success: false,
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+    return NextResponse.json(
+      {
+        message: "Data Created!!",
+        success: true,
+      },
+      {
+        status: 201,
+      }
+    );
+  } catch (error) {
+    if (error.code === 11000) {
+      const fields = Object.keys(error.keyValue)[0];
+      return NextResponse.json(
+        {
+          message: `${fields} already Exists`,
+          success: false,
+          field: fields,
+        },
+        {
+          status: 200,
+        }
+      );
+    }
+    console.log(error.message);
+    return NextResponse.json(
+      {
+        message: "Inetrnal server Error",
+        success: false,
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+}

@@ -8,11 +8,11 @@ import CeoForm from "@/components/Forms/CeoForm";
 const Page = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const [form, setForm] = useState({});
+  console.log(form)
   const [steps, setSteps] = useState(1);
-
   const handleCompanyFormSubmit = async (data) => {
+    console.log(data);
     try {
       setForm({ ...form, company: { ...data } });
       setSteps(2);
@@ -22,17 +22,14 @@ const Page = () => {
   };
 
   const CeoSubmit = async (ceo) => {
+    console.log(ceo);
     setLoading(true);
     setError(null);
     try {
       const updateForm = { ...form, ceo: { ...ceo } };
-      const { data } = await axios.post(
-        "/api/creatingcompanyandceo",
-        updateForm,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const { data } = await axios.post("/api/creating", updateForm, {
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (!data.success) {
         if (data.errors) {

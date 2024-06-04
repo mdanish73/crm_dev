@@ -1,7 +1,7 @@
 // Import necessary modules
 import { NextResponse } from "next/server";
 import companyCEO from "@/backend/models/company/companyCEO";
-import companies from "@/backend/models/company/company";
+import companies from "@/backend/models/company";
 
 // Define the handler function
 const checkDuplicates = async (req) => {

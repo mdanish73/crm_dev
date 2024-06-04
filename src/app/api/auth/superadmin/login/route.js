@@ -34,10 +34,11 @@ export const POST = async (req) => {
     };
     // Generate The Token
     const token = await tokenGenerator(data);
+    console.log(token)
     // Handle Expiration Time Of Token
     // Calculate the expiration time for 5 days
     const expirationTime = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000);
-
+console.log(expirationTime)
     // Use cookie function of Nextjs App Router
     const cookie = cookies();
     cookie.set("AccessToken", token, {

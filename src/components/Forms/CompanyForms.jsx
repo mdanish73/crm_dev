@@ -22,6 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import axios from "axios";
+import { User } from "lucide-react";
 
 // schema
 const schema = z.object({
@@ -34,7 +36,7 @@ const schema = z.object({
   // country: z.string().nonempty(""),
 });
 
-const CompanyForms = ({ onSubmit, formdata,errors }) => {
+const CompanyForms = ({ onSubmit, formdata, errors }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -46,7 +48,6 @@ const CompanyForms = ({ onSubmit, formdata,errors }) => {
       subIndustry: formdata.company?.subIndustry || "",
     },
   });
-
 
   const inputs = [
     {
@@ -146,13 +147,13 @@ const CompanyForms = ({ onSubmit, formdata,errors }) => {
                               {...field}
                             />
                           </FormControl>
-                             {errors && errors.global && (
-                              <FormMessage>
-                                <div className="text-red-500 text-sm mt-2">
+                          {errors && errors.global && (
+                            <FormMessage>
+                              <div className="text-red-500 text-sm mt-2">
                                 {errors.global}
-                                </div>
-                              </FormMessage>
-                            )}
+                              </div>
+                            </FormMessage>
+                          )}
                         </FormItem>
                       )}
                     />
@@ -171,6 +172,7 @@ const CompanyForms = ({ onSubmit, formdata,errors }) => {
           </div>
         </form>
       </Form>
+      
     </>
   );
 };

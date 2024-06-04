@@ -1,5 +1,5 @@
 import dbConnection from "@/backend/db/dbconnection";
-import superAdmin from "@/backend/models/admins/superadmin";
+import superAdminmodel from "@/backend/models/admins/superadmin";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -20,7 +20,7 @@ export const GET = async (req, { params }) => {
       );
     }
 
-    const admin = await superAdmin.findById(id);
+    const admin = await superAdminmodel.findById(id);
 
     if (!admin) {
       return NextResponse.json(
@@ -80,7 +80,7 @@ export const PUT = async (req, { params }) => {
     }
 
     // Update the document
-    const admin = await superAdmin.findByIdAndUpdate(id, body, {
+    const admin = await superAdminmodel.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -131,7 +131,7 @@ export const DELETE = async (req, { params }) => {
         success: false,
       });
     }
-    const admin = await superAdmin.findByIdAndDelete(id);
+    const admin = await superAdminmodel.findByIdAndDelete(id);
     if (Object.keys(deleteAdmin).length === 0) {
       return NextResponse.json(
         {

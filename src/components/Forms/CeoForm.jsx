@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   FormControl,
@@ -14,7 +14,8 @@ import { EachElement } from "../others/Each";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, User } from "lucide-react";
+import axios from "axios";
 
 const inputs = [
   {
@@ -58,8 +59,10 @@ const inputs = [
 
 // schema
 const schema = z.object({
-  fullName: z.string().nonempty("Fullname is required"),
-  identification_number: z.string().nonempty("Identification number is required"),
+  fullName: z.string().nonempty("Full name is required"),
+  identification_number: z
+    .string()
+    .nonempty("Identification number is required"),
   phone: z.string(),
   dateOfBirth: z.string().nonempty("Date of birth is required"),
   username: z.string().nonempty("Username is required"),
@@ -89,8 +92,7 @@ const CeoForm = ({ onSubmit, Step, setSteps, errors, loading }) => {
     <>
       <div className="mb-4">
         <h1 className="text-2xl flex gap-2">
-          <span className="text-secondaryHeading">CEO</span>
-          Information
+          <span className="text-secondaryHeading">CEO</span> Information
         </h1>
         <p>
           This form enables users to input and submit comprehensive CEO data.
@@ -118,10 +120,10 @@ const CeoForm = ({ onSubmit, Step, setSteps, errors, loading }) => {
                           {...field}
                         />
                       </FormControl>
-                      {errors && errors.global && (
+                      {errors && errors[v.name] && (
                         <FormMessage>
                           <div className="text-red-500 text-sm mt-2">
-                          {errors.global}
+                            {errors[v.name].message}
                           </div>
                         </FormMessage>
                       )}
@@ -134,7 +136,7 @@ const CeoForm = ({ onSubmit, Step, setSteps, errors, loading }) => {
           <div className="text-right mt-4">
             <Button
               type="button"
-              className="bg-secondary_bg mx-10 py-5 w-[12%]"
+              className="bg-slate-300 mx-10 py-5 w-[12%]"
               onClick={onBack}
             >
               Previous
