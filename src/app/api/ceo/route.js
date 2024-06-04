@@ -1,12 +1,13 @@
 import dbConnection from "@/backend/db/dbconnection";
-import companyCEO from "@/backend/models/company/companyCEO";
+import companyceoModel from "@/backend/models/companies/companyceo";
 import { NextResponse } from "next/server";
 
 dbConnection();
 
 export const GET = async (req) => {
+  console.log(req)
   try {
-    const company_ceo = await companyCEO.find();
+    const company_ceo = await companyceoModel.find();
     return NextResponse.json({
       success: true,
       message: company_ceo

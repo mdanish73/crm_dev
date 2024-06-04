@@ -7,6 +7,7 @@ const nextConfig = {
     DB_URI:
       "mongodb+srv://info:Y8gORoh2XZzPKufo@edify-college.ajku8l8.mongodb.net/crm?retryWrites=true&w=majority",
     LOCAL_HOST: "http://localhost:3000/",
+    AUTHORIZATION_KEY: "12345",
   },
   images: {
     domains: ["img.freepik.com"], //Domain of image host

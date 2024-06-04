@@ -6,7 +6,7 @@ async function tokenGenerator(data) {
     const secret = process.env.SECRET_KEY;
     const token = await new SignJWT(data)
       .setProtectedHeader({ alg: "HS256" })
-      .setExpirationTime("5d") 
+      .setExpirationTime("5d")
       .setIssuedAt()
       .sign(new TextEncoder().encode(secret));
     return token;
@@ -22,6 +22,7 @@ async function tokenVerification(token) {
       token,
       new TextEncoder().encode(secret)
     );
+    console.log(payload)
     return payload;
   } catch (error) {
     console.log(error.message, "from tokenVerification");

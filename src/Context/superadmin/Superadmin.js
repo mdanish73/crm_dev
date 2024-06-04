@@ -10,7 +10,14 @@ const Superadmin = ({ children }) => {
   const [data, setData] = useState({});
   async function fetchData() {
     try {
-      const request = await fetch("/api/superadmin/profile", { method: "GET" });
+      const request = await fetch("/api/superadmin/profile", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          ContentType: "application/json",
+          Authorization: process.env.AUTHORIZATION_KEY,
+        },
+      });
       if (request.ok) {
         const response = await request.json();
         setData(response.data);

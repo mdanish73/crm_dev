@@ -20,7 +20,7 @@ TableHeader.displayName = "TableHeader"
 const TableBody = React.forwardRef(({ className, ...props }, ref) => (
   <tbody
     ref={ref}
-    className={cn("[&_tr:last-child]:border-0", className)}
+    className={cn( className)}
     {...props} />
 ))
 TableBody.displayName = "TableBody"
@@ -58,7 +58,7 @@ TableHead.displayName = "TableHead"
 const TableCell = React.forwardRef(({ className, ...props }, ref) => (
   <td
     ref={ref}
-    className={cn("p-4 align-middle [&:has([role=checkbox])]:pr-0 ", className)}
+    className={cn("p-2  [&:has([role=checkbox])]:pr-0  ", className)}
     {...props} />
 ))
 TableCell.displayName = "TableCell"

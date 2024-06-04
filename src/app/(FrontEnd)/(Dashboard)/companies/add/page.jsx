@@ -83,12 +83,14 @@ import { Button } from "@/components/ui/button";
 
 const Page = () => {
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({});
-  const [steps, setSteps] = useState(1);
-  const [duplicate, setDuplicate] = useState(null);
+  const [error, setError] = useState(null);
 
+  const [form, setForm] = useState({});
+  console.log(form)
+  const [steps, setSteps] = useState(1);
 
   const handleCompanyFormSubmit = async (data) => {
+    console.log(data);
     try {
       const updatedForm = { ...form, company: { ...data } };
       setForm(updatedForm);
@@ -104,14 +106,18 @@ const Page = () => {
   };
 
   const CeoSubmit = async (ceo) => {
+    console.log(ceo);
     setLoading(true);
 
     try {
       const updateForm = { ...form, ceo: { ...ceo } };
-      const { data } = await axios.post("/api/creating", updateForm);
-
-      // Store the CEO data in local storage
-      localStorage.setItem("ceoForm", JSON.stringify(ceo));
+      const { data } = await axios.post(
+        "/api/creatingcompanyandceo",
+        updateForm,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (!data.success) {
         if (data.field) {

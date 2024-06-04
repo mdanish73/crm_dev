@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Form,
   FormControl,
@@ -14,7 +14,8 @@ import { EachElement } from "../others/Each";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, User } from "lucide-react";
+import axios from "axios";
 
 const inputs = [
   {
@@ -58,13 +59,13 @@ const inputs = [
 
 // schema
 const schema = z.object({
-  fullName: z.string().nonempty(""),
-  identification_number: z.string().nonempty(""),
-  phone: z.string().nonempty(""),
-  dateOfBirth: z.string().nonempty(""),
-  username: z.string().nonempty(""),
-  password: z.string().nonempty(""),
-  email: z.string().email("Invalid email address").nonempty(""),
+  fullName: z.string().nonempty("Fullname is required"),
+  identification_number: z.string().nonempty("Identification number is required"),
+  phone: z.string(),
+  dateOfBirth: z.string().nonempty("Date of birth is required"),
+  username: z.string().nonempty("Username is required"),
+  password: z.string().nonempty("Password is required"),
+  email: z.string().nonempty("Email is required"),
 });
 
 const CeoForm = ({ onSubmit, Step, setSteps, loading, errors }) => {
@@ -89,8 +90,7 @@ const CeoForm = ({ onSubmit, Step, setSteps, loading, errors }) => {
     <>
       <div className="mb-4">
         <h1 className="text-2xl flex gap-2">
-          <span className="text-secondaryHeading">CEO</span>
-          Information
+          <span className="text-secondaryHeading">CEO</span> Information
         </h1>
         <p>
           This form enables users to input and submit comprehensive CEO data.
@@ -118,9 +118,13 @@ const CeoForm = ({ onSubmit, Step, setSteps, loading, errors }) => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage>
-                            {errors?.[v.name]?.message || (errors === v.name && `${v.label} , Already Exist`)}
-                          </FormMessage>
+                      {errors && errors.global && (
+                        <FormMessage>
+                          <div className="text-red-500 text-sm mt-2">
+                          {errors.global}
+                          </div>
+                        </FormMessage>
+                      )}
                     </FormItem>
                   )}
                 />
@@ -130,7 +134,7 @@ const CeoForm = ({ onSubmit, Step, setSteps, loading, errors }) => {
           <div className="text-left mt-10">
             {/* <Button
               type="button"
-              className="py-5 w-[12%]"
+              className="bg-secondary_bg mx-10 py-5 w-[12%]"
               onClick={onBack}
             >
               Previous

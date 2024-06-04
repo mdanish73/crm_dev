@@ -66,7 +66,7 @@ const superAdminSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const superAdmin =
-  mongoose.models.SuperAdmin || mongoose.model("SuperAdmin", superAdminSchema);
+const superAdminmodel =
+  mongoose.models?.Superadmin || mongoose.model("Superadmin", superAdminSchema);
 
-export default superAdmin;
+export default superAdminmodel;
