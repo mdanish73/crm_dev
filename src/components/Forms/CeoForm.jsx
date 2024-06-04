@@ -58,16 +58,16 @@ const inputs = [
 
 // schema
 const schema = z.object({
-  fullName: z.string().nonempty("Fullname is required"),
-  identification_number: z.string().nonempty("Identification number is required"),
-  phone: z.string(),
-  dateOfBirth: z.string().nonempty("Date of birth is required"),
-  username: z.string().nonempty("Username is required"),
-  password: z.string().nonempty("Password is required"),
-  email: z.string().nonempty("Email is required"),
+  fullName: z.string().nonempty(""),
+  identification_number: z.string().nonempty(""),
+  phone: z.string().nonempty(""),
+  dateOfBirth: z.string().nonempty(""),
+  username: z.string().nonempty(""),
+  password: z.string().nonempty(""),
+  email: z.string().email("Invalid email address").nonempty(""),
 });
 
-const CeoForm = ({ onSubmit, Step, setSteps, errors, loading }) => {
+const CeoForm = ({ onSubmit, Step, setSteps, loading, errors }) => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -81,9 +81,9 @@ const CeoForm = ({ onSubmit, Step, setSteps, errors, loading }) => {
     },
   });
 
-  const onBack = () => {
-    setSteps(Step - 1);
-  };
+  // const onBack = () => {
+  //   setSteps(Step - 1);
+  // };
 
   return (
     <>
@@ -118,30 +118,26 @@ const CeoForm = ({ onSubmit, Step, setSteps, errors, loading }) => {
                           {...field}
                         />
                       </FormControl>
-                      {errors && errors.global && (
-                        <FormMessage>
-                          <div className="text-red-500 text-sm mt-2">
-                          {errors.global}
-                          </div>
-                        </FormMessage>
-                      )}
+                      <FormMessage>
+                            {errors?.[v.name]?.message || (errors === v.name && `${v.label} , Already Exist`)}
+                          </FormMessage>
                     </FormItem>
                   )}
                 />
               )}
             />
           </div>
-          <div className="text-right mt-4">
-            <Button
+          <div className="text-left mt-10">
+            {/* <Button
               type="button"
-              className="bg-secondary_bg mx-10 py-5 w-[12%]"
+              className="py-5 w-[12%]"
               onClick={onBack}
             >
               Previous
-            </Button>
+            </Button> */}
             <Button
               type={loading ? "" : "submit"}
-              className="bg-secondaryHeading text-secondaryText py-5 w-[12%]"
+              className="bg-secondaryHeading text-secondaryText mx-10 py-5 w-[12%]"
             >
               {loading ? (
                 <>

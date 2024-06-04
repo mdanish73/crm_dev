@@ -1,6 +1,6 @@
 import dbConnection from "@/backend/db/dbconnection";
 import companyModel from "@/backend/models/company/company";
-import companyceoModel from "@/backend/models/company/companyceo";
+import companyceoModel from "@/backend/models/company/companyCEO";
 import { NextResponse } from "next/server";
 
 
@@ -46,14 +46,15 @@ export const POST = async (req) => {
     );
   } catch (error) {
     if (error.code === 11000) {
-      const feilds = Object.keys(error.keyValue)[0];
+      const fields = Object.keys(error.keyValue)[0];
       return NextResponse.json(
         {
-          message: `${feilds} is Already Exists`,
+          message: `${fields} is Already Exists`,
           success: false,
+          field: fields
         },
         {
-          status: 409,
+          status: 200,
         }
       );
     }

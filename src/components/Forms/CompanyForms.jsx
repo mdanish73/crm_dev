@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import {
   Form,
@@ -26,7 +25,7 @@ import {
 // schema
 const schema = z.object({
   companyname: z.string().nonempty(""),
-  contact: z.string(),
+  contact: z.string().nonempty(""),
   email: z.string().email("Invalid email address").nonempty(""),
   identificationNumber: z.string().nonempty(""),
   industry: z.string().nonempty(""),
@@ -146,13 +145,9 @@ const CompanyForms = ({ onSubmit, formdata,errors }) => {
                               {...field}
                             />
                           </FormControl>
-                             {errors && errors.global && (
-                              <FormMessage>
-                                <div className="text-red-500 text-sm mt-2">
-                                {errors.global}
-                                </div>
-                              </FormMessage>
-                            )}
+                          <FormMessage>
+                            {errors?.[v.name]?.message || (errors === v.name && `${v.label}, Already Exist`)}
+                          </FormMessage>
                         </FormItem>
                       )}
                     />
@@ -161,7 +156,7 @@ const CompanyForms = ({ onSubmit, formdata,errors }) => {
               }}
             />
           </div>
-          <div className="text-right mt-6">
+          <div className="text-left mt-10">
             <Button
               type="submit"
               className="bg-secondaryHeading text-secondaryText"
