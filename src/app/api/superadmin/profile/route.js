@@ -1,6 +1,7 @@
 import dbConnection from "@/backend/db/dbconnection";
 import superAdminmodel from "@/backend/models/admins/superadmin";
 import { tokenVerification } from "@/helper/jwt";
+import mongoose from "mongoose";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -28,6 +29,13 @@ export async function GET() {
           status: 404,
         }
       );
+    }
+    const idChecked = await mongoose.Types.ObjectId.isValid(isVerified._id);
+    if (!idChecked) {
+      return NextResponse.json({
+        message: "ID is not Valid",
+        success: false,
+      });
     }
     const data = await superAdminmodel.findById(isVerified._id);
     if (Object.keys(data).length === 0 || !data) {

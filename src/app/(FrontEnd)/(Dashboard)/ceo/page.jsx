@@ -13,7 +13,6 @@ async function getCEO() {
       },
     });
     const ceosResponse = await request.json();
-    // console.log(ceosResponse)
     return ceosResponse;
   } catch (error) {
     console.log(error.message);
@@ -22,10 +21,11 @@ async function getCEO() {
 
 const page = async () => {
   const data = await getCEO();
-  return <>{
-    /* <CeoTable Data={data.message} /> */
-    <h2>hey</h2>
-    }</>;
+  return (
+    <>
+      <CeoTable Data={data.message} />
+    </>
+  );
 };
 
 export default page;

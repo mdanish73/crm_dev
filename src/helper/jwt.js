@@ -22,7 +22,6 @@ async function tokenVerification(token) {
       token,
       new TextEncoder().encode(secret)
     );
-    console.log(payload)
     return payload;
   } catch (error) {
     console.log(error.message, "from tokenVerification");

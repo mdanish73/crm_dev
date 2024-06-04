@@ -6,10 +6,6 @@ import { NextResponse } from "next/server";
 dbConnection();
 export async function GET(req) {
   try {
-    const headers = new Headers(req.headers);
-    const headerAuthKey = headers.get("Authorization");
-    console.log(headerAuthKey);
-
     const getAllcompanies = await companyModel.find();
     return NextResponse.json({
       message: getAllcompanies,
