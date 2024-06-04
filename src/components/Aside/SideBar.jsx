@@ -19,6 +19,7 @@ const navItemVariants = {
 export default function SideBar() {
   const { isSidebarVisible, setIsSidebarVisible } = useContext(SideContext);
   const data = Links();
+  console.log(data)
   useLayoutEffect(() => {
     setIsSidebarVisible(true);
   }, []);
@@ -66,7 +67,7 @@ export default function SideBar() {
             </button>
           </motion.span>
           <nav className="p-2">
-            {data.map((section, index) => (
+            {data?.map((section, index) => (
               <NavItem key={index} section={section} index={index} />
             ))}
           </nav>
