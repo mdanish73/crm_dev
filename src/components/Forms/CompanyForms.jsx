@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
+import axios from "axios";
+import { useParams, useRouter } from "next/navigation";
 
 // schema
 const schema = z.object({
@@ -70,6 +72,7 @@ const inputs = [
 ];
 
 const CompanyForms = () => {
+  const router = useRouter();
   // states
   const [loading, setLoading] = useState(false);
   const [duplicate, setDuplicate] = useState(null);
@@ -77,121 +80,144 @@ const CompanyForms = () => {
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      companyname:"",
-      contact:"",
-      email:"",
-      identificationNumber:"",
-      industry:"",
-      subIndustry:"",
+      companyname: "",
+      contact: "",
+      email: "",
+      identificationNumber: "",
+      industry: "",
+      subIndustry: "",
     },
   });
 
-
   const onSubmit = async (company) => {
     setLoading(true);
+    setDuplicate(null); // Reset duplicate state before submitting
     try {
-      const updateForm = { ...form, company: { ...company } };
-      const { data } = await axios.post("/api/creating", updateForm);
-      if (!data.success) {
+      const res = await fetch("/api/company", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: process.env.AUTHORIZATION_KEY,
+        },
+        body: JSON.stringify(company),
+      });
+      const data = await res.json(); // Log the response data
+      console.log(data);
+
+      if (!res.ok) {
         if (data.field) {
           const field = data.field;
-          setDuplicate(field)
+          setDuplicate(field);
+          toast.error(
+            `${field.charAt(0).toUpperCase() + field.slice(1)} already exists.`,
+            {
+              className: "toastError",
+            }
+          );
+        } else {
+          toast.error(data.message, {
+            className: "toastError",
+          });
         }
-        toast.error(data.message, {
-          className: "toastError",
-        });
       } else {
         toast.success(data.message, {
           className: "toastSuccess",
         });
+        form.reset(); // Reset form after successful submission
+        router.push(`/companies/add/${data.id}`)
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Error ! while submitting the form.", {
+        className: "toastError",
+      });
+    } finally {
+      setLoading(false);
     }
-  } 
-    catch (error) {
-      console.log(error);
-    }
-    finally {
-          setLoading(false);
-        }
-  }
+  };
+
   return (
     <>
-      <div className="mb-6">
-        <h1 className="text-2xl flex mb-2 gap-2">
-          <span className="text-secondaryHeading">Company</span> Information
-        </h1>
-        <p>
-          This form enables users to input and submit comprehensive company
-          data.
-        </p>
-        <p>It collects essential information about company.</p>
-      </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="text-xs">
-          <div className="grid grid-cols-2 gap-5">
-            <EachElement
-              of={inputs}
-              render={(v, i) => {
-                if (v.type === "select") {
-                  return (
-                    <FormField
-                      key={i}
-                      control={form.control}
-                      name={v.name}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{v.label}</FormLabel>
-                          <Select
-                            onValueChange={field.onChange}
-                            defaultValue={field.value}
-                          >
+      <div className="px-4  m-auto text-secondaryText">
+        <div className="mb-6 ">
+          <h1 className="text-2xl flex mb-2 gap-2">
+            <span className="text-secondaryHeading">Company</span> Information
+          </h1>
+          <p>
+            This form enables users to input and submit comprehensive company
+            data.
+          </p>
+          <p>It collects essential information about company.</p>
+        </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="text-xs">
+            <div className="grid grid-cols-2 gap-5">
+              <EachElement
+                of={inputs}
+                render={(v, i) => {
+                  if (v.type === "select") {
+                    return (
+                      <FormField
+                        key={i}
+                        control={form.control}
+                        name={v.name}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{v.label}</FormLabel>
+                            <Select
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger className="w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]">
+                                  <SelectValue placeholder={v.placeholder} />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-secondaryAccent text-secondaryText rounded-[5px]">
+                                <SelectItem value="option1">Option 1</SelectItem>
+                                <SelectItem value="option2">Option 2</SelectItem>
+                                <SelectItem value="option3">Option 3</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    );
+                  } else {
+                    return (
+                      <FormField
+                        key={i}
+                        control={form.control}
+                        name={v.name}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor={v.name}>{v.label}</FormLabel>
                             <FormControl>
-                              <SelectTrigger className="w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]">
-                                <SelectValue placeholder={v.placeholder} />
-                              </SelectTrigger>
+                              <Input
+                                className="text-white w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
+                                placeholder={v.placeholder}
+                                type={v.type}
+                                {...field}
+                              />
                             </FormControl>
-                            <SelectContent className="bg-secondaryAccent text-secondaryText rounded-[5px]">
-                              <SelectItem value="option1">Option 1</SelectItem>
-                              <SelectItem value="option2">Option 2</SelectItem>
-                              <SelectItem value="option3">Option 3</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  );
-                } else {
-                  return (
-                    <FormField
-                      key={i}
-                      control={form.control}
-                      name={v.name}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel htmlFor={v.name}>{v.label}</FormLabel>
-                          <FormControl>
-                            <Input
-                              className="text-white w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
-                              placeholder={v.placeholder}
-                              type={v.type}
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage>
-                            {duplicate?.[v.name]?.message || (duplicate === v.name && `${v.label}, Already Exist`)}
-                          </FormMessage>
-                        </FormItem>
-                      )}
-                    />
-                  );
-                }
-              }}
-            />
-          </div>
-          <div className="text-left mt-10">
-          <Button
+                            <FormMessage>
+                              {duplicate?.[v.name]?.message ||
+                                (duplicate === v.name &&
+                                  `${v.label}, Already Exist`)}
+                            </FormMessage>
+                          </FormItem>
+                        )}
+                      />
+                    );
+                  }
+                }}
+              />
+            </div>
+            <Button
               type={loading ? "" : "submit"}
-              className="bg-secondaryHeading text-secondaryText mx-10 py-5 w-[12%]"
+              className="bg-secondaryHeading text-secondaryText w-auto mt-10"
             >
               {loading ? (
                 <>
@@ -202,10 +228,9 @@ const CompanyForms = () => {
                 <>Submit</>
               )}
             </Button>
-          </div>
-        </form>
-      </Form>
-      
+          </form>
+        </Form>
+      </div>
     </>
   );
 };
