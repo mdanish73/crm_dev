@@ -97,7 +97,7 @@ const CeoForm = () => {
     setLoading(true);
     setDuplicate(null); // Reset duplicate state before submitting
     try {
-      const res = await fetch(`/api/ceo?${id}`, {
+      const res = await fetch(`/api/ceo?id=${id}`, {
         method: "POST",
         headers: {
           Accept: "application/json",

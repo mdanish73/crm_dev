@@ -30,7 +30,8 @@ export const GET = async (req) => {
   }
 };
 
-export const POST = async (req) => {
+export const POST = async (req,{params}) => {
+  console.log(params)
   const id=req.nextUrl.searchParams.get("id")
   try {
     const body = await req.json();

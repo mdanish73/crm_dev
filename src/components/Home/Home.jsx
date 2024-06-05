@@ -102,9 +102,9 @@ const Home = () => {
 
         {/* Login Button */}
         {currentStep + 1 === steps.length && (
-          <Link href={Object.keys(data).length !== 0 ? "/dashboard" : "/login"}>
+          <Link href={Object?.keys(data).length !== 0 ? "/dashboard" : "/login"}>
             <span className="px-14 py-4 font-bold text-sm rounded-lg bg-black bg-opacity-70 text-white transition-all duration-700 ease-in-out hover:bg-white hover:bg-opacity-20 hover:scale-110 hover:text-black">
-              {Object.keys(data).length !== 0 ? <>Dashboard</> : <>Login</>}
+              {Object?.keys(data).length !== 0 ? <>Dashboard</> : <>Login</>}
             </span>
           </Link>
         )}
