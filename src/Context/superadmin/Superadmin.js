@@ -27,7 +27,7 @@ const Superadmin = ({ children }) => {
     }
   }
   useEffect(() => {
-    if (Object.keys(data).length === 0) {
+    if (Object?.keys(data).length === 0) {
       fetchData();
     }
   }, [pathname]);
