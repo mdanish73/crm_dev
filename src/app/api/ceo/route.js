@@ -75,6 +75,8 @@ export const POST = async (req,{params}) => {
         message: `${fields} already Exists`,
         success: false,
         field: fields,
+      },{
+        status:409,
       });
     }
 
