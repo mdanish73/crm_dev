@@ -55,6 +55,7 @@ export async function POST(req) {
     }
     return NextResponse.json(
       {
+        id : data._id,
         message: "Data Created!!",
         success: true,
       },
@@ -72,7 +73,7 @@ export async function POST(req) {
           field: fields,
         },
         {
-          status: 200,
+          status: 409,
         }
       );
     }

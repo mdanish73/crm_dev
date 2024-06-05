@@ -8,14 +8,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "../../ui/button";
+import { Button } from "../../../../../../components/ui/button";
 import { useForm } from "react-hook-form";
-import { EachElement } from "../../others/Each";
-import { Input } from "../../ui/input";
+import { EachElement } from "../../../../../../components/others/Each";
+import { Input } from "../../../../../../components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle, User } from "lucide-react";
 import axios from "axios";
+import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 const inputs = [
   {
@@ -69,6 +71,11 @@ const schema = z.object({
 });
 
 const CeoForm = () => {
+ 
+  const { id}  = useParams()
+  console.log(id)
+  
+  
   // states
   const [loading, setLoading] = useState(false);
   const [duplicate, setDuplicate] = useState(null);
@@ -87,39 +94,56 @@ const CeoForm = () => {
   });
      
   const onSubmit = async (ceo) => {
-        setLoading(true);
-    
-        try {
-          const updateForm = { ...form, ceo: { ...ceo } };
-          const { data } = await axios.post("/api/creating", updateForm);
-          if (!data.success) {
-            if (data.field) {
-              console.log(`Duplication error in field: ${data.field}`);
-              const field = data.field;
-              setDuplicate(field)
-            }
-            toast.error(data.message, {
-              className: "toastError",
-            });
-          } else {
-            toast.success(data.message, {
-              className: "toastSuccess",
-            });
-          }
-        } catch (error) {
-          console.log(error)
-        } finally {
-          setLoading(false);
-        }
-      };
+    setLoading(true);
+    setDuplicate(null); // Reset duplicate state before submitting
+    try {
+      const res = await fetch(`/api/ceo?${id}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: process.env.AUTHORIZATION_KEY,
+        },
+        body: JSON.stringify(ceo),
+      });
+      const data = await res.json(); // Log the response data
+      console.log(data);
 
-  // const onBack = () => {
-  //   setSteps(Step - 1);
-  // };
+      if (!res.ok) {
+        if (data.field) {
+          const field = data.field;
+          setDuplicate(field);
+          toast.error(
+            `${field.charAt(0).toUpperCase() + field.slice(1)} already exists.`,
+            {
+              className: "toastError",
+            }
+          );
+        } else {
+          toast.error(data.message, {
+            className: "toastError",
+          });
+        }
+      } else {
+        toast.success(data.message, {
+          className: "toastSuccess",
+        });
+        form.reset(); // Reset form after successful submission
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Error ! while submitting the form.", {
+        className: "toastError",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
-      <div className="mb-4">
+    <div className="px-4  m-auto text-secondaryText">
+      <div className="mb-6">
         <h1 className="text-2xl flex gap-2">
           <span className="text-secondaryHeading">CEO</span> Information
         </h1>
@@ -168,7 +192,7 @@ const CeoForm = () => {
             </Button> */}
             <Button
               type={loading ? "" : "submit"}
-              className="bg-secondaryHeading text-secondaryText mx-10 py-5 w-[12%]"
+              className="bg-secondaryHeading text-secondaryText w-auto mt-10 py-5"
             >
               {loading ? (
                 <>
@@ -182,6 +206,7 @@ const CeoForm = () => {
           </div>
         </form>
       </Form>
+    </div>
     </>
   );
 };
