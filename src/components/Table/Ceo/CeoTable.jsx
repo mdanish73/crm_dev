@@ -52,7 +52,7 @@ export default function CeoTable({ Data }) {
               >
                 <TableCell>{item.companyname}</TableCell>
                 <TableCell>
-                  <div className="w-12 h-12 rounded-full flex items-center gap-1 cursor-pointer">
+                  {/* <div className="w-12 h-12 rounded-full flex items-center gap-1 cursor-pointer">
                     <img
                       className="w-full h-full rounded-full"
                       src={item.companyCeo.CeoImage}
@@ -62,7 +62,7 @@ export default function CeoTable({ Data }) {
                       <p>{item.companyCeo.fullName}</p>
                       <p className="text-[12px]">{item.companyCeo.email}</p>
                     </div>
-                  </div>
+                  </div> */}
                 </TableCell>
                 <TableCell>{item.contact}</TableCell>
                 <TableCell>{item.identificationNumber}</TableCell>

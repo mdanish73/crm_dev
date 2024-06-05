@@ -34,11 +34,11 @@ const IndustryForm = () => {
     },
   });
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = form;
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = form;
   const { fields, append, remove } = useFieldArray({
     control,
     name: "options",
@@ -56,28 +56,38 @@ const IndustryForm = () => {
     // }
   };
   return (
-    <div>
+    <div className="px-4  m-auto text-secondaryText">
+      <div className="mb-6 ">
+          <h1 className="text-2xl flex mb-2 gap-2">
+            <span className="text-secondaryHeading">Industry</span> Information
+          </h1>
+          <p>
+            This form enables users to input and submit comprehensive industries
+            data.
+          </p>
+          <p>It collects essential information about industries.</p>
+        </div>
       <Form {...form}>
-        <form onSubmit={handleSubmit(formSubmit)}>
+        <form onSubmit={form.handleSubmit(formSubmit)}>
           <FormField
-            control={control}
+            control={form.control}
             name="industry"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Add Industry</FormLabel>
                 <FormControl>
-                  <Input
-                    {...field}
-                    className="text-white text-xs border-none h-9 w-1/3 bg-[#8C8CA3]/40 rounded-[5px]"
-                    placeholder="Industry name"
-                    type="text"
-                  />
+                <Input
+                  className="text-white w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
+                  placeholder="Name of Industry"
+                  type="text"
+                  {...field}
+                 />
                 </FormControl>
-                {errors.name && (
+                {/* {errors.name && (
                   <p className="text-red-600 text-sm mt-1">
                     {errors.name.message}
                   </p>
-                )}
+                )} */}
               </FormItem>
             )}
           />
