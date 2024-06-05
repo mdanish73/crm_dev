@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 dbConnection();
 export async function GET(req) {
   try {
-    const getAllcompanies = await companyModel.find();
+    const getAllcompanies = await companyModel.find().populate("companyCeo");
     return NextResponse.json({
       message: getAllcompanies,
       success: true,
