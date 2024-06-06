@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.bodyBG {
-  background-image: url("/assets/images/bgImg1.webp");
-  background-color: black;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -39,8 +34,8 @@
 
     --radius: 0.5rem;
 
-    --primaryBG: #0e1726;
-    --secondaryBG: #000000;
+    --primaryBG: #0E1726;
+    --secondaryBG: #060818;
 
     --primaryAccent: #506690;
     --secondaryAccent: #181f32;
@@ -69,12 +64,11 @@
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
- 
 
 *::-webkit-scrollbar {
-
   display: none;
 }
+
 /* ----------------------AUto fill bgcolor fixing ----------- */
 
 /* For modern browsers */

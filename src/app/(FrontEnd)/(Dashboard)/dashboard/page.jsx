@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='text-slate-400'>page</div>
+    <div className='text-primaryText'>page asdads</div>
   )
 }
 
