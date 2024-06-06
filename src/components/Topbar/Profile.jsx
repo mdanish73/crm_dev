@@ -10,7 +10,7 @@ import { LockKeyhole, LogOut, Mail, User } from "lucide-react";
 import { SuperadminContext } from "@/Context/superadmin/Superadmin";
 
 const Profile = () => {
-  // const { data } = useContext(SuperadminContext);
+  const { data } = useContext(SuperadminContext);
   return (
     <>
       <Popover>
@@ -38,10 +38,10 @@ const Profile = () => {
             </div>
             <div className=" flex-1   mx-4  text-left">
               <h2 className="text-[#888EA8] text-sm">
-                {/* {Object.keys(data).length !== 0 ? data.username : ""} */}
+                {data ? data.username : ""}
               </h2>
               <Link href="/" className="text-xs text-[#616b82] hover:underline">
-                {/* {Object.keys(data).length !== 0 ? data.email : ""} */}
+                {data ? data.email : ""}
               </Link>
             </div>
           </div>
