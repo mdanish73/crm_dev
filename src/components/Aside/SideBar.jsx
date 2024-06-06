@@ -41,7 +41,7 @@ export default function SideBar() {
       <AnimatePresence>
         {isSidebarVisible && (
           <motion.section
-            className="bg-primary_bg/40 absolute z-50 lg:static backdrop-blur-md h-full overflow-hidden"
+            className="bg-primary_bg overflow-hidden absolute z-50 lg:static h-full"
             initial="hidden"
             animate="visible"
             exit="hidden"
