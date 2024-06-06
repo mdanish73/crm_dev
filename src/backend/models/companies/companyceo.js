@@ -54,6 +54,6 @@ const companyCeoschema = new mongoose.Schema({
   },
 });
 
-const companyceoModel =
+const companyCeomodel =
   mongoose.models?.Companyceo || mongoose.model("Companyceo", companyCeoschema);
-export default companyceoModel;
+export default companyCeomodel;

@@ -30,9 +30,8 @@ export const GET = async (req) => {
   }
 };
 
-export const POST = async (req,{params}) => {
-  console.log(params)
-  const id=req.nextUrl.searchParams.get("id")
+export const POST = async (req) => {
+  const id = req.nextUrl.searchParams.get("id");
   try {
     const body = await req.json();
     if (Object.keys(body).length === 0 || !body) {
@@ -61,8 +60,7 @@ export const POST = async (req,{params}) => {
     return NextResponse.json(
       {
         success: true,
-        message: data,
-        message:data2
+        message: "Ceo Created!!",
       },
       {
         status: 201,

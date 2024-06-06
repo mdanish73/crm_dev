@@ -16,7 +16,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle, User } from "lucide-react";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const inputs = [
@@ -62,7 +62,9 @@ const inputs = [
 // schema
 const schema = z.object({
   fullName: z.string().nonempty("Fullname is required"),
-  identification_number: z.string().nonempty("Identification number is required"),
+  identification_number: z
+    .string()
+    .nonempty("Identification number is required"),
   phone: z.string(),
   dateOfBirth: z.string().nonempty("Date of birth is required"),
   username: z.string().nonempty("Username is required"),
@@ -71,11 +73,9 @@ const schema = z.object({
 });
 
 const CeoForm = () => {
- 
-  const { id}  = useParams()
-  console.log(id)
-  
-  
+  const { id } = useParams();
+  const router = useRouter();
+
   // states
   const [loading, setLoading] = useState(false);
   const [duplicate, setDuplicate] = useState(null);
@@ -92,7 +92,7 @@ const CeoForm = () => {
       email: "",
     },
   });
-     
+
   const onSubmit = async (ceo) => {
     setLoading(true);
     setDuplicate(null); // Reset duplicate state before submitting
@@ -129,6 +129,7 @@ const CeoForm = () => {
           className: "toastSuccess",
         });
         form.reset(); // Reset form after successful submission
+        router.push("/companies/ceo");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -142,71 +143,73 @@ const CeoForm = () => {
 
   return (
     <>
-    <div className="px-4  m-auto text-secondaryText">
-      <div className="mb-6">
-        <h1 className="text-2xl flex gap-2">
-          <span className="text-secondaryHeading">CEO</span> Information
-        </h1>
-        <p>
-          This form enables users to input and submit comprehensive CEO data.
-        </p>
-        <p>It collects essential information about the CEO.</p>
-      </div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 gap-5">
-            <EachElement
-              of={inputs}
-              render={(v, i) => (
-                <FormField
-                  key={i}
-                  control={form.control}
-                  name={v.name}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel htmlFor={v.name}>{v.label}</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="text-secondaryText w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
-                          placeholder={v.placeholder}
-                          type={v.type}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage>
-                            {duplicate?.[v.name]?.message || (duplicate === v.name && `${v.label} , Already Exist`)}
-                          </FormMessage>
-                    </FormItem>
-                  )}
-                />
-              )}
-            />
-          </div>
-          <div className="text-left mt-10">
-            {/* <Button
+      <div className="px-4  m-auto text-secondaryText">
+        <div className="mb-6">
+          <h1 className="text-2xl flex gap-2">
+            <span className="text-secondaryHeading">CEO</span> Information
+          </h1>
+          <p>
+            This form enables users to input and submit comprehensive CEO data.
+          </p>
+          <p>It collects essential information about the CEO.</p>
+        </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid grid-cols-2 gap-5">
+              <EachElement
+                of={inputs}
+                render={(v, i) => (
+                  <FormField
+                    key={i}
+                    control={form.control}
+                    name={v.name}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel htmlFor={v.name}>{v.label}</FormLabel>
+                        <FormControl>
+                          <Input
+                            className="text-secondaryText w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
+                            placeholder={v.placeholder}
+                            type={v.type}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage>
+                          {duplicate?.[v.name]?.message ||
+                            (duplicate === v.name &&
+                              `${v.label} , Already Exist`)}
+                        </FormMessage>
+                      </FormItem>
+                    )}
+                  />
+                )}
+              />
+            </div>
+            <div className="text-left mt-10">
+              {/* <Button
               type="button"
               className="bg-secondary_bg mx-10 py-5 w-[12%]"
               onClick={onBack}
             >
               Previous
             </Button> */}
-            <Button
-              type={loading ? "" : "submit"}
-              className="bg-secondaryHeading text-secondaryText w-auto mt-10 py-5"
-            >
-              {loading ? (
-                <>
-                  <LoaderCircle className="mr-3 animate-spin text-blue-800" />
-                  Please wait
-                </>
-              ) : (
-                <>Submit</>
-              )}
-            </Button>
-          </div>
-        </form>
-      </Form>
-    </div>
+              <Button
+                type={loading ? "" : "submit"}
+                className="bg-secondaryHeading text-secondaryText w-auto mt-10 py-5"
+              >
+                {loading ? (
+                  <>
+                    <LoaderCircle className="mr-3 animate-spin text-blue-800" />
+                    Please wait
+                  </>
+                ) : (
+                  <>Submit</>
+                )}
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
     </>
   );
 };

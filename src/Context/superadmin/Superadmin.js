@@ -27,10 +27,11 @@ const Superadmin = ({ children }) => {
     }
   }
   useEffect(() => {
-    if (Object?.keys(data).length === 0) {
+    if (!data || Object.keys(data).length === 0) {
       fetchData();
     }
-  }, [pathname]);
+  }, [data, pathname]);
+  
   return (
     <SuperadminContext.Provider value={{ data, setData }}>
       {children}
