@@ -72,8 +72,8 @@ const inputs = [
 ];
 
 const CompanyForms = () => {
-  const router = useRouter();
   // states
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [duplicate, setDuplicate] = useState(null);
 
