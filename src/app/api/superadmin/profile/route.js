@@ -1,45 +1,67 @@
 import dbConnection from "@/backend/db/dbconnection";
-import superAdmin from "@/backend/models/admins/superadmin";
+import superAdminmodel from "@/backend/models/admins/superadmin";
 import { tokenVerification } from "@/helper/jwt";
+import mongoose from "mongoose";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-// Connect the DataBase
-dbConnection();
 
-// End Point to fetch the SuperAdmin when he login the token generate we get the ID from the token and give to mongodb to fetch superAdmin
-export const GET = async () => {
+dbConnection();
+export async function GET() {
   try {
-    const cookie = cookies();
-    const token = cookie.get("AccessToken");
-    const isVerified = await tokenVerification(token.value);
-    if (Object.keys(isVerified).length !== 0) {
-      const id = isVerified._id;
-      const user = await superAdmin.findById(id);
+    const token = cookies().get("AccessToken").value;
+    if (!token) {
       return NextResponse.json(
         {
-          message: "Token is valid",
-          success: true,
-          data: user,
+          message: "Token not found",
         },
-        { status: 200 }
-      );
-    } else {
-      return NextResponse.json(
         {
-          message: "Token is invalid",
-          success: false,
-        },
-        { status: 500 }
+          status: 404,
+        }
       );
     }
-  } catch (error) {
-    console.log(error.message);
+    const isVerified = await tokenVerification(token);
+    if (!isVerified) {
+      return NextResponse.json(
+        {
+          message: "Token is not Verified",
+        },
+        {
+          status: 404,
+        }
+      );
+    }
+    const idChecked = await mongoose.Types.ObjectId.isValid(isVerified._id);
+    if (!idChecked) {
+      return NextResponse.json({
+        message: "ID is not Valid",
+        success: false,
+      });
+    }
+    const data = await superAdminmodel.findById(isVerified._id);
+    if (Object.keys(data).length === 0 || !data) {
+      return NextResponse.json({
+        message: "Data not found",
+        success: false,
+      });
+    }
     return NextResponse.json(
       {
-        message: "Internal Server Error",
+        message: data,
+        success: true,
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: "Internal Server Error ",
         success: false,
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
-};
+}

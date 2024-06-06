@@ -18,7 +18,7 @@ export const POST = async (req) => {
       );
     }
     const request = await industriesModel.create(body);
-    if (Object.keys(request) === 0) {
+    if (Object.keys(request).length === 0) {
       return NextResponse.json(
         {
           message: "Industry and Subindustry not Created ",

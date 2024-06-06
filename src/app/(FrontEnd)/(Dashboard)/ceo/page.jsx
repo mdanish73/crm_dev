@@ -1,11 +1,31 @@
-import React from "react";
 import CeoTable from "@/components/Table/Ceo/CeoTable";
-function page() {
+import { cookies, headers } from "next/headers";
+import React from "react";
+
+async function getCEO() {
+  try {
+    const request = await fetch("http://localhost:3000/api/company", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        ContentType: "application/json",
+        Authorization: process.env.AUTHORIZATION_KEY,
+      },
+    });
+    const ceosResponse = await request.json();
+    return ceosResponse;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+const page = async () => {
+  const data = await getCEO();
   return (
     <>
-      <CeoTable />
+      <CeoTable Data={data.message} />
     </>
   );
-}
+};
 
 export default page;

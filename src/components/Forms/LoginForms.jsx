@@ -43,10 +43,21 @@ const LoginForm = () => {
   const formSubmit = async (data) => {
     setIsLoading(true);
     try {
-      const response = await axios.post("/api/auth/superadmin/login", {
-        email: data.Username,
-        password: data.Password,
-      });
+      const response = await axios.post(
+        "/api/auth/superadmin/login",
+        {
+          email: data.Username,
+          password: data.Password,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json", 
+            Authorization: process.env.AUTHORIZATION_KEY,
+          }
+        }
+      );
+      
       if (response.data.success) {
         router.push("/dashboard");
         toast.success("Login Successfully", {

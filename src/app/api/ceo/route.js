@@ -1,57 +1,93 @@
 import dbConnection from "@/backend/db/dbconnection";
-import companyCEO from "@/backend/models/company/companyCEO";
+import companyceoModel from "@/backend/models/companies/companyceo";
+import companyModel from "@/backend/models/companies/company";
 import { NextResponse } from "next/server";
 
 dbConnection();
 
 export const GET = async (req) => {
   try {
-    const company_ceo = await companyCEO.find();
-    return NextResponse.json({
-      success: true,
-      message: company_ceo
-    }, {
-      status: 200
-    });
+    const data = await companyceoModel.find();
+    return NextResponse.json(
+      {
+        message: data,
+        success: true,
+      },
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
-    return NextResponse.json({
-      success: false,
-      message: error.message
-    }, {
-      status: 500
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 };
 
-export const POST = async (req) => {
+export const POST = async (req,{params}) => {
+  console.log(params)
+  const id=req.nextUrl.searchParams.get("id")
   try {
-    const request = await req.json();
-    const ceo = await companyCEO.create(request);
-    return NextResponse.json({
-      success: true,
-      message: ceo
-    }, {
-      status: 201
-    }); 
+    const body = await req.json();
+    if (Object.keys(body).length === 0 || !body) {
+      return NextResponse.json(
+        {
+          message: "Please Fill All Required Fields!",
+          success: false,
+        },
+        {
+          status: 400,
+        }
+      );
+    }
+    const data = await companyceoModel.create(body);
+    const data2 = await companyModel.findByIdAndUpdate(
+      id,
+      { companyCeo: data._id },
+      { new: true, runValidators: true }
+    );
+    if (Object.keys(data).length === 0 || !data) {
+      return NextResponse.json({
+        message: "Data not Created!!",
+        success: false,
+      });
+    }
+    return NextResponse.json(
+      {
+        success: true,
+        message: data,
+        message:data2
+      },
+      {
+        status: 201,
+      }
+    );
   } catch (error) {
     if (error.code === 11000) {
-      const keyValue = error.keyValue ? error.keyValue : 'Unknown Key';
-      const key = JSON.stringify(keyValue);
-      console.log(`Duplicate key error: ${key}`);
-      
+      const fields = Object.keys(error.keyValue)[0];
       return NextResponse.json({
+        message: `${fields} already Exists`,
         success: false,
-        message: `${key} already exists...`
-      }, {
-        status: 403
+        field: fields,
+      },{
+        status:409,
       });
     }
 
-    return NextResponse.json({
-      success: false,
-      message: error.message
-    }, {
-      status: 500
-    })
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 };
