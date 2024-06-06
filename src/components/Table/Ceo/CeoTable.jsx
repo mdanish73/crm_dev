@@ -87,10 +87,6 @@ export default function CeoTable({ CeoData }) {
                       }
                       alt="image"
                     />
-                    <div className="flex flex-col">
-                      {/* <p>{item.companyCeo.fullName}</p> */}
-                      {/* <p className="text-[12px]">{item.companyCeo.email}</p> */}
-                    </div>
                   </div>
                 </TableCell>
                 <TableCell>{item.phone}</TableCell>
