@@ -10,17 +10,20 @@ const Superadmin = ({ children }) => {
   const [data, setData] = useState({});
   async function fetchData() {
     try {
-      const request = await fetch("/api/superadmin/profile", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          ContentType: "application/json",
-          Authorization: process.env.AUTHORIZATION_KEY,
-        },
-      });
+      const request = await fetch(
+        "http://localhost:3000/api/superadmin/profile",
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            ContentType: "application/json",
+            Authorization: process.env.AUTHORIZATION_KEY,
+          },
+        }
+      );
       if (request.ok) {
         const response = await request.json();
-        setData(response.data);
+        setData(response.message);
       }
     } catch (error) {
       console.log(error.message);
@@ -31,7 +34,7 @@ const Superadmin = ({ children }) => {
       fetchData();
     }
   }, [data, pathname]);
-  
+
   return (
     <SuperadminContext.Provider value={{ data, setData }}>
       {children}
