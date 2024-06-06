@@ -21,7 +21,7 @@ const Links = () => {
       title: "Companies",
       icon: <Building2 size={18} />,
       children: [
-        { title: "Sales", path: "/" },
+        { title: "Add", path: "/companies/add" },
         { title: "Analytics", path: "/" },
         { title: "Finance", path: "/" },
         { title: "Crypto", path: "/" },
