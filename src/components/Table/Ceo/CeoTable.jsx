@@ -1,6 +1,4 @@
 "use client";
-import Ceoupdate from "@/components/Modal/Ceoupdate";
-import Tooltip from "@/components/Tooltip/Tooltip";
 import {
   Table,
   TableBody,
@@ -9,16 +7,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Edit, Eye, Trash } from "lucide-react";
+import { Eye, Trash } from "lucide-react";
 import { useState } from "react";
+import Ceoupdate from "@/components/Modal/Ceoupdate";
 
 export default function CeoTable({ CeoData }) {
   const tooltipClass =
-    "absolute -top-14 left-[50%] -translate-x-[50%] z-20 origin-left scale-0 px-3 rounded-[50px] border border-gray-300 text-black bg-white py-2 text-sm font-bold shadow-md transition-all duration-300 ease-in-out group-hover:scale-100 hover:scale-100";
+    "absolute -top-8 left-[50%] -translate-x-[50%] z-20 origin-left scale-0 px-3 rounded-[50px] border border-gray-300 text-black bg-white py-1 text-xs font-medium shadow-md transition-all duration-300 ease-in-out group-hover:scale-100 hover:scale-100";
   const [id, setId] = useState("");
+
   async function deleteCeo(id) {
     try {
-      console.log(id);
       await fetch(`http://localhost:3000/api/ceo/${id}`, {
         method: "DELETE",
         headers: {
@@ -27,26 +26,11 @@ export default function CeoTable({ CeoData }) {
           Authorization: process.env.AUTHORIZATION_KEY,
         },
       });
+      // You might want to refresh the data or update the state here
     } catch (error) {
       console.log(error.message);
     }
   }
-
-  async function updateCeo(id) {
-    try {
-      await fetch(`http://localhost:3000/api/ceo/${id}`, {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: process.env.AUTHORIZATION_KEY,
-        },
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-  function update() {}
 
   const TableHeaders = [
     "CompanyName",
@@ -82,7 +66,7 @@ export default function CeoTable({ CeoData }) {
                       className="w-full h-full rounded-full"
                       src={
                         item?.companyCeo?.CeoImage
-                          ? ""
+                          ? item?.companyCeo?.CeoImage
                           : "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3467.jpg"
                       }
                       alt="image"
@@ -99,8 +83,10 @@ export default function CeoTable({ CeoData }) {
                       <Eye size={18} />
                       <span className={tooltipClass}>View</span>
                     </button>
-                    <Ceoupdate css={tooltipClass} />
-
+                    <Ceoupdate
+                      data={item}
+                      css={tooltipClass}
+                    />
                     <button
                       onClick={() => {
                         deleteCeo(item._id);
