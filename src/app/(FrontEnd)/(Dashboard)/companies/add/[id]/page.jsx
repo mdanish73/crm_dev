@@ -16,7 +16,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle, User } from "lucide-react";
 import axios from "axios";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const inputs = [
@@ -76,6 +76,8 @@ const CeoForm = () => {
   const { id } = useParams();
   console.log(id);
 
+  const router = useRouter();
+
   // states
   const [loading, setLoading] = useState(false);
   const [duplicate, setDuplicate] = useState(null);
@@ -129,6 +131,7 @@ const CeoForm = () => {
           className: "toastSuccess",
         });
         form.reset(); // Reset form after successful submission
+        router.push("/companies/ceo");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -185,7 +188,6 @@ const CeoForm = () => {
               />
             </div>
             <div className="text-left mt-6">
-              <Button
                 type={loading ? "" : "submit"}
                 className="bg-secondaryHeading text-secondaryText w-auto mt-10 py-5"
               >

@@ -51,8 +51,8 @@ export async function POST(req) {
     }
     return NextResponse.json(
       {
-        id : data._id,
-        message: "Data Created!!",
+        id: data._id,
+        message: "Company Created!!",
         success: true,
       },
       {
