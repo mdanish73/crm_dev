@@ -12,8 +12,8 @@ async function getData() {
             }
         });
         const res = await req.json();
-        console.log(res)
-        return res.message; // Assuming the company data is inside res.message
+        console.log(res.message[0].companyCeo);
+        return res.message;
     } catch (error) {
         console.log(error.message);
     }
