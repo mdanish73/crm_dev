@@ -8,7 +8,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Tool from "@/components/Tooltip/Tool";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+  } from "@/components/ui/tooltip";
+  import { EditIcon, Eye, Trash } from "lucide-react";
+
+const json = [
+    {
+      name: "Details",
+      icon: <Eye size={18} />,
+    },
+    {
+      name: "Edit",
+      icon: <EditIcon size={18} />,
+    },
+    {
+      name: "Delete",
+      icon: <Trash size={18} color="red" />,
+    },
+  ];
 
 const input = [
   {
@@ -43,13 +64,13 @@ const input = [
 const CompanyTable = ({finaldata}) => {
   return (
     <>
-      <section className="px-4  m-auto text-secondaryText">
-        <h1 className="text-2xl flex mb-2 gap-2">
+      <section className="px-4  m-auto text-secondaryText text-center">
+        <h1 className="text-2xl flex mb-4 gap-2">
           <span className="text-secondaryHeading">Company</span> Data
         </h1>
         <Table key={finaldata._id}>
           <TableHeader>
-            <TableRow className="bg-primary_bg uppercase rounded-2xl">
+            <TableRow className="bg-primary_bg uppercase rounded-2xl ">
               {input.map((v, i) => (
                 <TableHead key={i}>{v.value}</TableHead>
               ))}
@@ -70,7 +91,9 @@ const CompanyTable = ({finaldata}) => {
                   <TableCell>{v.subIndustry}</TableCell>
                   <TableCell>{v.country}</TableCell>
                   <TableCell>{v.companyceo}</TableCell>
-                  <TableCell><Tool/></TableCell>
+                  <TableCell>
+
+                  </TableCell>
                 </TableRow>
               ))
             ) : (

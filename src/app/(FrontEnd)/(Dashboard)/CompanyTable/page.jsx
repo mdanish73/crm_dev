@@ -1,31 +1,32 @@
-import CompanyTable from '@/components/Table/Company/CompanyTable'
-import React from 'react'
+import CompanyTable from '@/components/Table/Company/CompanyTable';
+import React from 'react';
 
-async function getData(){
+async function getData() {
     try {
-        const req = await fetch('http://localhost:3000/api/company',{
+        const req = await fetch('http://localhost:3000/api/company', {
             method: 'GET',
             headers: {
-                Accept: "application.json",
-                ContenType: "application.json",
+                Accept: "application/json",
+                "Content-Type": "application/json",
                 Authorization: process.env.AUTHORIZATION_KEY,
             }
-        })
+        });
         const res = await req.json();
-        return res;
+        console.log(res)
+        return res.message; // Assuming the company data is inside res.message
     } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
     }
 }
 
 const page = async () => {
-    const data = await getData();
-    console.log(data)
-  return (
-    <>
-        <CompanyTable finaldata = {data.message}/>
-    </>
-  )
-}
+    const  Data = await getData();
 
-export default page
+    return (
+        <>
+            <CompanyTable finaldata={Data} />
+        </>
+    );
+};
+
+export default page;

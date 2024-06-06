@@ -74,6 +74,8 @@ const schema = z.object({
 
 const CeoForm = () => {
   const { id } = useParams();
+  console.log(id);
+
   const router = useRouter();
 
   // states
@@ -185,15 +187,7 @@ const CeoForm = () => {
                 )}
               />
             </div>
-            <div className="text-left mt-10">
-              {/* <Button
-              type="button"
-              className="bg-secondary_bg mx-10 py-5 w-[12%]"
-              onClick={onBack}
-            >
-              Previous
-            </Button> */}
-              <Button
+            <div className="text-left mt-6">
                 type={loading ? "" : "submit"}
                 className="bg-secondaryHeading text-secondaryText w-auto mt-10 py-5"
               >
