@@ -1,5 +1,6 @@
 import dbConnection from "@/backend/db/dbconnection";
 import companyCeomodel from "@/backend/models/companies/companyceo";
+import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
 dbConnection();
@@ -58,48 +59,51 @@ export const DELETE = async (req, { params }) => {
   }
 };
 
-export const PUT = async (req, { params }) => {
+export async function PUT(req, { params }) {
   try {
-    const request = req.json();
+    console.log(params);
     const { id } = params;
-    const ceo = await companyCeomodel.findByIdAndUpdate(id, request, {
+    const idChecked = await mongoose.Types.ObjectId.isValid(id);
+    if (!idChecked) {
+      return NextResponse.json({
+        message: "ID is invalid",
+        success: false,
+      });
+    }
+    const data = await req.json();
+    if (!data) {
+      return NextResponse.json({
+        message: "Please Fill All Required Fields",
+        success: false,
+      });
+    }
+    const updatedCeo = await companyCeomodel.findByIdAndUpdate(id, data, {
       new: true,
       runValidators: true,
     });
-    return NextResponse.json(
-      {
-        success: true,
-        message: "CEO updated successfully...",
-        data: ceo,
-      },
-      {
-        status: 200,
-      }
-    );
+    if (!updatedCeo) {
+      return NextResponse.json({
+        message: "Data not Created",
+        success: false,
+      });
+    }
+    return NextResponse.json({
+      message: "CEO updated",
+      success: true,
+      data: updatedCeo,
+    });
   } catch (error) {
     if (error.code === 11000) {
-      const keyValue = error.keyValue ? error.keyValue : "Unknown Key";
-      console.log(`Duplicate key error: ${JSON.stringify(keyValue)}`);
-
-      return NextResponse.json(
-        {
-          success: false,
-          message: `Duplicate key error: ${JSON.stringify(keyValue)}`,
-        },
-        {
-          status: 403,
-        }
-      );
-    }
-
-    return NextResponse.json(
-      {
+      const fields = Object.keys(error.keyValues)[0];
+      return NextResponse.json({
+        message: `${fields} already Exisits`,
         success: false,
-        message: error.message,
-      },
-      {
-        status: 500,
-      }
-    );
+        field: fields,
+      });
+    }
+    return NextResponse.json({
+      message: "Internal server Error",
+      success: false,
+    });
   }
-};
+}
