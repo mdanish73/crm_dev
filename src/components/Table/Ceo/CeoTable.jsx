@@ -64,29 +64,21 @@ export default function CeoTable({ CeoData }) {
                     />
                   </div>
                 </TableCell>
-                <TableCell>{item.phone}</TableCell>
-                <TableCell>{item.identification_number}</TableCell>
+                <TableCell className="p-0">{item.phone}</TableCell>
+                <TableCell className="px-12">{item.identification_number}</TableCell>
                 <TableCell>{item.email}</TableCell>
-                <TableCell>{item.username}</TableCell>
+                <TableCell className="px-6">{item.username}</TableCell>
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Menu className="hover:cursor-pointer" />
+                      <Menu className="hover:cursor-pointer ml-4" />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56 bg-slate-800 text-white">
                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuGroup>
-                        <DropdownMenuItem
-                          onClick={() => {
-                            router.push(`/companies/ceo/${item._id}`);
-                          }}
-                          className="flex gap-1 hover:cursor-pointer hover:bg-[#83B4FF]"
-                        >
-                          <Eye size={18} />
-                          <span className="text-sm font-medium">View</span>
-                        </DropdownMenuItem>
-                        <Ceoupdate data={item} />
+                      
+                        <Ceoupdate data={item} /> 
                         <Ceodelete Ceoid={item._id} />
                       </DropdownMenuGroup>
                     </DropdownMenuContent>
