@@ -8,28 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-  } from "@/components/ui/tooltip";
-  import { EditIcon, Eye, Trash } from "lucide-react";
 
-const json = [
-    {
-      name: "Details",
-      icon: <Eye size={18} />,
-    },
-    {
-      name: "Edit",
-      icon: <EditIcon size={18} />,
-    },
-    {
-      name: "Delete",
-      icon: <Trash size={18} color="red" />,
-    },
-  ];
 
 const input = [
   {
@@ -61,7 +40,7 @@ const input = [
   },
 ];
 
-const CompanyTable = ({finaldata}) => {
+const CompanyTable = ({finaldata,Name}) => {
   return (
     <>
       <section className="px-4  m-auto text-secondaryText text-center">
@@ -90,7 +69,7 @@ const CompanyTable = ({finaldata}) => {
                   <TableCell>{v.industry}</TableCell>
                   <TableCell>{v.subIndustry}</TableCell>
                   <TableCell>{v.country}</TableCell>
-                  <TableCell>{v.companyceo}</TableCell>
+                  <TableCell>{v.companyCeo.fullName}</TableCell>
                   <TableCell>
 
                   </TableCell>
