@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -8,14 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Trash } from "lucide-react";
+import { LoaderCircle, Trash } from "lucide-react";
 import { toast } from "sonner";
 
 const Ceodelete = ({ Ceoid }) => {
-  const [open, setOpen] = React.useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   async function deleteCeo(id) {
     try {
+      setIsLoading(true);
       const request = await fetch(`http://localhost:3000/api/ceo/${id}`, {
         method: "DELETE",
         headers: {
@@ -29,25 +29,23 @@ const Ceodelete = ({ Ceoid }) => {
         toast.success(response.message, {
           className: "toastSuccess",
         });
-        setOpen(false); // Close the dialog after successful deletion
       } else {
-        toast.error(
-          response.message || "An error occurred. Please try again.",
-          {
-            className: "toastError",
-          }
-        );
+        toast.error(response.message, {
+          className: "toastError",
+        });
       }
     } catch (error) {
       console.log(error.message);
       toast.error("An error occurred. Please try again.", {
         className: "toastError",
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog>
       <DialogTrigger asChild>
         <button className="pl-2 hover:bg-[#83B4FF] hover:text-black transition-colors w-full py-1.5 rounded-sm">
           <div className="flex items-center gap-1.5">
@@ -56,7 +54,7 @@ const Ceodelete = ({ Ceoid }) => {
           </div>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-[rgb(127,29,29)]">
+      <DialogContent className="sm:max-w-[425px] border-[0.5px] border-red-800">
         <DialogHeader>
           <DialogTitle>Dangerous Mode</DialogTitle>
           <DialogDescription>
@@ -65,12 +63,20 @@ const Ceodelete = ({ Ceoid }) => {
         </DialogHeader>
         <DialogFooter>
           <button
-            className="text-white bg-red-600 hover:bg-red-950 transition-colors w-full py-2 flex items-center justify-center"
+            type={"button"}
+            className="text-red-700 bg-[rgb(27,22,29)] hover:bg-red-800 hover:text-white font-medium transition-colors w-full py-2 flex items-center justify-center"
             onClick={() => {
               deleteCeo(Ceoid);
             }}
           >
-            Yes
+            {isLoading ? (
+              <>
+                <LoaderCircle className="animate-spin" />
+                Please wait
+              </>
+            ) : (
+              "Login"
+            )}
           </button>
         </DialogFooter>
       </DialogContent>
