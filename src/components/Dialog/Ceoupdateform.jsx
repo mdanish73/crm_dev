@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -22,7 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { EachElement } from "../others/Each";
 import { Button } from "../ui/button";
-import { Edit, LoaderCircle } from "lucide-react";
+import { Edit, Eye, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 
 const inputs = [
@@ -67,7 +68,7 @@ const inputs = [
 
 // schema
 const schema = z.object({
-  fullName: z.string().nonempty("Fullname is required"),
+  fullName: z.string().nonempty("Full name is required"),
   identification_number: z
     .string()
     .nonempty("Identification number is required"),
@@ -78,10 +79,12 @@ const schema = z.object({
   email: z.string().nonempty("Email is required").email("Invalid email"),
 });
 
-const Ceoupdate = ({ css, data }) => {
+const Ceoupdateform = ({ data }) => {
+  const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [duplicate, setDuplicate] = useState(null);
   const id = data._id;
+
   const form = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -98,7 +101,7 @@ const Ceoupdate = ({ css, data }) => {
   async function updateCeo(values) {
     setLoading(true);
     try {
-      const request = await fetch(`http://localhost:3000/api/ceo/${id}`, {
+      const response = await fetch(`http://localhost:3000/api/ceo/${id}`, {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -107,28 +110,44 @@ const Ceoupdate = ({ css, data }) => {
         },
         body: JSON.stringify(values),
       });
-      const response = await request.json();
-      if (request.ok) {
-        toast.success(response.message, {
+      const data = await response.json();
+      if (response.ok) {
+        toast.success(data.message, {
           className: "toastSuccess",
         });
+      } else {
+        const field = data.field;
+        setDuplicate(field);
+        toast.error(
+          `${field.charAt(0).toUpperCase() + field.slice(1)} already exists.`,
+          {
+            className: "toastError",
+          }
+        );
       }
     } catch (error) {
       console.log(error.message);
+      toast.error("An error occurred. Please try again.", {
+        className: "toastError",
+      });
     } finally {
       setLoading(false);
     }
   }
-
+  function toggleBtn() {
+    setEdit(!edit);
+  }
   return (
-    <Dialog>
+    <Dialog >
       <DialogTrigger asChild>
-        <button className="relative group">
-          <Edit size={18} />
-          <span className={css}>Edit</span>
+        <button className="pl-2 hover:bg-[#83B4FF] hover:text-black transition-colors w-full py-1.5 rounded-sm">
+          <div className="flex items-center gap-1.5">
+            <Eye size={16} />
+            <span className="text-sm font-medium">View</span>
+          </div>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] border-[0.5px]">
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
@@ -159,7 +178,7 @@ const Ceoupdate = ({ css, data }) => {
                         <FormMessage>
                           {form.formState.errors[v.name]?.message ||
                             (duplicate === v.name &&
-                              `${v.label} , Already Exist`)}
+                              `${v.label} already exists.`)}
                         </FormMessage>
                       </FormItem>
                     )}
@@ -167,20 +186,32 @@ const Ceoupdate = ({ css, data }) => {
                 )}
               />
             </div>
-            <DialogFooter>
-              <Button
-                type="submit"
-                className="bg-secondaryHeading text-secondaryText w-full mt-10 py-5"
+            <DialogFooter className="my-5">
+              <button
+                type="button"
+                className="bg-slate-700 py-2 px-8 rounded-[50px] text-white"
+                onClick={() => {
+                  toggleBtn();
+                }}
               >
-                {loading ? (
-                  <>
-                    <LoaderCircle className="mr-3 animate-spin text-blue-800" />
-                    Please wait
-                  </>
-                ) : (
-                  <>Submit</>
-                )}
-              </Button>
+                {edit ? "Cancel" : "Edit"}
+              </button>
+              {edit && (
+                <Button
+                  vavariant="secondary"
+                  className="py-5 bg-orange-500 w-[40%] text-white rounded-[50px]"
+                  type="submit"
+                >
+                  {loading ? (
+                    <>
+                      <LoaderCircle className="animate-spin" />
+                      Please wait
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              )}
             </DialogFooter>
           </form>
         </Form>
@@ -189,4 +220,4 @@ const Ceoupdate = ({ css, data }) => {
   );
 };
 
-export default Ceoupdate;
+export default Ceoupdateform;

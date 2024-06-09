@@ -1,22 +1,22 @@
 import mongoose from "mongoose";
-const city_names = new mongoose.Schema({
-  city: [
+const countrySchema = new mongoose.Schema({
+  country: [
     {
-      cityName: {
+      name: {
         type: String,
         required: true,
-        trim: true,
-        unique: true,
       },
-      cityCode: {
-        type: String,
-        required: true,
-        unique: true,
-      },
+      cities: [
+        {
+          name: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
     },
   ],
 });
-
-const cityNames =
-  mongoose.models?.CityNames || mongoose.model("CityNames", city_names);
-export default cityNames;
+const countryModel =
+  mongoose.models?.Country || mongoose.model("Country", countrySchema);
+export default countryModel;

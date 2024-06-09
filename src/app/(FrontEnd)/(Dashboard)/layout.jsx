@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
         </div>
         <div className="flex-1 flex flex-col w-full overflow-x-hidden">
           <TopBar />
-          <div className="p-2 h-full overflow-auto">
+          <div className="p-3 h-full overflow-auto">
             <div className="h-full overflow-y-auto w-full mainContent">
               {children}
             </div>

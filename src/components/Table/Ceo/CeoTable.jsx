@@ -7,38 +7,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Eye, Trash } from "lucide-react";
-import { useState } from "react";
-import Ceoupdate from "@/components/Modal/Ceoupdate";
+import { Eye, Menu } from "lucide-react";
+import Ceoupdate from "@/components/Dialog/Ceoupdateform";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Ceodelete from "@/components/Dialog/Ceodelete";
+import { useRouter } from "next/navigation";
 
 export default function CeoTable({ CeoData }) {
-  const tooltipClass =
-    "absolute -top-8 left-[50%] -translate-x-[50%] z-20 origin-left scale-0 px-3 rounded-[50px] border border-gray-300 text-black bg-white py-1 text-xs font-medium shadow-md transition-all duration-300 ease-in-out group-hover:scale-100 hover:scale-100";
-  const [id, setId] = useState("");
-
-  async function deleteCeo(id) {
-    try {
-      await fetch(`http://localhost:3000/api/ceo/${id}`, {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: process.env.AUTHORIZATION_KEY,
-        },
-      });
-      // You might want to refresh the data or update the state here
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
+  const router = useRouter();
   const TableHeaders = [
-    "CompanyName",
-    "CompanyCEO",
-    "Company-Contact",
+    "FullName",
+    "Image",
+    "CEO-Contact",
     "Identification-Number",
-    "Industry",
-    "Sub-industry",
+    "DateOfBirth",
+    "Username",
     "Actions",
   ];
 
@@ -73,32 +64,25 @@ export default function CeoTable({ CeoData }) {
                     />
                   </div>
                 </TableCell>
-                <TableCell>{item.phone}</TableCell>
-                <TableCell>{item.identification_number}</TableCell>
+                <TableCell className="p-0">{item.phone}</TableCell>
+                <TableCell className="px-12">{item.identification_number}</TableCell>
                 <TableCell>{item.email}</TableCell>
-                <TableCell>{item.username}</TableCell>
+                <TableCell className="px-6">{item.username}</TableCell>
                 <TableCell>
-                  <div className="flex space-x-1">
-                    <button className="relative group">
-                      <Eye size={18} />
-                      <span className={tooltipClass}>View</span>
-                    </button>
-                    <Ceoupdate
-                      data={item}
-                      css={tooltipClass}
-                    />
-                    <button
-                      onClick={() => {
-                        deleteCeo(item._id);
-                      }}
-                      className="relative group"
-                    >
-                      <Trash color="red" size={18} />
-                      <span className={`${tooltipClass} bg-red-800`}>
-                        Delete
-                      </span>
-                    </button>
-                  </div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Menu className="hover:cursor-pointer ml-4" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56 bg-slate-800 text-white">
+                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuGroup>
+                      
+                        <Ceoupdate data={item} /> 
+                        <Ceodelete Ceoid={item._id} />
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TableCell>
               </TableRow>
             ))
