@@ -1,47 +1,29 @@
 import CeoTable from "@/components/Table/Ceo/CeoTable";
 import React from "react";
 
-async function getCompany() {
-  try {
-    const request = await fetch("http://localhost:3000/api/company", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        ContentType: "application/json",
-        Authorization: process.env.AUTHORIZATION_KEY,
-      },
-    });
-    const ceosResponse = await request.json();
-    return ceosResponse;
-  } catch (error) {
-    console.log(error.message);
-  }
-}
-
-async function getCeo() {
+async function fetchCeo() {
   try {
     const request = await fetch("http://localhost:3000/api/ceo", {
       method: "GET",
       cache: "no-cache",
       headers: {
         Accept: "application/json",
-        ContentType: "application/json",
+        "Content-Type": "application/json",
         Authorization: process.env.AUTHORIZATION_KEY,
       },
     });
     const response = await request.json();
-    return response;
+    const data = response.message;
+    return data
   } catch (error) {
     console.log(error.message);
   }
 }
-
 const page = async () => {
-  const data = await getCompany();
-  const ceoData = await getCeo();
+  const data = await fetchCeo();
   return (
     <>
-      <CeoTable CeoData={ceoData.message} />
+      <CeoTable CeoData={data} />
     </>
   );
 };

@@ -23,7 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { EachElement } from "../others/Each";
 import { Button } from "../ui/button";
-import { Edit, LoaderCircle } from "lucide-react";
+import { Edit, Eye, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 
 const inputs = [
@@ -80,6 +80,8 @@ const schema = z.object({
 });
 
 const Ceoupdateform = ({ data }) => {
+  const [edit, setEdit] = useState(false);
+  console.log(edit)
   const [loading, setLoading] = useState(false);
   const [duplicate, setDuplicate] = useState(null);
   const id = data._id;
@@ -133,18 +135,20 @@ const Ceoupdateform = ({ data }) => {
       setLoading(false);
     }
   }
-
+  function toggleBtn() {
+    setEdit(!edit);
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
         <button className="pl-2 hover:bg-[#83B4FF] hover:text-black transition-colors w-full py-1.5 rounded-sm">
           <div className="flex items-center gap-1.5">
-            <Edit size={16} />
-            <span className="text-sm font-medium">Edit</span>
+            <Eye size={16} />
+            <span className="text-sm font-medium">View</span>
           </div>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] border-[0.5px]">
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
@@ -163,12 +167,13 @@ const Ceoupdateform = ({ data }) => {
                     name={v.name}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor={v.name}>{v.label}</FormLabel>
+                        <FormLabel className="text-white" htmlFor={v.name}>{v.label}</FormLabel>
                         <FormControl>
                           <Input
                             className="text-secondaryText w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
                             placeholder={v.placeholder}
                             type={v.type}
+                            disabled={!edit}
                             {...field}
                           />
                         </FormControl>
@@ -183,21 +188,32 @@ const Ceoupdateform = ({ data }) => {
                 )}
               />
             </div>
-            <DialogFooter>
-              <Button
-                type="submit"
-                className="bg-secondaryHeading text-secondaryText w-full mt-10 py-5"
-                disabled={loading}
+            <DialogFooter className="my-5">
+              {edit && (
+                <Button
+                  vavariant="secondary"
+                  className="py-5 bg-orange-500 w-[40%] text-white rounded-[50px]"
+                  type="submit"
+                >
+                  {loading ? (
+                    <>
+                      <LoaderCircle className="animate-spin" />
+                      Please wait
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              )}
+              <button
+                type="button"
+                className="bg-slate-700 py-2 px-8 rounded-[50px] text-white"
+                onClick={() => {
+                  toggleBtn();
+                }}
               >
-                {loading ? (
-                  <>
-                    <LoaderCircle className="mr-3 animate-spin text-blue-800" />
-                    Please wait
-                  </>
-                ) : (
-                  <>Submit</>
-                )}
-              </Button>
+                {edit ? "Cancel" : "Edit"}
+              </button>
             </DialogFooter>
           </form>
         </Form>

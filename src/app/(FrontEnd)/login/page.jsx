@@ -8,7 +8,7 @@ const Page = () => {
       <div className="absolute inset-0 h-screen w-screen overflow-hidden bg-[url('/assets/dark1.svg')] bg-no-repeat bg-cover"></div>
 
       <div className="relative z-50 flex flex-col gap-5 items-center justify-center min-h-screen">
-        <div className="bg-[#27407a6c] backdrop-blur-md py-8 px-10 rounded-xl shadow-2xl flex flex-col gap-5 items-center justify-center overflow-hidden">
+        <div className="bg-[#0608186c] backdrop-blur-md py-8 px-10 rounded-xl shadow-2xl flex flex-col gap-5 items-center justify-center overflow-hidden">
           <div>
             <h1 className=" text-white text-xl font-semibold tracking-widest">
               CRM

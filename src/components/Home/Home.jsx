@@ -8,8 +8,6 @@ import { SuperadminContext } from "@/Context/superadmin/Superadmin";
 
 const Home = () => {
   const { data } = useContext(SuperadminContext);
-  console.log(data)
-
   // Function of current time
   const [dateTime, setDateTime] = useState(new Date());
 
@@ -104,9 +102,9 @@ const Home = () => {
 
         {/* Login Button */}
         {currentStep + 1 === steps.length && (
-          <Link href={!data ? "/dashboard" : "/login"}>
+          <Link href={data ? "/dashboard" : "/login"}>
             <span className="px-14 py-4 font-bold text-sm rounded-lg bg-black bg-opacity-70 text-white transition-all duration-700 ease-in-out hover:bg-white hover:bg-opacity-20 hover:scale-110 hover:text-black">
-              {!data ? <>Dashboard</> : <>Login</>}
+              {data ? "dashboard" : "login"}
             </span>
           </Link>
         )}
