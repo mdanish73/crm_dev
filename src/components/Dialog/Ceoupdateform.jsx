@@ -81,6 +81,7 @@ const schema = z.object({
 
 const Ceoupdateform = ({ data }) => {
   const [edit, setEdit] = useState(false);
+  console.log(edit)
   const [loading, setLoading] = useState(false);
   const [duplicate, setDuplicate] = useState(null);
   const id = data._id;
@@ -138,7 +139,7 @@ const Ceoupdateform = ({ data }) => {
     setEdit(!edit);
   }
   return (
-    <Dialog >
+    <Dialog>
       <DialogTrigger asChild>
         <button className="pl-2 hover:bg-[#83B4FF] hover:text-black transition-colors w-full py-1.5 rounded-sm">
           <div className="flex items-center gap-1.5">
@@ -166,12 +167,13 @@ const Ceoupdateform = ({ data }) => {
                     name={v.name}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor={v.name}>{v.label}</FormLabel>
+                        <FormLabel className="text-white" htmlFor={v.name}>{v.label}</FormLabel>
                         <FormControl>
                           <Input
                             className="text-secondaryText w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
                             placeholder={v.placeholder}
                             type={v.type}
+                            disabled={!edit}
                             {...field}
                           />
                         </FormControl>
@@ -187,15 +189,6 @@ const Ceoupdateform = ({ data }) => {
               />
             </div>
             <DialogFooter className="my-5">
-              <button
-                type="button"
-                className="bg-slate-700 py-2 px-8 rounded-[50px] text-white"
-                onClick={() => {
-                  toggleBtn();
-                }}
-              >
-                {edit ? "Cancel" : "Edit"}
-              </button>
               {edit && (
                 <Button
                   vavariant="secondary"
@@ -212,6 +205,15 @@ const Ceoupdateform = ({ data }) => {
                   )}
                 </Button>
               )}
+              <button
+                type="button"
+                className="bg-slate-700 py-2 px-8 rounded-[50px] text-white"
+                onClick={() => {
+                  toggleBtn();
+                }}
+              >
+                {edit ? "Cancel" : "Edit"}
+              </button>
             </DialogFooter>
           </form>
         </Form>

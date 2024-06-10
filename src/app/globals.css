@@ -34,7 +34,7 @@
 
     --radius: 0.5rem;
 
-    --primaryBG: #0E1726;
+    --primaryBG: #0e1726;
     --secondaryBG: #060818;
 
     --primaryAccent: #506690;
@@ -48,9 +48,8 @@
     --primaryHover: #4a62a6;
     --secondaryHover: rgb(59 130 246);
 
-    --primaryTextHover: #2053EE;
-    --secondaryTextHover: #888EA8;
-
+    --primaryTextHover: #2053ee;
+    --secondaryTextHover: #888ea8;
   }
 
   * {
@@ -78,15 +77,15 @@ input:-webkit-autofill:focus {
   background-color: --secondaryAccent !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
-  -webkit-box-shadow: 0 0 0px 1000px --secondaryAccent inset !important; 
+  -webkit-box-shadow: 0 0 0px 1000px --secondaryAccent inset !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
 /* For Firefox */
 input:-moz-autofill {
-  background-color: --secondaryAccent !important; 
+  background-color: --secondaryAccent !important;
   color: #ffffff !important;
-  -moz-text-fill-color: #ffffff !important; 
+  -moz-text-fill-color: #ffffff !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 

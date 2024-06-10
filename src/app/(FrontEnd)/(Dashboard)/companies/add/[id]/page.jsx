@@ -15,7 +15,7 @@ import { Input } from "../../../../../../components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const inputs = [
@@ -65,8 +65,8 @@ const schema = z.object({
   email: z.string().nonempty("Email is required"),
 });
 
-const CeoForm = () => {
-  const { id } = useParams();
+const CeoForm = ({ params }) => {
+  const { id } = params;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -88,7 +88,7 @@ const CeoForm = () => {
     try {
       const res = await fetch(`/api/ceo?id=${id}`, {
         method: "POST",
-        headers: {
+        headers: {  
           Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: process.env.AUTHORIZATION_KEY,

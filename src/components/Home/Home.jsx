@@ -8,8 +8,6 @@ import { SuperadminContext } from "@/Context/superadmin/Superadmin";
 
 const Home = () => {
   const { data } = useContext(SuperadminContext);
-  console.log(data);
-
   // Function of current time
   const [dateTime, setDateTime] = useState(new Date());
 
