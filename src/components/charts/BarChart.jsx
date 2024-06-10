@@ -23,6 +23,7 @@ ChartJS.register(
 
 export const options = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: 'top',
@@ -34,6 +35,17 @@ export const options = {
   scales: {
     x: {
       ticks: {
+        display: false
+      },
+      grid: {
+        display: false
+      }
+    },
+    y: {
+      ticks: {
+        display: false
+      },
+      grid: {
         display: false
       }
     }
@@ -47,7 +59,7 @@ export const data = {
   datasets: [
     {
       label: 'Dataset 1',
-      data: [0, 10, 5, 2, 20, 30, 45, 50, 73, 63, 50, 40],
+      data: [14, 10, 5, 2, 20, 30, 45, 50, 73, 63, 50, 40],
       backgroundColor: 'rgba(255, 99, 132)',
     },
   ],

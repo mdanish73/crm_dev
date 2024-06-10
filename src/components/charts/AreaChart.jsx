@@ -10,7 +10,7 @@ import {
   Tooltip,
   Filler,
   Legend,
-  scales,
+  scales
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
@@ -22,11 +22,13 @@ ChartJS.register(
   Title,
   Tooltip,
   Filler,
-  Legend
+  Legend,
+  scales
 );
 
 export const options = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: 'top',
@@ -38,6 +40,17 @@ export const options = {
   scales: {
     x: {
       ticks: {
+        display: false
+      },
+      grid: {
+        display: false
+      }
+    },
+    y: {
+      ticks: {
+        display: false
+      },
+      grid: {
         display: false
       }
     }
@@ -61,5 +74,5 @@ export const data = {
 };
 
 export default function AreaChart() {
-  return <Line options={options} data={data} />;
+  return <Line options={options} data={data} style={{ width: "100%" }} />;
 }

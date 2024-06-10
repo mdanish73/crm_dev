@@ -7,20 +7,20 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='grid grid-cols-3 gap-5'>
-      <div className='col-span-2 bg-primary_bg rounded-sm text-primaryText p-3'>
+    <div className='grid grid-cols-3 gap-3'>
+      <div className='flex items-start justify-center max-h-max col-span-2 bg-primary_bg rounded-sm text-primaryText p-3'>
         <LineChart />
       </div>
       
-      <div className='bg-primary_bg rounded-sm text-primaryText p-3'>
+      <div className='flex items-start justify-center max-h-max bg-primary_bg rounded-sm text-primaryText p-3'>
         <DoughnutChart />
       </div>
       
-      <div className='bg-primary_bg rounded-sm text-primaryText p-3'>
+      <div className='bg-primary_bg rounded-sm text-primaryText pt-3'>
         <BarChart />
       </div>
       
-      <div className='bg-primary_bg rounded-sm text-primaryText p-3'>
+      <div className='bg-primary_bg rounded-sm text-primaryText pt-3'>
         <AreaChart />
       </div>
       
