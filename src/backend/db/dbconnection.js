@@ -5,8 +5,8 @@ const dbConnection = async () => {
     return;
   }
   try {
-    // await mongoose.connect(process.env.DB_URI);
-    await mongoose.connect("mongodb://127.0.0.1:27017/testing");
+    await mongoose.connect(process.env.DB_URI);
+    // await mongoose.connect("mongodb://127.0.0.1:27017/testing");
     console.log("Mongodb is Now Connected");
   } catch (error) {
     console.log(error, "Error From Mongodb Connection Error");
