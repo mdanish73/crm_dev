@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import {
   Dialog,
@@ -75,7 +76,7 @@ const Ceodelete = ({ Ceoid }) => {
                 Please wait
               </>
             ) : (
-              "Login"
+              "OK"
             )}
           </button>
         </DialogFooter>
