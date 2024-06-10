@@ -12,5 +12,5 @@ export default function Income() {
     return () => clearTimeout(timer)
   }, [])
 
-  return <Progress value={progress} color={"bg-yellow-500"} className="w-[100%]" />
+  return <Progress value={progress} color={"bg-yellow-500"} className="w-[100%] mb-2" />
 }

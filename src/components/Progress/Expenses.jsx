@@ -12,5 +12,5 @@ export default function Expenses() {
     return () => clearTimeout(timer)
   }, [])
 
-  return <Progress value={progress} color={"bg-red-500"} className="w-[100%]" />
+  return <Progress value={progress} color={"bg-red-500"} className="w-[100%] mb-2" />
 }
