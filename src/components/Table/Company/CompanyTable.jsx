@@ -8,10 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Dialog } from "@radix-ui/react-dialog";
-import { Button } from "@/components/ui/button";
-import Industries from "@/components/Modal/industries";
-import Countries from "@/components/Modal/Countries";
+import Industries from "@/components/Dialog/industries";
+import Countries from "@/components/Dialog/Countries";
 
 const input = [
   {
