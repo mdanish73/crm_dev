@@ -54,8 +54,8 @@ const Links = () => {
     {
       title: "Log Out",
       icon: <LogOut size={18} />,
-      path: "#",
-      isLogOut: true
+      isLogOut: true,
+      path: "/lo",
     },
   ];
 
@@ -241,6 +241,8 @@ const Links = () => {
     return companyAdmin;
   } else if (pathname && pathname.startsWith("/branches")) {
     return branchAdmin;
+  } else if (pathname && pathname.startsWith("/ceo")) {
+    return superAdmin;
   } else {
     return null;
   }
