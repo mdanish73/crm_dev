@@ -110,7 +110,7 @@ const CeoForm = ({ params }) => {
       } else {
         toast.success(data.message, { className: "toastSuccess" });
         form.reset();
-        router.push("/companies/ceo");
+        router.push("/ceo");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
