@@ -48,10 +48,10 @@ const Ceodelete = ({ Ceoid }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="pl-2 hover:bg-[#83B4FF] hover:text-black transition-colors w-full py-1.5 rounded-sm">
-          <div className="flex items-center gap-1.5">
+        <button className="pl-2 hover:bg-slate-800 transition-colors w-full py-1.5 rounded-sm">
+          <div className="flex items-center gap-1.5 text-primaryText">
             <Trash size={16} />
-            <span className="text-sm font-medium">Delete</span>
+            <span className="text-sm font-normal ">Delete</span>
           </div>
         </button>
       </DialogTrigger>
