@@ -12,7 +12,7 @@ async function getData() {
             }
         });
         const res = await req.json();
-        console.log(res.message[0].companyCeo);
+        // console.log(res.message[0].companyCeo);
         return res.message;
     } catch (error) {
         console.log(error.message);
