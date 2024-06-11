@@ -57,6 +57,8 @@ const LoginForm = () => {
           }
         }
       );
+
+      console.log(response)
       
       if (response.data.success) {
         router.push("/dashboard");

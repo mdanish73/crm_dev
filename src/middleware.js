@@ -16,13 +16,13 @@ export async function middleware(req) {
   const token = cookies().get("AccessToken");
   const verified = await tokenVerification(token?.value);
 
-  if (
-    !verified &&
-    !pathname.startsWith("/login") &&
-    !pathname.startsWith("/api")
-  ) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+  // if (
+  //   !verified &&
+  //   !pathname.startsWith("/login") &&
+  //   !pathname.startsWith("/api")
+  // ) {
+  //   return NextResponse.redirect(new URL("/login", req.url));
+  // }
   if (verified && pathname.startsWith("/login")) {
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
