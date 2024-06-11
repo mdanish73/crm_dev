@@ -4,7 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Links from "./Links";
 import { SideContext } from "@/Context/sidebar/SideBarContext";
 import Image from "next/image";
-import { ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
 
 const sideBarVariants = {
   hidden: { width: 0, opacity: 1 },
@@ -22,19 +25,6 @@ export default function SideBar() {
   useLayoutEffect(() => {
     setIsSidebarVisible(true);
   }, []);
-
-  const Logout = async () => {
-    try {
-      const { data } = await axios.delete("/api/auth/logout");
-      console.log(data);
-      if (data.success) {
-        toast.success("LoggedOut Successfully", { className: "toastSuccess" });
-        router.push("/");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   return (
     <>
@@ -68,20 +58,7 @@ export default function SideBar() {
                 className="bg-slate-800 w-5 h-5 p-[2px] rounded-full flex items-center justify-center"
                 onClick={() => setIsSidebarVisible(!isSidebarVisible)}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="#eee"
-                  className="size-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 19.5 8.25 12l7.5-7.5"
-                  />
-                </svg>
+                <ChevronLeft />
               </button>
             </motion.span>
             <nav className="p-2">
@@ -98,6 +75,21 @@ export default function SideBar() {
 
 function NavItem({ section, index }) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  async function Logout () {
+    alert("Logout button clicked");
+    // try {
+    //   const { data } = await axios.delete("/api/auth/logout");
+    //   console.log(data);
+    //   if (data.success) {
+    //     toast.success("LoggedOut Successfully", { className: "toastSuccess" });
+    //     router.push("/");
+    //   }
+    // } catch (error) {
+    //   console.log(error.message);
+    // }
+  };
 
   if (section.children) {
     return (
@@ -135,7 +127,7 @@ function NavItem({ section, index }) {
                 <motion.a
                   key={linkIndex}
                   href={link.path}
-                  className="flex items-center gap-3 text-slate-400 text-sm py-2 my-2 pl-3 hover:bg-slate-700 rounded-md w-full"
+                  className="flex items-center gap-3 text-slate-400 text-sm py-2 my-2 pl-3 hover:bg-slate-700 group rounded-md w-full"
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
@@ -154,11 +146,11 @@ function NavItem({ section, index }) {
       </motion.div>
     );
   }
-
+  
   return (
     <motion.a
       href={section.path}
-      className="flex items-center gap-3 whitespace-nowrap hover:bg-slate-800 rounded-md text-slate-400 text-sm p-2 mb-2"
+      className="flex items-center gap-3 whitespace-nowrap cursor-pointer hover:bg-slate-800 rounded-md text-slate-400 text-sm p-2 mb-2"
       initial="hidden"
       animate="visible"
       exit="hidden"

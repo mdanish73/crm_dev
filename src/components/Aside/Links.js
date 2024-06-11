@@ -54,8 +54,8 @@ const Links = () => {
     {
       title: "Log Out",
       icon: <LogOut size={18} />,
-      path: "#",
-      isLogOut: true
+      isLogOut: true,
+      path: "/lo",
     },
   ];
 

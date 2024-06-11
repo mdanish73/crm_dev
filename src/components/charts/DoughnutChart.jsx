@@ -19,24 +19,24 @@ export const options = {
 };
 
 export const data = {
-  labels: ['Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  labels: ['Pink', 'Yellow', 'Blue', 'Green', 'Red'],
   datasets: [
     {
       label: '# of Votes',
       data: [19, 3, 5, 2, 3],
       backgroundColor: [
-        'rgba(54, 162, 235)',
-        'rgba(255, 206, 86)',
-        'rgba(75, 192, 192)',
-        'rgba(153, 102, 255)',
-        'rgba(255, 159, 64)',
+        'rgb(255, 99, 132)',
+        'rgb(234 179 8)',
+        'rgb(53, 162, 235)',
+        'rgb(34 197 94)',
+        'rgb(239 68 68)',
         ],
         borderColor: [
-        'rgba(54, 162, 235)',
-        'rgba(255, 206, 86)',
-        'rgba(75, 192, 192)',
-        'rgba(153, 102, 255)',
-        'rgba(255, 159, 64)',
+        'rgb(255, 99, 132)',
+        'rgb(234 179 8)',
+        'rgb(53, 162, 235)',
+        'rgb(34 197 94)',
+        'rgb(239 68 68)',
         ],
         borderWidth: 1
         },
