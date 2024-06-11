@@ -58,7 +58,7 @@ export default function CeoTable({ CeoData }) {
                 <td className="px-2">{v.email}</td>
                 <td className="px-2">{v.username}</td>
                 <td className="px-2">
-                  <div className="">
+                  <div>
                     <DropdownMenu>
                       <DropdownMenuTrigger>
                         <Menu />

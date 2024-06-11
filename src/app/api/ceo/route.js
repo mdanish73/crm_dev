@@ -5,38 +5,27 @@ import { NextResponse } from "next/server";
 
 dbConnection();
 
-export const GET = async (req) => {
+export async function GET() {
   try {
-    var match = {};
-    const params = req.nextUrl.searchParams.get("fullName");
-    if (params) {
-      match = {
-        fullName: new RegExp(params, "i"),
-      };
-    }
-
-    const data = await companyceoModel.find(match);
-    return NextResponse.json(
-      {
-        message: data,
-        success: true,
-      },
-      {
-        status: 200,
-      }
-    );
-  } catch (error) {
-    return NextResponse.json(
-      {
+    const data = await companyceoModel.find();
+    if (!data) {
+      return NextResponse.json({
+        message: "Data is not found!",
         success: false,
-        message: error.message,
-      },
-      {
-        status: 500,
-      }
-    );
+      });
+    }
+    return NextResponse.json({
+      message: data,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return NextResponse.json({
+      message: "Internal Server Error",
+      success: false,
+    });
   }
-};
+}
 
 export const POST = async (req) => {
   const id = req.nextUrl.searchParams.get("id");

@@ -241,6 +241,8 @@ const Links = () => {
     return companyAdmin;
   } else if (pathname && pathname.startsWith("/branches")) {
     return branchAdmin;
+  } else if (pathname && pathname.startsWith("/ceo")) {
+    return superAdmin;
   } else {
     return null;
   }
