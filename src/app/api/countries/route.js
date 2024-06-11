@@ -1,5 +1,5 @@
 import dbConnection from "@/backend/db/dbconnection";
-import countries from "@/backend/models/country/countries";
+import countryModel from "@/backend/models/countries/countryNames";
 import { NextResponse } from 'next/server';
 
 dbConnection();
@@ -26,7 +26,7 @@ export async function GET (req) {
 export async function POST (req) {
   try {
     const request = await req.json();
-    const country = await countries.create(request);
+    const country = await countryModel.create(request);
     return NextResponse.json({
       success: true,
       message: country

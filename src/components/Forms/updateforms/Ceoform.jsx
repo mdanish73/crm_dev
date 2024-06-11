@@ -16,42 +16,6 @@ import { LoaderCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-// Define the form inputs
-const inputs = [
-  {
-    label: "Full Name",
-    name: "fullName",
-    type: "text",
-    placeholder: "Full Name",
-  },
-  {
-    label: "Identification Number",
-    name: "identification_number",
-    type: "text",
-    placeholder: "Identification Number",
-  },
-  {
-    label: "Contact Number",
-    name: "phone",
-    type: "tel",
-    placeholder: "Contact Number",
-  },
-  { label: "Date Of Birth", name: "dateOfBirth", type: "date" },
-  {
-    label: "User Name",
-    name: "username",
-    type: "text",
-    placeholder: "User Name",
-  },
-  {
-    label: "Password",
-    name: "password",
-    type: "password",
-    placeholder: "Password",
-  },
-  { label: "Email", name: "email", type: "email", placeholder: "Email" },
-];
-
 // Define the form validation schema using zod
 const schema = z.object({
   fullName: z.string().nonempty("Full name is required"),
@@ -78,6 +42,7 @@ const Ceoform = ({
   ID,
   Loading,
   toggle,
+  Inputs,
 }) => {
   const updateCeo = async (values) => {
     setterLoading(true);
@@ -88,7 +53,7 @@ const Ceoform = ({
         setterState(imageUri);
       }
 
-      const response = await fetch(`http://localhost:3000/api/ceo/${ID}`, {
+      const response = await fetch(`${process.env.LOCAL_HOST}api/ceo/${ID}`, {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -144,7 +109,7 @@ const Ceoform = ({
         <form onSubmit={form.handleSubmit(updateCeo)} className="my-5">
           <div className="grid grid-cols-2 gap-5">
             <EachElement
-              of={inputs}
+              of={Inputs}
               render={(v, i) => (
                 <FormField
                   key={i}

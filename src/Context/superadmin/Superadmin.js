@@ -11,7 +11,7 @@ const Superadmin = ({ children }) => {
   async function fetchData() {
     try {
       const request = await fetch(
-        "http://localhost:3000/api/superadmin/profile",
+        `${process.env.LOCAL_HOST}api/superadmin/profile`,
         {
           method: "GET",
           headers: {

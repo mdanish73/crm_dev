@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import {
   Dialog,
@@ -17,7 +17,7 @@ const Ceodelete = ({ Ceoid }) => {
   async function deleteCeo(id) {
     try {
       setIsLoading(true);
-      const request = await fetch(`http://localhost:3000/api/ceo/${id}`, {
+      const request = await fetch(`${process.env.LOCAL_HOST}api/ceo/${id}`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",

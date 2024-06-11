@@ -11,6 +11,41 @@ import {
 } from "@/components/ui/dialog";
 import { Eye, User } from "lucide-react";
 import Ceoform from "../Forms/updateforms/Ceoform";
+// Define the form inputs
+const inputs = [
+  {
+    label: "Full Name",
+    name: "fullName",
+    type: "text",
+    placeholder: "Full Name",
+  },
+  {
+    label: "Identification Number",
+    name: "identification_number",
+    type: "text",
+    placeholder: "Identification Number",
+  },
+  {
+    label: "Contact Number",
+    name: "phone",
+    type: "tel",
+    placeholder: "Contact Number",
+  },
+  { label: "Date Of Birth", name: "dateOfBirth", type: "date" },
+  {
+    label: "User Name",
+    name: "username",
+    type: "text",
+    placeholder: "User Name",
+  },
+  {
+    label: "Password",
+    name: "password",
+    type: "password",
+    placeholder: "Password",
+  },
+  { label: "Email", name: "email", type: "email", placeholder: "Email" },
+];
 
 
 const Ceoupdateform = ({ data }) => {
@@ -114,6 +149,7 @@ const Ceoupdateform = ({ data }) => {
           Image={image}
           ID={id}
           toggle={toggleBtn}
+          Inputs={inputs}
         />
       </DialogContent>
     </Dialog>
