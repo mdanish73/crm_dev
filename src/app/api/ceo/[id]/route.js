@@ -61,7 +61,6 @@ export const DELETE = async (req, { params }) => {
 
 export async function PUT(req, { params }) {
   try {
-    console.log(params);
     const { id } = params;
     const idChecked = await mongoose.Types.ObjectId.isValid(id);
     if (!idChecked) {

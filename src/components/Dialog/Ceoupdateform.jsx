@@ -9,214 +9,112 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "../ui/input";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { EachElement } from "../others/Each";
-import { Button } from "../ui/button";
-import { Edit, Eye, LoaderCircle } from "lucide-react";
-import { toast } from "sonner";
+import { Eye, User } from "lucide-react";
+import Ceoform from "../Forms/updateforms/Ceoform";
 
-const inputs = [
-  {
-    label: "Full Name",
-    name: "fullName",
-    type: "text",
-    placeholder: "Full Name",
-  },
-  {
-    label: "Identification Number",
-    name: "identification_number",
-    type: "text",
-    placeholder: "Identification Number",
-  },
-  {
-    label: "Contact Number",
-    name: "phone",
-    type: "tel",
-    placeholder: "Contact Number",
-  },
-  { label: "Date Of Birth", name: "dateOfBirth", type: "date" },
-  {
-    label: "User Name",
-    name: "username",
-    type: "text",
-    placeholder: "User Name",
-  },
-  {
-    label: "Password",
-    name: "password",
-    type: "password",
-    placeholder: "Password",
-  },
-  {
-    label: "Email",
-    name: "email",
-    type: "email",
-    placeholder: "Email",
-  },
-];
-
-// schema
-const schema = z.object({
-  fullName: z.string().nonempty("Full name is required"),
-  identification_number: z
-    .string()
-    .nonempty("Identification number is required"),
-  phone: z.string(),
-  dateOfBirth: z.string().nonempty("Date of birth is required"),
-  username: z.string().nonempty("Username is required"),
-  password: z.string().nonempty("Password is required"),
-  email: z.string().nonempty("Email is required").email("Invalid email"),
-});
 
 const Ceoupdateform = ({ data }) => {
   const [edit, setEdit] = useState(false);
-  console.log(edit)
   const [loading, setLoading] = useState(false);
   const [duplicate, setDuplicate] = useState(null);
+  const [image, setImage] = useState(null);
+  const [uri, setUri] = useState("");
+  const [clduri, setClduri] = useState(data.CeoImage || "");
   const id = data._id;
 
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      fullName: data?.fullName || "",
-      identification_number: data?.identification_number || "",
-      phone: data?.phone || "",
-      dateOfBirth: data?.dateOfBirth || "",
-      username: data?.username || "",
-      password: data?.password || "",
-      email: data?.email || "",
-    },
-  });
-
-  async function updateCeo(values) {
-    setLoading(true);
+  const uploadImage = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/ceo/${id}`, {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: process.env.AUTHORIZATION_KEY,
-        },
-        body: JSON.stringify(values),
-      });
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", "CRMDevelopment");
+      formData.append("cloud_name", "dzeveeijn");
+
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dzeveeijn/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const data = await response.json();
-      if (response.ok) {
-        toast.success(data.message, {
-          className: "toastSuccess",
-        });
-      } else {
-        const field = data.field;
-        setDuplicate(field);
-        toast.error(
-          `${field.charAt(0).toUpperCase() + field.slice(1)} already exists.`,
-          {
-            className: "toastError",
-          }
-        );
-      }
+      return data.secure_url;
     } catch (error) {
       console.log(error.message);
-      toast.error("An error occurred. Please try again.", {
-        className: "toastError",
-      });
-    } finally {
-      setLoading(false);
+      return null;
     }
-  }
-  function toggleBtn() {
+  };
+
+  const toggleBtn = () => {
     setEdit(!edit);
-  }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="pl-2 hover:bg-[#83B4FF] hover:text-black transition-colors w-full py-1.5 rounded-sm">
-          <div className="flex items-center gap-1.5">
+        <button className="pl-2 hover:bg-slate-800 transition-colors w-full py-1.5 rounded-sm">
+          <div className="flex items-center gap-1.5 text-primaryText">
             <Eye size={16} />
-            <span className="text-sm font-medium">View</span>
+            <span className="text-sm font-normal">View</span>
           </div>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] border-[0.5px]">
+      <DialogContent className="sm:max-w-[700px] border-[0.5px] mt-7">
         <DialogHeader>
           <DialogTitle>Edit profile</DialogTitle>
           <DialogDescription>
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(updateCeo)}>
-            <div className="grid grid-cols-2 gap-5">
-              <EachElement
-                of={inputs}
-                render={(v, i) => (
-                  <FormField
-                    key={i}
-                    control={form.control}
-                    name={v.name}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-white" htmlFor={v.name}>{v.label}</FormLabel>
-                        <FormControl>
-                          <Input
-                            className="text-secondaryText w-full text-xs border-none h-9 placeholder:text-secondaryText bg-secondaryAccent rounded-[5px]"
-                            placeholder={v.placeholder}
-                            type={v.type}
-                            disabled={!edit}
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage>
-                          {form.formState.errors[v.name]?.message ||
-                            (duplicate === v.name &&
-                              `${v.label} already exists.`)}
-                        </FormMessage>
-                      </FormItem>
-                    )}
+        {edit && (
+          <div className="w-full">
+            <div
+              onClick={() => {
+                document.querySelector(".input-field").click();
+              }}
+              className="border w-40 h-40 rounded-full mx-auto bg-gray-300"
+            >
+              <div className="w-full h-full flex items-center justify-center">
+                <input
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                    const uri = URL.createObjectURL(e.target.files[0]);
+                    setUri(uri);
+                  }}
+                  className="input-field"
+                  hidden={true}
+                  type="file"
+                />
+                {!uri && !data.CeoImage && <User color="white" size={80} />}
+                {(uri || data.CeoImage) && (
+                  <img
+                    className="w-full h-full rounded-full"
+                    src={uri || data.CeoImage}
+                    alt="Profile"
                   />
                 )}
-              />
+              </div>
             </div>
-            <DialogFooter className="my-5">
-              {edit && (
-                <Button
-                  vavariant="secondary"
-                  className="py-5 bg-orange-500 w-[40%] text-white rounded-[50px]"
-                  type="submit"
-                >
-                  {loading ? (
-                    <>
-                      <LoaderCircle className="animate-spin" />
-                      Please wait
-                    </>
-                  ) : (
-                    "Submit"
-                  )}
-                </Button>
-              )}
-              <button
-                type="button"
-                className="bg-slate-700 py-2 px-8 rounded-[50px] text-white"
-                onClick={() => {
-                  toggleBtn();
-                }}
-              >
-                {edit ? "Cancel" : "Edit"}
-              </button>
-            </DialogFooter>
-          </form>
-        </Form>
+            {data.CeoImage && (
+              <p className="text-white text-center">
+                Tap on it to change image
+              </p>
+            )}
+          </div>
+        )}
+        <Ceoform
+          Data={data}
+          Edit={edit}
+          Duplicate={duplicate}
+          state={clduri}
+          setterState={setClduri}
+          setterDuplicate={setDuplicate}
+          setterLoading={setLoading}
+          Loading={loading}
+          imagefunc={uploadImage}
+          Image={image}
+          ID={id}
+          toggle={toggleBtn}
+        />
       </DialogContent>
     </Dialog>
   );

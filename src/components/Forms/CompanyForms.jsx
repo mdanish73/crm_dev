@@ -125,7 +125,7 @@ const CompanyForms = () => {
           className: "toastSuccess",
         });
         form.reset(); // Reset form after successful submission
-        router.push(`/companies/add/${data.id}`)
+        router.push(`/companies/add/${data.id}`);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -175,9 +175,15 @@ const CompanyForms = () => {
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent className="bg-secondaryAccent text-secondaryText rounded-[5px]">
-                                <SelectItem value="option1">Option 1</SelectItem>
-                                <SelectItem value="option2">Option 2</SelectItem>
-                                <SelectItem value="option3">Option 3</SelectItem>
+                                <SelectItem value="option1">
+                                  Option 1
+                                </SelectItem>
+                                <SelectItem value="option2">
+                                  Option 2
+                                </SelectItem>
+                                <SelectItem value="option3">
+                                  Option 3
+                                </SelectItem>
                               </SelectContent>
                             </Select>
                             <FormMessage />

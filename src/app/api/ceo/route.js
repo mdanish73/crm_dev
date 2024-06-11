@@ -7,7 +7,15 @@ dbConnection();
 
 export const GET = async (req) => {
   try {
-    const data = await companyceoModel.find();
+    var match = {};
+    const params = req.nextUrl.searchParams.get("fullName");
+    if (params) {
+      match = {
+        fullName: new RegExp(params, "i"),
+      };
+    }
+
+    const data = await companyceoModel.find(match);
     return NextResponse.json(
       {
         message: data,
@@ -69,13 +77,16 @@ export const POST = async (req) => {
   } catch (error) {
     if (error.code === 11000) {
       const fields = Object.keys(error.keyValue)[0];
-      return NextResponse.json({
-        message: `${fields} already Exists`,
-        success: false,
-        field: fields,
-      },{
-        status:409,
-      });
+      return NextResponse.json(
+        {
+          message: `${fields} already Exists`,
+          success: false,
+          field: fields,
+        },
+        {
+          status: 409,
+        }
+      );
     }
 
     return NextResponse.json(
