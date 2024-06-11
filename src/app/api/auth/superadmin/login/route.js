@@ -12,6 +12,7 @@ export const POST = async (req) => {
   try {
     const { email, password } = await req.json();
     const foundByemail = await superAdmin.findOne({ email });
+    console.log(foundByemail);
     if (Object.keys(foundByemail).length === 0) {
       return NextResponse.json({
         message: "Email is invalid!!",

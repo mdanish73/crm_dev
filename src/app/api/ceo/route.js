@@ -5,30 +5,27 @@ import { NextResponse } from "next/server";
 
 dbConnection();
 
-export const GET = async (req) => {
+export async function GET() {
   try {
     const data = await companyceoModel.find();
-    return NextResponse.json(
-      {
-        message: data,
-        success: true,
-      },
-      {
-        status: 200,
-      }
-    );
-  } catch (error) {
-    return NextResponse.json(
-      {
+    if (!data) {
+      return NextResponse.json({
+        message: "Data is not found!",
         success: false,
-        message: error.message,
-      },
-      {
-        status: 500,
-      }
-    );
+      });
+    }
+    return NextResponse.json({
+      message: data,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error.message);
+    return NextResponse.json({
+      message: "Internal Server Error",
+      success: false,
+    });
   }
-};
+}
 
 export const POST = async (req) => {
   const id = req.nextUrl.searchParams.get("id");
@@ -69,13 +66,16 @@ export const POST = async (req) => {
   } catch (error) {
     if (error.code === 11000) {
       const fields = Object.keys(error.keyValue)[0];
-      return NextResponse.json({
-        message: `${fields} already Exists`,
-        success: false,
-        field: fields,
-      },{
-        status:409,
-      });
+      return NextResponse.json(
+        {
+          message: `${fields} already Exists`,
+          success: false,
+          field: fields,
+        },
+        {
+          status: 409,
+        }
+      );
     }
 
     return NextResponse.json(

@@ -4,6 +4,7 @@ import { SuperadminContext } from "@/Context/superadmin/Superadmin";
 
 const Data = () => {
   const { data } = useContext(SuperadminContext);
+  console.log(data)
   const [editMode, setEditMode] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [tempData, setTempData] = useState({ ...data });
@@ -63,7 +64,7 @@ const Data = () => {
     <div className="bg-[#212B35] p-9 px-32 rounded-lg">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
-          {fields.slice(0, 4).map(({ label, field, type }) => (
+          {fields.slice(0, 3).map(({ label, field, type }) => (
             <div key={field} className="mb-4">
               <h3 className="text-slate-400 w-32">{label}:</h3>
               <div className="flex justify-between items-center mt-2 space-x-2">
@@ -84,7 +85,7 @@ const Data = () => {
           ))}
         </div>
         <div className="space-y-4">
-          {fields.slice(4).map(({ label, field, type }) => (
+          {fields.slice(3).map(({ label, field, type }) => (
             <div key={field} className="mb-4">
               <h3 className="text-white w-32">{label}:</h3>
               <div className="flex justify-between items-center mt-2 space-x-2">

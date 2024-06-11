@@ -3,7 +3,7 @@ import React from "react";
 
 async function fetchCeo() {
   try {
-    const request = await fetch("http://localhost:3000/api/ceo", {
+    const request = await fetch(`${process.env.LOCAL_HOST}api/ceo`, {
       method: "GET",
       cache: "no-cache",
       headers: {
@@ -14,7 +14,7 @@ async function fetchCeo() {
     });
     const response = await request.json();
     const data = response.message;
-    return data
+    return data;
   } catch (error) {
     console.log(error.message);
   }

@@ -11,9 +11,9 @@ import {
 
 export default function CeoTable({ CeoData }) {
   const TableHeaders = [
-    "Full Name",
+    "Name",
     "Image",
-    "CEO Contact",
+    "Contact",
     "Identification Number",
     "Email",
     "Username",
@@ -24,10 +24,13 @@ export default function CeoTable({ CeoData }) {
     <section className="w-full bg-primary_bg p-3 rounded-md">
       <div>
         <table className="w-full">
-          <thead className="border-[0.5px] uppercase sticky top-0">
+          <thead className="uppercase sticky top-0 text-[15px] bg-secondary_bg h-10">
             <tr className="text-primaryText text-left">
               {TableHeaders.map((v, i) => (
-                <th className="text-center py-2 font-normal tracking-wider" key={i}>
+                <th
+                  className="text-left font-medium tracking-wide px-2"
+                  key={i}
+                >
                   {v}
                 </th>
               ))}
@@ -35,19 +38,27 @@ export default function CeoTable({ CeoData }) {
           </thead>
           <tbody>
             {CeoData.map((v) => (
-              <tr key={v._id} className="text-secondaryText text-sm">
-                <td className="py-4">{v.fullName}</td>
-                <td className="py-4">
-                  <div className="flex justify-center">
-                    <User size={30} />
+              <tr key={v._id} className="text-secondaryText text-sm h-14">
+                <td className="px-2">{v.fullName}</td>
+                <td className="px-2">
+                  <div className="w-9 h-9">
+                    {v.CeoImage ? (
+                      <img
+                        className="w-full h-full rounded-full object-cover"
+                        src={v.CeoImage}
+                        alt="image"
+                      />
+                    ) : (
+                      <User size={30} />
+                    )}
                   </div>
                 </td>
-                <td className="py-4">{v.phone}</td>
-                <td className="py-4">{v.identification_number}</td>
-                <td className="py-4">{v.email}</td>
-                <td className="py-4">{v.username}</td>
-                <td className="py-4">
-                  <div className="flex justify-center">
+                <td className="px-2">{v.phone}</td>
+                <td className="px-2">{v.identification_number}</td>
+                <td className="px-2">{v.email}</td>
+                <td className="px-2">{v.username}</td>
+                <td className="px-2">
+                  <div>
                     <DropdownMenu>
                       <DropdownMenuTrigger>
                         <Menu />

@@ -8,7 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
+import Industries from "@/components/Dialog/industries";
+import Countries from "@/components/Dialog/Countries";
 
 const input = [
   {
@@ -44,14 +45,20 @@ const CompanyTable = ({finaldata,Name}) => {
   return (
     <>
       <section className="px-4  m-auto text-secondaryText text-center">
-        <h1 className="text-2xl flex mb-4 gap-2">
-          <span className="text-secondaryHeading">Company</span> Data
-        </h1>
+        <div className="flex">
+          <h1 className="text-2xl  flex-1 text-left mb-4 gap-2">
+            <span className="text-secondaryHeading">Company</span> Data
+          </h1>
+           <div className="gap-6 flex">
+              <Countries/>
+              <Industries/>
+            </div> 
+        </div>
         <Table key={finaldata._id}>
           <TableHeader>
             <TableRow className="bg-primary_bg uppercase rounded-2xl ">
               {input.map((v, i) => (
-                <TableHead key={i}>{v.value}</TableHead>
+                <TableHead key={i} className="text-center">{v.value}</TableHead>
               ))}
             </TableRow>
           </TableHeader>
