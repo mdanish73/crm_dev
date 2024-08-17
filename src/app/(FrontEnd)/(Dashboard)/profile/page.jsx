@@ -1,6 +1,6 @@
 import React from "react";
 import ImageUploader from "@/components/Profile/ImageUploader";
-import Data from "@/components/Profile/Data";
+import Data from '@/components/Profile/Data'
 
 const Page = () => {
   return (
